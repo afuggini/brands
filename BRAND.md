@@ -155,6 +155,7 @@ Never write any of these:
 - **"Hacete rico con IA."** The course is about building real products, not about getting rich quick. No income promises, no lifestyle fantasy.
 - **Humo.** No vague promises, no magical outcomes, no testimonials without context.
 - **Estados emocionales en marketing.** Don't use "error red" as accent on a hero. State colors are UI-only — see `DESIGN.md`.
+- **Ariel's photo as brand face.** Don't use Ariel's photo as a central or recurring element in communication. Photography appears only when context explicitly warrants it: when presenting him as a mentor, showing his CV or background, or when the content names him directly. The emphasis is on the message and the student, not on the creator.
 
 ---
 

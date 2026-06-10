@@ -49,6 +49,16 @@ método es nuevo. El criterio para enseñarlo viene de décadas de práctica rea
 
 ## Aprendizajes de formato
 
-> Aprendizajes de anuncios específicos de ariel.ar.
+### Hooks que funcionan para esta marca
 
-_(vacío — se llena con el loop)_
+- **Pregunta + "esto es para vos"**: abre con una pregunta de auto-relevancia y cierra el hook con "esto es para vos" o "esto es exactamente para vos". Aprobado. No repetir en más de una variante del mismo set.
+- **Preguntas de pérdida con demostrativo**: *"¿Cuánto tiempo más vas a esperar para ejecutar **esa** idea?"* — el demostrativo "esa/ese/eso/esas/esos" es más potente que el artículo indefinido porque remite a algo concreto que el espectador ya tiene en la cabeza (técnica PNL/Erickson).
+- **"¿Por qué nadie habla de...?"**: formato clásico de frustración compartida, efectivo para esta audiencia.
+- **Preguntas aspiracionales con lenguaje sensorial**: *"¿Cómo te sentirías si...?"* (kinestésico) y *"¿Te imaginás si...?"* (visual) conectan más que preguntas neutras.
+- **Hooks universales > hooks temáticos**: los hooks que no mencionan IA ni construcción de productos atrapan primero al humano y después al buyer persona. Preferir.
+
+### Lo que no funciona para esta marca
+
+- **"Pará" como primera palabra**: evitarlo. Genera rechazo antes de que el mensaje arranque.
+- **Declaraciones sin urgencia**: afirmar algo sin crear ninguna razón para seguir mirando. Si un hook puede ignorarse, no funciona.
+- **Hook y desarrollo desconectados**: si el hook abre una expectativa que el desarrollo no cierra directamente, la retención cae. Verificar siempre que el desarrollo sea la respuesta natural al hook.

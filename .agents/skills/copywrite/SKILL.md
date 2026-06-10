@@ -89,7 +89,9 @@ brands/<marca>/copy/pieces/<formato>/YYYY-MM-<slug>/
 ├── brief.md       ← el brief acordado (lo que se usó en el Paso 4)
 ├── v1.md
 ├── v2.md
-└── v3.md
+├── v3.md
+├── decision.md    ← se completa en el Paso 7
+└── final.md       ← versión intervenida por humano (se completa en el Paso 7)
 ```
 
 Reglas de naming:
@@ -98,16 +100,21 @@ Reglas de naming:
 
 ## Paso 7 — Cerrar el loop
 
-Después de entregar, preguntar:
+Después de entregar las variantes, preguntar:
 
-1. ¿Cuál variante ganó / qué cambió?
-2. ¿Hay algo del proceso o los ajustes que merezca quedar en guidelines?
-   - Sirve a cualquier marca → proponer actualización de `references/` de esta skill
+1. **¿Cuál variante ganó?**
+2. **¿Compartís la versión final?** — la versión editada manualmente, aunque sea mínima. Guardarla en `final.md`. Si todavía no está lista, dejar el archivo pendiente y cerrarlo cuando esté disponible.
+3. **Comparar la variante ganadora con `final.md`** — identificar qué cambió el humano y por qué. Eso es el aprendizaje real del loop.
+4. **¿Algo merece quedar en guidelines?**
+   - Aplica a cualquier marca → proponer actualización de `references/` de esta skill
    - Específico de esta marca → proponer actualización de `brands/<marca>/copy/guidelines/`
-3. Guardar `decision.md` en la carpeta del piece: qué ganó, qué cambió, por qué.
-4. Anotar en el changelog correspondiente.
+5. **Guardar `decision.md`** con:
+   - Qué variante ganó y por qué
+   - Qué cambió entre la variante y `final.md` (delta humano → patrón a aprender)
+   - Qué se actualizó en guidelines (o por qué no se actualizó nada)
+6. **Anotar en el changelog** correspondiente.
 
-El loop solo mejora si se cierra. Si se eligió una variante y no se actualizó ninguna guideline, algo se perdió.
+El loop solo mejora si se cierra. El delta entre la variante ganadora y `final.md` es la señal más valiosa: muestra qué genera sistemáticamente el agente que el humano corrige.
 
 ---
 

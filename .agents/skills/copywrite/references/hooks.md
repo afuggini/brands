@@ -156,6 +156,55 @@ Rotá entre familias para evitar fatiga en la audiencia. El tipo de hook elegido
 
 ---
 
+## Multiplicadores de precisión
+
+Técnicas que se aplican sobre cualquier hook del catálogo para aumentar su potencia.
+
+### Pronombres demostrativos (técnica PNL/Erickson)
+
+Usar **ese, esa, esos, esas, eso** en lugar de artículos indefinidos obliga a la persona a traer a su mente algo concreto y propio. El demostrativo apunta a algo que ya existe en su cabeza; el indefinido habla de algo genérico que todavía no es suyo.
+
+- Débil: "Si tenés una idea que no pudiste ejecutar…"
+- Potente: "Si tenés **esa** idea que no pudiste ejecutar…"
+- Débil: "¿Cuánto tiempo más vas a esperar para ejecutar tu idea?"
+- Potente: "¿Cuánto tiempo más vas a esperar para ejecutar **esa** idea?"
+
+Aplica a ideas, proyectos, problemas, miedos, deseos — cualquier cosa que el espectador ya tenga presente.
+
+### Lenguaje sensorial en preguntas aspiracionales
+
+Las preguntas que evocan los sentidos conectan más profundo que las que apelan a la razón. Dos variantes principales, cada una apunta a un tipo de persona diferente:
+
+- **Kinestésico** (emoción, sensación física): *"¿Cómo te sentirías si...?"*
+- **Visual** (imagen mental): *"¿Te imaginás si...?"* / *"¿Podés ver...?"*
+
+Usar uno u otro según el tono de la pieza. Si hay espacio, combinar ambos en variantes distintas para testear cuál convierte mejor con cada audiencia.
+
+### Preguntas > declaraciones
+
+Una pregunta obliga al cerebro a generar una respuesta antes de seguir mirando. Una declaración puede ignorarse. En video de menos de 30s, si el hook es una afirmación, preguntarse: ¿podría ser una pregunta? Si la respuesta es sí, casi siempre conviene el formato pregunta.
+
+### Números en preguntas cliffhanger
+
+Agregar un número crea expectativa estructurada: el espectador sabe cuántas cosas viene y quiere verlas todas.
+
+- Sin número: *"¿Sabés cuál es la diferencia entre quien lanza y quien no?"*
+- Con número: *"¿Sabés cuáles son las tres diferencias entre quien lanza y quien no?"*
+
+Limitante: el número compromete al desarrollo a cumplir exactamente esa cantidad. Solo usar si el formato y el tiempo lo permiten.
+
+### Coherencia hook → desarrollo
+
+El hook abre una expectativa. El desarrollo tiene que cerrarla de forma directa. Si el hook y el desarrollo pueden existir por separado sin perder sentido, están desconectados — eso destruye la retención.
+
+Test: ¿el desarrollo es la respuesta natural a lo que prometió el hook? Si no, reescribir uno de los dos.
+
+### "¿Por qué nadie habla de...?"
+
+Fórmula de relatable frustration con tracción comprobada. Funciona porque valida algo que el espectador siente pero no dice en voz alta. Usar cuando el hook apunta a una frustración o verdad que el tema ignora habitualmente.
+
+---
+
 ## Fórmulas en español
 
 Para adaptar a la voz de la marca con voseo u otras convenciones:

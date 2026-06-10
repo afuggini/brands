@@ -1,8 +1,8 @@
 {
   "version": 1,
   "skills": {
-    "copy": {
-      "source": ".agents/skills/copy",
+    "copywrite": {
+      "source": ".agents/skills/copywrite",
       "sourceType": "local",
       "skillPath": "SKILL.md"
     }

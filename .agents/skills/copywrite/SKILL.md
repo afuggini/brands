@@ -1,5 +1,5 @@
 ---
-name: copy
+name: copywrite
 description: Genera piezas de copy para cualquier marca del workspace (ariel.ar, cursodevibecoding, u otras). Usá esta skill siempre que el usuario pida crear un anuncio, script de video o reel, declaración oficial, texto de landing, post, email, manifiesto, o cualquier pieza de comunicación escrita — incluso si no lo llama explícitamente "copy". La skill carga automáticamente la voz de la marca correcta, genera N variantes genuinamente distintas con sus ángulos declarados, guarda los archivos en el path correcto y cierra el loop de aprendizaje.
 ---
 

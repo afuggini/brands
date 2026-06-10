@@ -32,6 +32,7 @@ Si algún archivo no existe, continuar sin él (no es error — la marca puede n
 Siempre leer:
 - `references/principles.md` — principios universales de escritura
 - `references/structures.md` — estructuras genéricas de mensaje
+- `references/hooks.md` — catálogo de ganchos de apertura (aplica a todos los formatos)
 
 Para el formato pedido, leer también:
 - `references/formats/<formato>.md` — scaffold del formato (si existe)
@@ -56,9 +57,11 @@ Por defecto: **3 variantes**. Ajustar si el brief lo especifica.
 
 Cada variante:
 
-1. **Apuesta distinto**: diferente ángulo, estructura o segmento de audiencia. Tres versiones de la misma oración no cuenta como explorar.
+1. **Elegí el hook primero**: antes de escribir la variante, elegí un tipo del catálogo `hooks.md` que encaje con el ángulo. Declaralo en `hook-type:`. El hook va al inicio de la pieza, dentro de la ventana que corresponde al canal (ver tabla en `hooks.md`). Cada variante debe usar un tipo de hook distinto.
 
-2. **Arranca con metadata**:
+2. **Apuesta distinto**: diferente ángulo, estructura o segmento de audiencia. Tres versiones de la misma oración no cuenta como explorar.
+
+3. **Arranca con metadata**:
    ```
    ---
    marca: <proyecto>
@@ -66,10 +69,11 @@ Cada variante:
    estructura: <nombre de la estructura usada>
    angulo: <la apuesta de esta variante en una línea>
    canal: <superficie · formato · largo>
+   hook-type: <tipo del catálogo en hooks.md>
    ---
    ```
 
-3. **Pasa el checklist antes de entregar**:
+4. **Pasa el checklist antes de entregar**:
    - ¿Cada palabra carga peso? (test del reescrito: sacá la palabra, si la oración sigue igual, cortala)
    - ¿Respeta el lexicón de la marca (voseo, palabras prohibidas)?
    - ¿El CTA es verbo concreto + objeto concreto?

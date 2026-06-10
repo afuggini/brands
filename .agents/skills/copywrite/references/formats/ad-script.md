@@ -33,6 +33,7 @@ audiencia: <segmento>
 estructura: problema-quiebre-prueba-accion
 angulo: <la apuesta de esta variante en una línea>
 canal: <Reel 15s / video 60s / estático>
+hook-type: <tipo del catálogo hooks.md>
 ---
 
 HOOK (primeros segundos):
@@ -53,6 +54,8 @@ NOTAS DE PRODUCCIÓN:
 - Respetá el lexicón y los "no"s de la marca.
 - Honestidad de tiempos y resultados.
 - Una sola acción por anuncio.
+- En scripts hablados: frases de corrido como norma. Evitá los dos puntos y el encadenado de frases cortas; ambos cortan el ritmo oral.
+- Incluí al menos una frase polarizante: un juicio o punto de vista concreto que genere interés. Un script sin opinión suena vacío.
 
 > Restricciones específicas (qué palabras evitar, si la cara del fundador
 > aparece o no, urgencia falsa, etc.) las define cada marca en su override de

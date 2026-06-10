@@ -20,23 +20,17 @@ Durante décadas, convertir una idea en un producto digital real requería años
 
 ### HOW — El sistema
 
-Un sistema práctico que usa la IA como herramienta principal de desarrollo.
+Desde la práctica, no desde la teoría.
 
-Sin necesidad de programar, sin escribir código.
+Guiado por alguien con 20 años construyendo en la industria del software.
 
-Guiado por alguien con 20 años de experiencia construyendo productos digitales. 
-
-Explicado desde la práctica, sin teoría innecesaria.
+Con aplicación directa a negocios y proyectos reales.
 
 ### WHAT — El producto
 
-Un curso práctico donde cualquier persona puede crear y lanzar su primer MVP usando inteligencia artificial.
+Educación práctica sobre cómo usar la inteligencia artificial para construir, lanzar y hacer crecer proyectos y negocios propios.
 
-Un producto digital real, con login de usuarios y la capacidad de cobrar.
-
-Listo para validar una idea con usuarios reales.
-
-Con las herramientas para seguir construyendo sin depender de nadie.
+Sin teoría innecesaria. Con aplicación inmediata a situaciones reales.
 
 ---
 
@@ -115,8 +109,7 @@ Toda afirmación debería mapear a uno de estos. Si una pieza de copy no mapea l
 | Pilar | Qué significa |
 |---|---|
 | **Construcción > teoría** | Cada módulo termina con algo concreto hecho. Se aprende ejecutando, no estudiando. |
-| **La IA escribe, vos decidís** | La IA genera el código. El alumno piensa el producto y toma las decisiones. Sin necesidad de programar. |
-| **No necesitás saber programar** | La IA escribe el código. El alumno piensa el producto. Sin necesidad de aprender sintaxis ni depender de un desarrollador. |
+| **La IA ejecuta, vos dirigís** | La IA hace el trabajo de ejecución. Vos pensás, decidís y dirigís. |
 | **Validar rápido** | Lanzar antes de tener todo listo. Las ideas evolucionan con feedback real, no en la cabeza de nadie. |
 | **No necesitás una idea perfecta** | La claridad viene de la ejecución, no antes. Las ideas evolucionan al construirse. |
 | **Simplicidad radical** | Una herramienta principal. Pasos definidos. Sin sobrecarga. Mínima fricción, máxima ejecución. |

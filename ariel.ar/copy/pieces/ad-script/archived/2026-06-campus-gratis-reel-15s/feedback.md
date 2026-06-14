@@ -65,3 +65,21 @@ Hook 5/5, Desarrollo 2/5. Desconectados.
 
 ## v29
 El hook realmente no funciona como cliffhanger, porque no deja a la persona esperando una resolución. No genera ninguna intriga ni ganas de seguir mirando.
+
+## v30
+"Ejecutar" Es una palabra en español que no suena del todo bien para referirse a llevar a cabo una idea. Deberíamos buscar otras maneras de referirnos a esto en general.
+Por lo demás, la estructura del hook y el contenido es interesante. 4 de 5
+
+## v31
+<!-- tu feedback acá -->
+
+## v32
+<!-- tu feedback acá -->
+
+## v33
+<!-- tu feedback acá -->
+
+## v34
+<!-- tu feedback acá -->
+
+Al respecto de "esa idea", Usar esa frase es muy general, porque esa idea no remite necesariamente a una idea de proyecto o algo que tenga que ver con negocios. Así que usarla suelta no es ideal. Por ejemplo como lo haces en v31 y v34. En v30 al menos esta asociada a la palabra "ejecutar" que le da un poco mas de contexto.

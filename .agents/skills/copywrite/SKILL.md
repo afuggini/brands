@@ -41,15 +41,22 @@ Si el formato no tiene scaffold en `references/`, pedirle al usuario las caracte
 
 ## Paso 4 — Tomar el brief
 
+**Doc fuente (opcional):** Si el argumento incluye una referencia del tipo `docs/<archivo>.md` o una ruta a un `.md`, leerlo con `Read` antes de hacer cualquier pregunta. El doc puede ser:
+- `brands/<marca>/docs/<archivo>.md` — específico de la marca
+- `brands/shared/docs/<archivo>.md` — transversal a varias marcas
+- Cualquier ruta `.md` que pase el usuario
+
+Extraer del doc: tema central, datos clave, ángulos potenciales, citas o frases reutilizables. Usarlos como insumo de contexto en el brief y en las variantes. Registrar la referencia en `brief.md` como `fuente: <ruta>`.
+
 Si los argumentos ya incluyen suficiente contexto (finalidad + audiencia + canal), usarlos directamente.
 
-Si no, hacer solo las preguntas que no se pueden inferir de BRAND.md:
+Si no, hacer solo las preguntas que no se pueden inferir de BRAND.md ni del doc fuente:
 - ¿Qué tiene que lograr esta pieza? (una oración)
 - ¿A qué persona le habla? (según las personas de BRAND.md — no pedir si hay una sola)
 - ¿Canal y largo? (Reel 15s · landing · email · manifiesto · etc.)
 - ¿Restricciones o contexto específico? (lanzamiento, fecha, evento)
 
-No hacer preguntas cuya respuesta ya está en BRAND.md.
+No hacer preguntas cuya respuesta ya está en BRAND.md o en el doc fuente.
 
 ## Paso 5 — Generar variantes
 
@@ -90,20 +97,43 @@ brands/<marca>/copy/pieces/<formato>/YYYY-MM-<slug>/
 ├── v1.md
 ├── v2.md
 ├── v3.md
+├── feedback.md    ← placeholders para cada variante; se llena en el Paso 7
 ├── decision.md    ← se completa en el Paso 7
-└── final.md       ← versión intervenida por humano (se completa en el Paso 7)
+└── final.md       ← plantilla lista; el usuario la edita para construir la versión final
 ```
 
 Reglas de naming:
 - Slug: fecha + tema corto en kebab-case (ej. `2026-06-primer-anuncio`)
 - Nombres de carpeta y archivos en inglés; contenido en el idioma de la marca
 
+**Crear `final.md` siempre en este paso**, con la estructura del formato vacía y el campo `basada-en` listo para completar. Es el documento donde el usuario construye la versión final — puede partir de una variante y editarla, o escribir desde cero. No esperar al Paso 7 para crearlo.
+
+Plantilla base:
+```
+---
+marca: <marca>
+basada-en: (indicar variante ganadora, ej: v2)
+canal: <superficie · formato · largo>
+---
+
+[estructura del formato vacía, lista para completar]
+```
+
+**Crear `feedback.md`** con un placeholder por variante generada:
+```
+## v1
+<!-- tu feedback acá -->
+
+## v2
+<!-- tu feedback acá -->
+```
+
 ## Paso 7 — Cerrar el loop
 
 Después de entregar las variantes, preguntar:
 
 1. **¿Cuál variante ganó?**
-2. **¿Compartís la versión final?** — la versión editada manualmente, aunque sea mínima. Guardarla en `final.md`. Si todavía no está lista, dejar el archivo pendiente y cerrarlo cuando esté disponible.
+2. **¿Está lista la versión final en `final.md`?** — el usuario edita `final.md` directamente (ya existe desde el Paso 6). Cuando esté completo, comparar.
 3. **Comparar la variante ganadora con `final.md`** — identificar qué cambió el humano y por qué. Eso es el aprendizaje real del loop.
 4. **¿Algo merece quedar en guidelines?**
    - Aplica a cualquier marca → proponer actualización de `references/` de esta skill
@@ -115,6 +145,20 @@ Después de entregar las variantes, preguntar:
 6. **Anotar en el changelog** correspondiente.
 
 El loop solo mejora si se cierra. El delta entre la variante ganadora y `final.md` es la señal más valiosa: muestra qué genera sistemáticamente el agente que el humano corrige.
+
+---
+
+## Opción: Generar con ChatGPT en lugar de Claude
+
+Si el usuario pide usar ChatGPT como generador de copy, el flujo es:
+
+1. **Preparar archivos de contexto** — copiar al directorio temporal los archivos de marca relevantes (`BRAND.md`, guidelines) más los archivos de variantes existentes (para evitar repetición).
+2. **Interactuar con ChatGPT** — usar la skill `chatgpt-via-cdp` para subir los archivos y enviar el prompt en el proyecto de ChatGPT de la marca.
+3. **Traer la respuesta** — leer la respuesta via CDP y guardar las variantes en la estructura de carpetas habitual (`vN.md`).
+
+**Cuándo tiene sentido:** Cuando el usuario quiere perspectiva externa, cuando se está iterando mucho y se quiere un "segundo modelo", o cuando ya hay un proyecto de ChatGPT configurado con contexto de marca.
+
+**Proyecto de ChatGPT de ariel.ar:** `g-p-6a2f157b076c8191812c394d67b3e2fa-ariel-ar-branding-copy`
 
 ---
 

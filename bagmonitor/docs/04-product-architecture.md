@@ -92,6 +92,6 @@ Transfer mishandling is the single largest cause of delayed bags — 41% of all 
 | Other airline systems | Via REST/webhooks |
 
 **Core Integration Philosophy:**
-> BagMonitor augments existing infrastructure rather than disrupting it. It integrates into airline ecosystems — it does not replace them.
+> BagMonitor augments existing infrastructure rather than disrupting it. It integrates into airline ecosystems — it does not (necessarily) replace them.
 
 **Industry Compliance Alignment:** BagMonitor's tracking event model aligns naturally with IATA Resolution 753, which requires airlines to monitor and share tracking data at four core points in a bag's journey. Airlines already mandated to comply with Resolution 753 are natural early buyers — BagMonitor reduces the operational burden of compliance while delivering visibility beyond the minimum standard.

@@ -1,6 +1,5 @@
 # Transcripción: Gol Airlines
 
-La siguiente es una transcripción pulida y estructurada ("clean verbatim") de un llamado con un representantes de la aerolinea Gol, por parte de la empresa BagTag (nombre anterior de BagMonitor).
 Fecha: Septiembre 11, 2025.
 
 **Participants:**

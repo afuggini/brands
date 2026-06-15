@@ -1,6 +1,5 @@
 # Transcripción: Reunión con Iberia
 
-La siguiente es una transcripción pulida y estructurada ("clean verbatim") de un llamado con un representantes de la aerolinea Iberia, por parte de la empresa BagTag (nombre anterior de BagMonitor).
 Fecha: Octubre 31, 2025.
 
 **Participantes:**

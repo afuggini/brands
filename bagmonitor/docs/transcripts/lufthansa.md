@@ -1,6 +1,5 @@
 # Transcripción: Reunión con Lufthansa
 
-La siguiente es una transcripción pulida y estructurada ("clean verbatim") de un llamado con un representante de la aerolinea Lufthansa, por parte de la empresa BagTag (nombre anterior de BagMonitor).
 Fecha: Septiembre 8, 2025.
 
 **Participantes:**

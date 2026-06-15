@@ -57,6 +57,9 @@ Período cubierto: septiembre–noviembre 2025.
 | Volumen London Supply | ~2M pax/año (Ushuaia + Calafate + Trelew) | London Supply |
 | Carga VAL Lufthansa | >$1.000 USD/kg (celulares, oro, metales, computadoras) | Lufthansa |
 | Carga por palé Lufthansa | 29 palés / 100 toneladas por carguero | Lufthansa |
+| Precio pasaje Domus (Buenos Aires–Miami) | $3.800–4.000 USD (vs. $8.000 AA / $6.000 Aerolíneas) | Domus |
+| Venta de posición "Alas del Sur" a JetSMART | Sin dato de precio. JetSMART ahorró ~1 año de trámites. | Domus |
+| Venta de Virgin America a Alaska Group | $4.800M USD (referencia de Peter Hunt, socio de Domus) | Domus |
 
 ---
 
@@ -123,6 +126,21 @@ No tienen dolor de extravío (operan punto a punto). El pitch no es operativo si
 - Operan con Intercargo y Flybondi como handlers en Ezeiza.
 - **Pivot identificado:** No venderle a la aerolínea, venderle al operador turístico (Travel Rock). El diferenciador comercial: "Rastreo en vivo de las valijas de tus hijos en el viaje de egresados."
 
+### Segmento G — Aerolíneas boutique / premium startup (pitch de CX)
+
+No tienen el problema operativo de pérdida de equipaje (punto a punto, operación controlada). El argumento de venta no es reducción de costos sino **diferenciador de experiencia del pasajero**.
+
+**Validado:** Domus Airlines (fundador Fernando).
+
+- Modelo: A220 configurado a 56 asientos ejecutivos. Buenos Aires–Miami a $3.800–4.000 USD, la mitad del precio de la competencia.
+- Operación punto a punto → tasa de extravío mínima → el pitch de "reducir mishandlings" no aplica.
+- **Pivot validado por Fernando:** El tag como regalo de bienvenida o confirmación en app de que la valija subió al avión. Coherente con el branding premium.
+- A futuro: cuando se alíen con SkyTeam o Delta para conexiones, el rastreo sí tendrá valor operativo.
+- **Sinergia técnica única:** Domus contará con Wi-Fi satelital gratuito a bordo (Panasonic Avionics). Esto permite que el tag reporte en vuelo sobre el Atlántico, cerrando el único punto ciego de cobertura BLE en vuelos largos.
+- **Ground handling propio:** Domus rechazó explícitamente a Intercargo y apunta a tener su propia empresa de rampa (modelo AGS, de los años 90). Operación propia = control total sobre la cadena = menor fricción para implementar BagMonitor.
+- **Piloto confirmado:** Vuelos de certificación CESA (50 horas, A320) en nov/dic 2025. Fernando confirmó coordinarlo.
+- **Referencia de precedente fallido:** Nicolás Key (Assist Card) intentó una solución similar y no lo logró. Dato a investigar.
+
 ### Segmento F — Carga de alto valor (vertical específica)
 
 Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga VAL es un target.
@@ -141,11 +159,9 @@ Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga V
 |---|---|---|
 | "Ya invertimos mucho en SITA/Brock, no tiene sentido duplicar." | Lufthansa, British Airways | Para pasajeros: sin argumento a corto plazo. Pivot a carga VAL (Lufthansa) o a low-cost (BA lo sugirió directamente). |
 | "El pasajero va a tener la info antes que nosotros y se arma lío a bordo." | Turkish | "Por eso el control del sistema lo tiene la aerolínea, no el pasajero. ITA Airways tuvo ese problema exactamente con AirTags — nuestro sistema lo resuelve." |
-| "¿Qué pasa si la maleta llega a un aeropuerto donde no tenemos presencia?" | Sky | "Cualquiera descarga la app en 10 minutos y crea un nodo. No necesita infraestructura permanente." |
 | "Somos una low cost, no tenemos presupuesto." | Gol, Turkish (sugiriendo bajar a low-cost) | "El costo es de un solo dígito en dólares por valija, marginal frente al costo de $150 por mishandling." |
 | "En Turkish/Gol/etc. todo se decide en la sede central." | Turkish, Gol | Aceptar. Preparar material en inglés (Turkish explícitamente lo pidió) o en portugués/castellano (Gol) para ser escalado. |
 | "Si les ofrezco esto a los pasajeros, van a dudar de si sus valijas se pierden." | Turkish | "No es un producto para el pasajero. Es infraestructura operativa de la aerolínea. El pasajero no necesita saberlo." |
-| "Ya hicimos una prueba con Bluetooth (startup Bob) y falló por puntos ciegos." | Iberia | "Bob requería antenas fijas. Nosotros usamos los celulares del propio personal como nodos móviles, eliminando los puntos ciegos." |
 | "En Turkish, las implementaciones son a escala completa o no se hacen." | Turkish | Aceptar. Pivotar a aerolíneas regionales como JetSMART, Arajet, Avianca. |
 | "Estamos en proceso de privatización, no hay presupuesto." | Intercargo | "No requieren inversión. El modelo es una alianza: Intercargo aporta operación, la aerolínea paga. Es un diferenciador que ustedes ofrecen." |
 
@@ -157,9 +173,8 @@ Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga V
 - **Lufthansa (carga):** Diego ofreció gestionar el contacto con Maximiliano (Gerente de Cargas) para explorar "cargas cebo". También solicitó unidades de muestra para test personal.
 - **London Supply:** Invitación a Ushuaia (29-30 oct) para probar la tecnología in situ. Interés explícito en retail, VIP y cruceristas.
 - **British Airways:** Fernanda y Jimena se comprometieron a escalar la presentación a Martín (Station Manager). Señal débil pero abierta.
-- **JetSMART:** Pruebas en curso (modelo de reutilización). No hay transcript de esa reunión pero se menciona como cliente activo en múltiples conversaciones.
-- **Domus (aerolínea boutique):** Quiere implementar el tag como "regalo para el pasajero". Sin reunión documentada.
-- **Iberia:** Invitaron a iniciar pruebas (mencionado por Matías en reunión con Sky, oct 15). Carolina sugirió el camino formal vía IAGI.
+- **Domus (aerolínea boutique):** Fernando confirmó piloto en nov/dic 2025 durante vuelos de certificación CESA (A320). También recomendó contactar a Gonzalo (Operaciones Sudamérica, American Airlines).
+- **Iberia:** Carolina sugirió el camino formal vía IAGI.
 
 ---
 
@@ -171,6 +186,7 @@ Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga V
 - **Brock Solutions**: Sistema enterprise con RFID. Caro, requiere infraestructura en cada punto, implementación global. British Airways lo adoptó recientemente.
 - **SITA / WorldTracer**: No es competidor directo. Es el sistema post-extravío. BagMonitor va upstream (prevención), WorldTracer es downstream (recuperación). Son complementarios.
 - **Startup "Bob" (o "Board")**: Hizo un POC de Bluetooth con Iberia. Fracasó por puntos ciegos en la cobertura. Dejó un antecedente negativo en Iberia que hay que contrarrestar con evidencia técnica.
+- **Assist Card (Nicolás Key)**: Intentó una solución de rastreo de equipaje similar y no lo logró. Mencionado por Fernando de Domus. Dato a investigar para entender qué falló y diferenciarse.
 
 ### Actores de ground handling en Argentina
 
@@ -194,6 +210,7 @@ Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga V
 3. **Doble modo** (reutilizable / desechable): Permite adaptarse a distintos modelos operativos. JetSMART usa reutilizable. Low-cost puede preferir desechable con costo marginal.
 4. **Integración API con DCS**: La posibilidad de cruzar automáticamente con Sabre o Amadeus elimina el proceso manual del patio sin reemplazar el sistema existente.
 5. **Control del operador, no del pasajero**: Contrarrestar el problema de ITA Airways con AirTags disruptivos. Esta distinción es un argumento de venta clave.
+6. **Tracking en vuelo vía Wi-Fi a bordo**: Validado con Domus (Panasonic Avionics). Si la aerolínea tiene internet satelital, el tag puede reportar en pleno vuelo oceánico, eliminando el único punto ciego de cobertura BLE en rutas largas. Argumento de venta para aerolíneas premium con conectividad a bordo.
 
 ### Limitaciones identificadas en campo
 
@@ -257,3 +274,5 @@ Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga V
 | Pablo | Andes Líneas Aéreas | Dueño / Representante | Reunión en FIT (stand Cuba). Enfocar pitch en operadores turísticos. |
 | Representante London Supply | London Supply | Ejecutivo de Innovación | Visita de campo a Ushuaia (29-30 oct). Coordinar con Jefe de Handling. |
 | Pablo García | Aviación News / CBR | Consultor de RRPP | Coordinar Lima + nota en Aviación News + vuelo testigo. |
+| Fernando | Domus Airlines | Fundador | Coordinar prueba piloto en nov/dic 2025 (vuelos CESA, A320). Intercambiar WhatsApp/mail. |
+| Gonzalo | American Airlines | Operaciones Sudamérica | Referido por Fernando de Domus. "Tipazo y muy innovador." Prospectar como entrada al mercado AA. |

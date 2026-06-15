@@ -10,6 +10,7 @@ Cada archivo corresponde a una reunión o llamado independiente. El formato es c
 |---|---|---|
 | `lufthansa.md` | Diego — Lufthansa (Presidente AOC) | Sep 8, 2025 |
 | `gol.md` | Augusto — Gol Airlines | Sep 11, 2025 |
+| `domus.md` | Fernando — Domus Airlines (Fundador) | Sep 11, 2025 |
 | `turkish.md` | Representante — Turkish Airlines | Sep 23, 2025 |
 | `intercargo.md` | Asesor externo — Intercargo | Sep 23, 2025 |
 | `andes.md` | Pablo — Andes Líneas Aéreas | Sep 23, 2025 |

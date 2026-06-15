@@ -20,14 +20,21 @@ brands/
 │   ├── copy/               guidelines (lexicón, overrides), feedback, pieces
 │   └── docs/
 │
-└── cursodevibecoding/      PRODUCTO de ariel.ar (hereda su voz y diseño)
-    ├── brand/              @../../ariel.ar/brand/… + lo específico del curso
-    ├── copy/               overrides del curso, pieces
-    └── docs/
+├── cursodevibecoding/      PRODUCTO de ariel.ar (hereda su voz y diseño)
+│   ├── brand/              @../../ariel.ar/brand/… + lo específico del curso
+│   ├── copy/               overrides del curso, pieces
+│   └── docs/
+│
+└── bagmonitor/             MARCA INDEPENDIENTE (B2B enterprise, idioma: inglés)
+    ├── brand/              BRAND.md, DESIGN.md  (fuente de verdad de la marca)
+    ├── copy/               guidelines, feedback, pieces
+    └── docs/               documentos fuente de estrategia y producto
 ```
 
-Una marca futura sin relación con ariel.ar tendría su propia carpeta y heredaría
-solo de `shared/` (o de nada), **nunca** de ariel.ar.
+Una marca sin relación con ariel.ar tiene su propia carpeta y hereda
+solo de `shared/` (o de nada), **nunca** de ariel.ar. BagMonitor es el primer
+ejemplo: es una marca completamente independiente, en inglés, sin vínculo con
+el ecosistema ariel.ar.
 
 ## Reglas de herencia
 

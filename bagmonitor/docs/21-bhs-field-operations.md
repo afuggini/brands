@@ -1,6 +1,6 @@
 # BHS Field Operations — Ezeiza International Airport (EZE)
 
-> **Scope:** This document describes the baggage handling system (BHS) as observed at Ezeiza International Airport (EZE / SEISA), Argentina, Level 3 inspection area. Source: Pablo Ferrari, Vanderlande BHS systems engineer, May 2026. Operational details may vary across airports and BHS configurations.
+> **Scope:** This document describes the baggage handling system (BHS) as observed at Ezeiza International Airport (EZE / EZEIZA), Argentina, Level 3 inspection area. Source: Pablo Ferrari, Vanderlande BHS systems engineer, May 2026. Operational details may vary across airports and BHS configurations.
 
 ---
 
@@ -77,16 +77,28 @@ Operational logistics for a recovery program (who collects, where, how they're r
 
 ---
 
-## Airport Contacts in Pablo Ferrari's Network
+## CT Scanner "No Pic" — Secondary Inspection Failure Mode
 
-Pablo Ferrari (Vanderlande) has weekly conversations with the following airports. All face variations of the same BHS tracking gap:
+CT scanners occasionally produce a "no pic" result — they fail to obtain a usable image of the bag's interior, typically due to an error in the reactive/imaging mechanism. When this happens:
 
-| Airport | City | Notes |
-|---|---|---|
-| EZE / SEISA | Buenos Aires, Argentina | Reference airport for this document |
-| SCL / Nuevo Pudahuel | Santiago, Chile | Carousel-to-aircraft reconciliation system known to be operating here |
-| LIM | Lima, Peru | Active weekly contact |
-| PTY / Tocumen | Panama City, Panama | Active weekly contact |
-| BCN / El Prat | Barcelona, Spain | Active weekly contact |
-| FLN / Florianópolis | Florianópolis, Brazil | Smaller airport |
-| GRU / São Paulo | São Paulo, Brazil | High litigation costs from baggage loss claims |
+1. The bag is diverted to a secondary inspection area
+2. Police officers receive it physically and pass it through conventional X-ray equipment, plus spectroscopic or chemical drug tests
+3. The bag rejoins the flow after manual clearance
+
+**Recirculation was considered and rejected:** To avoid secondary inspection, bags could theoretically re-enter the CT scanner that produced the no pic. This would require a recirculation path — a conveyor branch that loops the bag back. The infrastructure cost (tearing walls, building new conveyor with a diverter) was deemed prohibitive and the proposal was put on hold. One CT scanner in particular has a failing generator that produces bursts of ~20 consecutive no pics; recirculation would have been especially useful for those cases.
+
+**Relevance to BagMonitor:** No pic events create a gap in the bag's tracking chain. A BagMonitor gateway read before and after the CT zone, plus a read at secondary inspection entry/exit, would maintain continuous traceability even through diversion events.
+
+---
+
+## BLE Signal Interference — Testing Requirement
+
+The BHS environment shares characteristics with industrial settings known to cause BLE and RFID signal interference:
+
+- Metallic conveyor structures, belts, and trays
+- Electrical motors and actuators throughout the conveyor system
+- High-voltage wiring and potential electromagnetic noise from CT scanner equipment
+
+**Field evidence of the risk:** Pablo Ferrari reported significant RFID signal loss in a Volkswagen production environment (palletizing line) due to metal density. A similar Volkswagen installation with Wi-Fi cameras failed due to coil-generated electrical noise. The BHS presents an analogous profile.
+
+**Implication:** BLE gateway placement and signal reliability must be validated with an on-site test before any commercial deployment commitment. Optimal gateway positioning, antenna selection, and redundancy configuration cannot be determined from spec alone. A proof-of-concept installation at EZE is a prerequisite, not an optional step.

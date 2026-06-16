@@ -33,6 +33,21 @@ Global passenger traffic is expected to reach 8 billion by 2037. Airlines and ai
 **6. The passenger expectation narrative**
 47% of passengers say mobile tracking would make them more confident checking in a bag. 82% of airlines plan to offer real-time bag tracking to passengers by 2027. BagMonitor provides the operational backbone to deliver on that promise — without relying on consumer hardware.
 
+**7. The airport-as-hub narrative**
+Airport operators — not airlines — may be the most efficient entry point. An airport like EZE/SEISA already bundles SITA services into the fees charged to airlines for check-in islands; airlines pay without a separate procurement process. BagMonitor can follow the same model: the airport acquires the solution and makes it available to all carriers operating in its terminals, while also delivering security value to the PSA. One customer, multiple beneficiaries, no multi-stakeholder coordination required.
+
+## GTM Entry Point — Airport Operator Model
+
+Field intelligence (Pablo Ferrari, Vanderlande, May 2026) suggests that approaching airport operators directly — rather than airlines or security agencies — may be the lowest-friction GTM path in LATAM.
+
+**Rationale:**
+- Airport operators (e.g., Aeropuertos Argentina) already have commercial relationships with all airlines operating in their terminals
+- They can bundle technology costs into existing fees, removing airline-level procurement friction
+- They have authority to coordinate deployment across PSA, airlines, and ground handlers simultaneously
+- The SITA precedent: SITA costs are reportedly already included in what SEISA charges airlines for check-in island usage — a similar bundling model could apply to BagMonitor (unconfirmed; requires validation with Aeropuertos Argentina)
+
+**Implication for sales motion:** First meeting should be with an Aeropuertos Argentina decision-maker, not with an airline ops team. The airline pitch follows from airport adoption, not the other way around.
+
 ## Primary CTA
 
 > **Book a Demo** — all website and outreach activity should drive toward a qualified demo request.

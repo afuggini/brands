@@ -38,8 +38,7 @@ These items should be completed as the business progresses:
 ## Field Intelligence Pending (Pablo Ferrari / Vanderlande, May 2026)
 
 - [ ] **Chile baggage reconciliation system:** Provider name, technical approach, operational scope, and pricing. Pablo Ferrari has direct prior knowledge (ex-colleague built it). ETA: ~3 weeks from May 29.
-- [ ] **Airline baggage rerouting costs at SEISA:** Real cost-per-event data from airline operations contact. The IATA $150/event figure is the reference; this would provide Argentina-specific validation or correction.
+- [ ] **Airline baggage rerouting costs at EZEIZA:** Real cost-per-event data from airline operations contact. The IATA $150/event figure is the reference; this would provide Argentina-specific validation or correction.
 - [ ] **São Paulo (GRU) litigation cost data:** Airlines at GRU reportedly face significant litigation costs from baggage loss claims. Specific figures needed to quantify and use in sales materials.
 - [ ] **SITA partnership interest:** Pablo Ferrari has an active SITA contact. He will probe their interest in integrating or co-positioning with BagMonitor.
 - [ ] **Vanderlande supplier registration:** Whether registering BagMonitor as a Vanderlande supplier or partner is feasible. Known obstacle: extensive supplier onboarding process.
-- [ ] **GoPro/360° BHS tour video:** Pablo to share YouTube link showing the full SEISA baggage journey filmed from a GoPro mounted on a bag.

@@ -141,9 +141,9 @@ La parte en la que se podría recuperar valor: muchos de los vuelos van y vienen
 
 **Pablo:** Me anoté tres cosas. Primero: tengo alguien para preguntarle a las aerolíneas. En la primera conversación las habíamos dejado fuera porque parecía que no estaban interesadas, pero hablarles y ver cuánto gastan me va a venir bien. Si de repente lo paga la aerolínea con el precio del boarding pass, o funciona para todas las aerolíneas y lo paga el aeropuerto.
 
-**Ariel:** Las aerolíneas que operan en SEISA — la impresión que nos dieron es que a nivel local no pierden tantas valijas. "No es un problema grande" a nivel Ezeiza o Aeroparque.
+**Ariel:** Las aerolíneas que operan en EZEIZA — la impresión que nos dieron es que a nivel local no pierden tantas valijas. "No es un problema grande" a nivel Ezeiza o Aeroparque.
 
-**Pablo:** En SEISA una vez se quejaron porque estaban teniendo que enviar muchas valijas aparte. Puede que fuera un periodo puntual en que algo funcionaba mal. Pero sí, quiero medirlo y sé a quién pedírselo.
+**Pablo:** En EZEIZA una vez se quejaron porque estaban teniendo que enviar muchas valijas aparte. Puede que fuera un periodo puntual en que algo funcionaba mal. Pero sí, quiero medirlo y sé a quién pedírselo.
 
 **[00:51:05 — Estrategia de alianzas: SITA, PSA, aerolíneas]**
 
@@ -155,11 +155,11 @@ La parte en la que se podría recuperar valor: muchos de los vuelos van y vienen
 
 **[00:57:02 — Aeropuertos con el problema: alcance internacional]**
 
-**Ariel:** SEISA no es necesariamente de los aeropuertos con los problemas más complejos y costosos. Hay aeropuertos que están al horno con las valijas.
+**Ariel:** EZEIZA no es necesariamente de los aeropuertos con los problemas más complejos y costosos. Hay aeropuertos que están al horno con las valijas.
 
 **Pablo:** Claro. Todas las semanas yo converso con Lima, con Nuevo Pudahuel en Chile, con Tocumen en Panamá, con El Prat de Barcelona — y Brasil también. Florianópolis, aunque son más chiquititos. Y acá en São Paulo hay mucho lío.
 
-**Ariel:** Tenía data de que se comen juicios reales por pérdidas de valijas en São Paulo — les sale más caro la jodida.
+**Ariel:** Tenía data de que se comen juicios reales por pérdidas de valijas en São Paulo — les sale más caro la jodita.
 
 **Pablo:** Sí, en São Paulo hay mucho lío.
 
@@ -221,7 +221,7 @@ Me anoté tres cosas. Aerolíneas — cuánto gastan. El sistema entre el carrus
 
 ## Notas
 
-* **Contexto:** Primera reunión técnica de validación, en base a recorrido de Pablo por el BHS de SEISA. Pablo actúa como asesor informal con conocimiento directo del sistema. No representa a Vanderlande institucionalmente; consultará con asesor sobre posible conflicto de interés y operará bajo monotributo mientras tanto.
+* **Contexto:** Primera reunión técnica de validación, en base a recorrido de Pablo por el BHS de EZEIZA. Pablo actúa como asesor informal con conocimiento directo del sistema. No representa a Vanderlande institucionalmente; consultará con asesor sobre posible conflicto de interés y operará bajo monotributo mientras tanto.
 
 * **Validaciones técnicas confirmadas:**
   - Tag CR2032 seguro en entornos de tomógrafo CT (no es batería de litio de gran volumen)

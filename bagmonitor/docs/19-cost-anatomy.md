@@ -101,7 +101,7 @@ No verified country-specific monetary caps or SDR formulas were confirmed throug
 
 **Field evidence from Iberia:** *Carolina (Innovation):* "El manejo de equipaje es un gran problema, se nos va muchísimo dinero en indemnizaciones y nos pega directo en el NPS del pasajero." Iberia cited indemnification costs as a primary pain point across its global network, including routes through LATAM.
 
-**Field evidence from Vanderlande technical contact (São Paulo):** Pablo Ferrari (Vanderlande, BHS systems engineer, May 2026): "En São Paulo hay mucho lío. Se comen juicios reales por pérdidas de valijas — les sale más caro la jodida." São Paulo (GRU) identified as a high-priority market for cost quantification. Specific litigation cost figures are pending investigation.
+**Field evidence from Vanderlande technical contact (São Paulo):** Pablo Ferrari (Vanderlande, BHS systems engineer, May 2026): "En São Paulo hay mucho lío. Se comen juicios reales por pérdidas de valijas — les sale más caro la jodita." São Paulo (GRU) identified as a high-priority market for cost quantification. Specific litigation cost figures are pending investigation.
 
 ---
 

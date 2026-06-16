@@ -70,6 +70,8 @@ A category of small software solutions exists that perform reconciliation betwee
 
 **Known instance:** A system of this type is operating in Chile as of 2026, built by a small operator (ex-employee of Vanderlande). Provider name, pricing, and operational scope under investigation (Pablo Ferrari, Vanderlande, May 2026).
 
+**Adjacent signal — embedded tray identification:** An unidentified provider is reportedly already embedding an element (possibly a passive identifier or magnet) directly into BHS conveyor tray molds during plastic injection. The exact technology and purpose are unknown (source: Pablo Ferrari, May 2026). This suggests that tray-level identification is an active area of industry experimentation — a potential future overlap with BagMonitor's zone tracking layer, or a signal that infrastructure-level bag identification is gaining traction beyond handheld scanning.
+
 ## Siemens RFID — Local-Only Tracking
 
 Siemens has implemented RFID with radial antennas in airport baggage operations. The approach is photocell-style: sensors detect bag presence at each conveyor handoff point ("here, here, here") by obstruction. Coverage is local and discontinuous — not end-to-end. RFID technology has not advanced significantly in this space; BagMonitor's BLE architecture is generationally ahead and designed for the next wave of flexible, solar-powered tag hardware.

@@ -7,7 +7,8 @@
 ## Medium-Term Product Expansion
 
 - Predictive AI risk modeling for baggage exceptions
-- Enhanced IoT hardware (next-gen tag technology)
+- **Next-gen tag hardware:** BLE tags will evolve toward thinner, flexible, solar-powered form factors — feeding the same infrastructure already deployed. Flexible BLE label prototypes already exist (confirmed May 2026). Early deployment now means infrastructure is compatible with v2 hardware when it arrives.
+- **Tag recovery logistics:** For airlines operating round-trip routes, a tag recovery workflow at destination airports reduces per-tag cost and environmental footprint. Operational design to be defined.
 - Computer vision integration at key airport touchpoints (bag identification and offload verification)
 
 ## Long-Term Strategic Expansion

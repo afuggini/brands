@@ -46,3 +46,30 @@ The critical implication: **SITA Bag Manager does not see what happens between m
 **BagMonitor sees what SITA doesn't see.**
 
 This distinction must never be collapsed in sales or marketing. Comparing BagMonitor's price to SITA Bag Manager's per-scan fee ($0.075/bag) is a category error — they are not substitutes. BagMonitor's value is anchored to the cost of what happens in the gaps SITA leaves uncovered, not to the cost of compliance scanning.
+
+## Current Operational Reality — What BagMonitor Replaces
+
+The methods currently in use at major Latin American airports are largely manual:
+
+- **Handheld scanners:** Ground staff manually scan individual bag tags at key checkpoints
+- **Paper reconciliation lists:** Physical paper bingo-style lists cross-checked before aircraft loading — confirmed in use by Aerolíneas Argentinas as of May 2026
+- Neither method is automatic. Both require human intervention at every point and carry high error rates
+
+These are not legacy automated systems being displaced — they are manual processes that BagMonitor replaces with continuous, automatic zone tracking.
+
+## Identified Competitors — Carousel-to-Aircraft Reconciliation Systems
+
+A category of small software solutions exists that perform reconciliation between the sorting carousel and aircraft loading — filling part of the gap created by the unused BPM. These are distinct from BagMonitor:
+
+| Dimension | Carousel-to-Aircraft Systems | BagMonitor |
+|---|---|---|
+| Coverage | Carousel → aircraft only | Check-in → destination |
+| Method | Manual handheld reads + software | Continuous automatic BLE tracking |
+| BPM generation | No | Yes (at aircraft loading) |
+| Requires staff action | Yes | No |
+
+**Known instance:** A system of this type is operating in Chile as of 2026, built by a small operator (ex-employee of Vanderlande). Provider name, pricing, and operational scope under investigation (Pablo Ferrari, Vanderlande, May 2026).
+
+## Siemens RFID — Local-Only Tracking
+
+Siemens has implemented RFID with radial antennas in airport baggage operations. The approach is photocell-style: sensors detect bag presence at each conveyor handoff point ("here, here, here") by obstruction. Coverage is local and discontinuous — not end-to-end. RFID technology has not advanced significantly in this space; BagMonitor's BLE architecture is generationally ahead and designed for the next wave of flexible, solar-powered tag hardware.

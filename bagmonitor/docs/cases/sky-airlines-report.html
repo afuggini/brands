@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BagMonitor — ROI Analysis for Sky Airlines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0A0E17;
+      --accent:       #6366F1;
+      --accent-light: rgba(99,102,241,0.12);
+      --success:      #10B981;
+      --success-bg:   rgba(16,185,129,0.08);
+      --success-border: rgba(16,185,129,0.25);
+      --warning:      #F59E0B;
+      --warning-bg:   rgba(245,158,11,0.08);
+      --warning-border: rgba(245,158,11,0.25);
+      --danger:       #EF4444;
+      --danger-bg:    rgba(239,68,68,0.08);
+      --danger-border: rgba(239,68,68,0.25);
+      --card:         #1F2937;
+      --border:       #374151;
+      --text:         #F9FAFB;
+      --text-2:       #D1D5DB;
+      --text-3:       #9CA3AF;
+      --text-4:       #6B7280;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #F3F4F6;
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero {
+      background: var(--bg);
+      padding: 56px 40px 64px;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    .hero-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-brand-client {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-client-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-client-logo img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .hero-client-label {
+      font-size: 0.72rem;
+      color: var(--text-4);
+      letter-spacing: 0.04em;
+      text-align: right;
+    }
+
+    .hero-client-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-3);
+    }
+
+    .hero-wordmark {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 18px;
+      background: #374151;
+    }
+
+    .hero-tagline {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-3);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hero-stat-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-4);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-top: 2px;
+    }
+
+    /* ─── BODY ───────────────────────────────────────────────── */
+    .body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* ─── SECTION HEADERS ────────────────────────────────────── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #9CA3AF;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 0.9rem;
+      color: #6B7280;
+      margin-bottom: 28px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    section { margin-bottom: 56px; }
+
+    /* ─── PROBLEM STATEMENT ──────────────────────────────────── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .problem-card {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .problem-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .problem-card-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+    }
+
+    .problem-card-label {
+      font-size: 0.8rem;
+      color: #6B7280;
+      line-height: 1.4;
+    }
+
+    .insight-box {
+      background: #EEF2FF;
+      border: 1px solid #C7D2FE;
+      border-radius: 10px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .insight-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #6366F1;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .insight-text {
+      font-size: 0.88rem;
+      color: #3730A3;
+      line-height: 1.55;
+    }
+
+    .insight-text strong { font-weight: 600; }
+
+    /* ─── SCENARIOS ──────────────────────────────────────────── */
+    .scenarios {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .scenario-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #E5E7EB;
+      overflow: hidden;
+    }
+
+    .scenario-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid #F3F4F6;
+    }
+
+    .scenario-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .scenario-card.pessimistic .scenario-badge {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+    .scenario-card.intermediate .scenario-badge {
+      background: var(--warning-bg);
+      color: #B45309;
+    }
+    .scenario-card.optimistic .scenario-badge {
+      background: var(--success-bg);
+      color: #047857;
+    }
+
+    .scenario-card.pessimistic { border-top: 3px solid var(--danger); }
+    .scenario-card.intermediate { border-top: 3px solid var(--warning); }
+    .scenario-card.optimistic { border-top: 3px solid var(--success); }
+
+    .scenario-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .scenario-desc {
+      font-size: 0.75rem;
+      color: #9CA3AF;
+      line-height: 1.4;
+    }
+
+    .scenario-body {
+      padding: 16px 20px;
+    }
+
+    .scenario-metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 7px 0;
+      border-bottom: 1px solid #F3F4F6;
+      gap: 8px;
+    }
+
+    .scenario-metric:last-child { border-bottom: none; }
+
+    .scenario-metric-label {
+      font-size: 0.75rem;
+      color: #6B7280;
+      flex-shrink: 0;
+    }
+
+    .scenario-metric-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #111827;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .scenario-footer {
+      background: #F9FAFB;
+      border-top: 1px solid #E5E7EB;
+      padding: 16px 20px;
+      text-align: center;
+    }
+
+    .scenario-breakeven-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9CA3AF;
+      margin-bottom: 4px;
+    }
+
+    .scenario-breakeven-value {
+      font-size: 2rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .scenario-card.pessimistic .scenario-breakeven-value { color: var(--danger); }
+    .scenario-card.intermediate .scenario-breakeven-value { color: var(--warning); }
+    .scenario-card.optimistic .scenario-breakeven-value { color: var(--success); }
+
+    .scenario-breakeven-note {
+      font-size: 0.72rem;
+      color: #9CA3AF;
+      line-height: 1.4;
+    }
+
+    /* ─── COMPARISON TABLE ───────────────────────────────────── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #E5E7EB;
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child { min-width: 160px; }
+
+    .comparison-table th {
+      background: #F9FAFB;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #6B7280;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .comparison-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #F3F4F6;
+      color: #374151;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .comparison-table tr:last-child td { border-bottom: none; }
+
+    .comparison-table td:first-child { font-weight: 500; color: #111827; }
+
+    .comparison-table td.highlight {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .tag-red   { color: var(--danger); }
+    .tag-yellow { color: #B45309; }
+    .tag-green { color: #047857; }
+
+    /* ─── HOW IT WORKS ───────────────────────────────────────── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .how-card {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 10px;
+      padding: 22px;
+    }
+
+    .how-card-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .how-card-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .how-card-desc {
+      font-size: 0.82rem;
+      color: #6B7280;
+      line-height: 1.55;
+    }
+
+    /* ─── CTA ────────────────────────────────────────────────── */
+    .cta {
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .cta-sub {
+      font-size: 0.9rem;
+      color: var(--text-3);
+      margin-bottom: 28px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 13px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.88; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding: 24px 40px;
+      font-size: 0.72rem;
+      color: #9CA3AF;
+      border-top: 1px solid #E5E7EB;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .hero { padding: 36px 24px 48px; }
+      .body { padding: 36px 24px 60px; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .scenarios { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 1.8rem; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+
+      <div class="hero-brand">
+        <div class="hero-brand-left">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" fill="none" width="22" height="26">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="24" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#818CF8"/>
+                <stop offset="100%" stop-color="#4338CA"/>
+              </linearGradient>
+            </defs>
+            <path d="M12 1L23 5V14C23 22 17.5 27 12 28.5C6.5 27 1 22 1 14V5Z" fill="url(#g)"/>
+            <circle cx="12" cy="15" r="5" stroke="white" stroke-width="1.2" stroke-opacity="0.35"/>
+            <circle cx="12" cy="15" r="2.2" fill="white"/>
+          </svg>
+          <span class="hero-wordmark">BagMonitor</span>
+          <div class="hero-divider"></div>
+          <span class="hero-tagline">Baggage Visibility Infrastructure</span>
+        </div>
+        <div class="hero-brand-client">
+          <div style="text-align:right;">
+            <div class="hero-client-label">Prepared for</div>
+            <div class="hero-client-name">Sky Airlines</div>
+          </div>
+          <div class="hero-client-logo">
+            <img src="data:image/png;base64,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" alt="Sky Airlines">
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-eyebrow">ROI Analysis · Sky Airlines</div>
+      <h1 class="hero-title">The cost of mishandling<br>is measurable.<br><span>So is the return.</span></h1>
+      <p class="hero-subtitle">This analysis quantifies the economic impact of baggage mishandling on Sky Airlines' international operations and models the return on a BagMonitor deployment across three scenarios.</p>
+
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">$150</div>
+          <div class="hero-stat-label">Operational cost per event</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">11.2‰</div>
+          <div class="hero-stat-label">Int'l mishandling rate (SITA 2025)</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">58%</div>
+          <div class="hero-stat-label">Failures in transfer & loading gaps</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- THE PROBLEM -->
+    <section>
+      <div class="section-label">The Problem</div>
+      <h2 class="section-title">What mishandling actually costs</h2>
+      <p class="section-desc">Every mishandling event carries three layers of cost. Most airlines count only the first.</p>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-card-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2v12M2 8h12" stroke="#6366F1" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="problem-card-value">$150</div>
+          <div class="problem-card-label">Operational cost per event — repatriation logistics, staff time, courier fees</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="4" width="12" height="9" rx="1.5" stroke="#6366F1" stroke-width="1.6"/>
+              <path d="M5 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" stroke="#6366F1" stroke-width="1.6"/>
+            </svg>
+          </div>
+          <div class="problem-card-value">$2,050</div>
+          <div class="problem-card-label">Passenger compensation cap — Montreal Convention 1999, effective Dec 2024</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="8" r="6" stroke="#6366F1" stroke-width="1.6"/>
+              <path d="M8 5v3.5l2.5 1.5" stroke="#6366F1" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="problem-card-value">NPS</div>
+          <div class="problem-card-label">Reputational impact — each mishandled bag affects passenger loyalty and rebooking</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-dot"></div>
+        <div class="insight-text">
+          <strong>58% of baggage failures occur between mandatory tracking points</strong> — at the tarmac, during transfers, and at loading. These are the gaps that manual reconciliation processes cannot see, and where Montreal Convention compensation liability begins.
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENARIOS -->
+    <section>
+      <div class="section-label">ROI Scenarios</div>
+      <h2 class="section-title">Three deployment models</h2>
+      <p class="section-desc">Each scenario models a different deployment scope and level of cost exposure. The break-even percentage is the share of current mishandling events BagMonitor would need to prevent for the investment to fully pay for itself.</p>
+
+      <div class="scenarios">
+
+        <!-- PESSIMISTIC -->
+        <div class="scenario-card pessimistic">
+          <div class="scenario-header">
+            <div class="scenario-badge">🔴 Pessimistic</div>
+            <div class="scenario-name">Single-Route Pilot</div>
+            <div class="scenario-desc">One international route · global average rate · minimum compensation exposure</div>
+          </div>
+          <div class="scenario-body">
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Bags covered / year</span>
+              <span class="scenario-metric-value">80,000</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Mishandling rate</span>
+              <span class="scenario-metric-value">6.3 / 1,000</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Annual events</span>
+              <span class="scenario-metric-value">504</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Cost per event</span>
+              <span class="scenario-metric-value">$212</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Annual mishandling cost</span>
+              <span class="scenario-metric-value">$106,848</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">BagMonitor investment</span>
+              <span class="scenario-metric-value">$95,000</span>
+            </div>
+          </div>
+          <div class="scenario-footer">
+            <div class="scenario-breakeven-label">Break-even at</div>
+            <div class="scenario-breakeven-value">88.9%</div>
+          </div>
+        </div>
+
+        <!-- INTERMEDIATE -->
+        <div class="scenario-card intermediate">
+          <div class="scenario-header">
+            <div class="scenario-badge">🟡 Intermediate</div>
+            <div class="scenario-name">International Segment</div>
+            <div class="scenario-desc">Full ARG/BRA international routes · airline-specific rate · standard compensation</div>
+          </div>
+          <div class="scenario-body">
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Bags covered / year</span>
+              <span class="scenario-metric-value">300,000</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Mishandling rate</span>
+              <span class="scenario-metric-value">11.2 / 1,000</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Annual events</span>
+              <span class="scenario-metric-value">3,360</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Cost per event</span>
+              <span class="scenario-metric-value">$304</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Annual mishandling cost</span>
+              <span class="scenario-metric-value">$1,021,440</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">BagMonitor investment</span>
+              <span class="scenario-metric-value">$350,000</span>
+            </div>
+          </div>
+          <div class="scenario-footer">
+            <div class="scenario-breakeven-label">Break-even at</div>
+            <div class="scenario-breakeven-value">34.3%</div>
+          </div>
+        </div>
+
+        <!-- OPTIMISTIC -->
+        <div class="scenario-card optimistic">
+          <div class="scenario-header">
+            <div class="scenario-badge">🟢 Optimistic</div>
+            <div class="scenario-name">Full Network</div>
+            <div class="scenario-desc">Expanded international + feeder routes · full cost exposure including compensation & call center</div>
+          </div>
+          <div class="scenario-body">
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Bags covered / year</span>
+              <span class="scenario-metric-value">500,000</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Mishandling rate</span>
+              <span class="scenario-metric-value">11.2 / 1,000</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Annual events</span>
+              <span class="scenario-metric-value">5,600</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Cost per event</span>
+              <span class="scenario-metric-value">$539</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">Annual mishandling cost</span>
+              <span class="scenario-metric-value">$3,018,400</span>
+            </div>
+            <div class="scenario-metric">
+              <span class="scenario-metric-label">BagMonitor investment</span>
+              <span class="scenario-metric-value">$565,000</span>
+            </div>
+          </div>
+          <div class="scenario-footer">
+            <div class="scenario-breakeven-label">Break-even at</div>
+            <div class="scenario-breakeven-value">18.7%</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COMPARISON TABLE -->
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Bags / year</th>
+            <th>Cost / event</th>
+            <th>Annual investment</th>
+            <th>Mishandling exposure</th>
+            <th>Break-even</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🔴 Pessimistic</td>
+            <td>80,000</td>
+            <td>$212</td>
+            <td>$95,000</td>
+            <td>$106,848</td>
+            <td class="highlight tag-red">88.9%</td>
+          </tr>
+          <tr>
+            <td>🟡 Intermediate</td>
+            <td>300,000</td>
+            <td>$304</td>
+            <td>$350,000</td>
+            <td>$1,021,440</td>
+            <td class="highlight tag-yellow">34.3%</td>
+          </tr>
+          <tr>
+            <td>🟢 Optimistic</td>
+            <td>500,000</td>
+            <td>$539</td>
+            <td>$565,000</td>
+            <td>$3,018,400</td>
+            <td class="highlight tag-green">18.7%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size:0.72rem;color:#9CA3AF;margin-top:12px;line-height:1.5;">
+        Cost per event includes operational costs ($150) and expected passenger compensation liability under the Montreal Convention 1999 (1,519 SDRs ≈ $2,050 cap). Optimistic scenario additionally includes call center handling costs ($30/event). BagMonitor investment = hardware at cost ($1/bag) + annual subscription.
+      </p>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section>
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">No gates. No scanners. No infrastructure.</h2>
+      <p class="section-desc">BagMonitor is built for carriers that need real-time baggage visibility without the capital expense of fixed RFID infrastructure.</p>
+
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-card-number">01</div>
+          <div class="how-card-title">Smart tag at check-in</div>
+          <div class="how-card-desc">A small wireless tag (30mm × 5mm) is attached to each bag at check-in and linked to the passenger's booking. No passenger action required.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-card-number">02</div>
+          <div class="how-card-title">Staff smartphones as nodes</div>
+          <div class="how-card-desc">Any staff member running the BagMonitor app on their phone automatically detects every tagged bag within 100 meters. No dedicated scanners or fixed infrastructure needed.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-card-number">03</div>
+          <div class="how-card-title">Continuous real-time location</div>
+          <div class="how-card-desc">Unlike checkpoint-based systems, BagMonitor knows where each bag is at all times — at the ramp, in transfer, at loading — not just at mandatory scan points.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-card-number">04</div>
+          <div class="how-card-title">Integrates with your existing stack</div>
+          <div class="how-card-desc">BagMonitor connects to Sabre, Amadeus, and other DCS systems via API. Automatic reconciliation cross-references bag location against the flight manifest in real time.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div class="cta-title">Let's run the numbers with your actual data.</div>
+      <p class="cta-sub">The scenarios above use SITA industry benchmarks. A 30-minute session with your operations team is enough to build a business case with your real mishandling rate, route volumes, and cost structure.</p>
+      <a href="mailto:hello@bagmonitor.com" class="cta-btn">Book a Demo</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    © 2026 BagMonitor · Baggage Visibility Infrastructure · hello@bagmonitor.com<br>
+    Mishandling rate source: SITA Baggage IT Insights 2025. Montreal Convention liability: ICAO revision effective December 28, 2024 (1,519 SDRs ≈ USD 2,050 at Feb 2026 rates).
+  </div>
+
+</body>
+</html>

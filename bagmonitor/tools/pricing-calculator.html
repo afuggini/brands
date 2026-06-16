@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BagMonitor — ROI Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0E17;
+      --card: #1F2937;
+      --border: #374151;
+      --text: #F9FAFB;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --accent: #6366F1;
+      --accent-hover: #4F46E5;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --success-bg: rgba(16, 185, 129, 0.08);
+      --warning-bg: rgba(245, 158, 11, 0.08);
+      --danger-bg: rgba(239, 68, 68, 0.08);
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 0 16px 64px;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────── */
+    .header {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 0 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-logo {
+      flex-shrink: 0;
+    }
+
+    .header-text {}
+
+    .header-wordmark {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .header-subtitle {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    /* ─── SCENARIO SELECTOR ──────────────────────────────── */
+    .scenario-section {
+      max-width: 960px;
+      margin: 28px auto 0;
+    }
+
+    .scenario-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .scenario-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .scenario-tab {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .scenario-tab:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .scenario-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ─── MAIN LAYOUT ────────────────────────────────────── */
+    .main {
+      max-width: 960px;
+      margin: 24px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 680px) {
+      .main { grid-template-columns: 1fr; }
+    }
+
+    /* ─── CARDS ──────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+    }
+
+    .card-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ─── INPUT GROUPS ───────────────────────────────────── */
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .input-hint {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-left: 6px;
+      font-weight: 400;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      pointer-events: none;
+      font-weight: 500;
+    }
+
+    .input-suffix {
+      position: absolute;
+      right: 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      padding: 9px 12px;
+      outline: none;
+      transition: border-color 0.15s;
+      -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    input[type="number"]:focus {
+      border-color: var(--accent);
+    }
+
+    input[type="number"].has-prefix { padding-left: 28px; }
+    input[type="number"].has-suffix { padding-right: 48px; }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 18px 0;
+    }
+
+    /* ─── OUTPUT METRICS ─────────────────────────────────── */
+    .metric {
+      margin-bottom: 18px;
+    }
+
+    .metric:last-child { margin-bottom: 0; }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 1.55rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .metric-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ─── BREAKEVEN HERO ─────────────────────────────────── */
+    .breakeven-card {
+      border-radius: 10px;
+      padding: 24px;
+      border-width: 1px;
+      border-style: solid;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .breakeven-card.green {
+      background: var(--success-bg);
+      border-color: var(--success);
+    }
+
+    .breakeven-card.yellow {
+      background: var(--warning-bg);
+      border-color: var(--warning);
+    }
+
+    .breakeven-card.red {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+    }
+
+    .breakeven-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .breakeven-card.green .breakeven-label { color: var(--success); }
+    .breakeven-card.yellow .breakeven-label { color: var(--warning); }
+    .breakeven-card.red .breakeven-label { color: var(--danger); }
+
+    .breakeven-pct {
+      font-size: 4rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .breakeven-card.green .breakeven-pct { color: var(--success); }
+    .breakeven-card.yellow .breakeven-pct { color: var(--warning); }
+    .breakeven-card.red .breakeven-pct { color: var(--danger); }
+
+    .breakeven-note {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .breakeven-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
+    .breakeven-card.green .breakeven-badge { background: rgba(16,185,129,0.15); color: var(--success); }
+    .breakeven-card.yellow .breakeven-badge { background: rgba(245,158,11,0.15); color: var(--warning); }
+    .breakeven-card.red .breakeven-badge { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+    /* ─── FULL-WIDTH SECTION ─────────────────────────────── */
+    .full-width {
+      max-width: 960px;
+      margin: 20px auto 0;
+    }
+
+    /* ─── INVERSE MODE ───────────────────────────────────── */
+    .inverse-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+    }
+
+    .inverse-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .inverse-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .inverse-pct-display {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+
+    .slider-wrapper {
+      margin-bottom: 24px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--accent);
+      transition: transform 0.1s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid var(--bg);
+    }
+
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .slider-tick {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .inverse-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 580px) {
+      .inverse-results { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 380px) {
+      .inverse-results { grid-template-columns: 1fr; }
+    }
+
+    .inverse-metric {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .inverse-metric-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .inverse-metric-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+    }
+
+    .inverse-metric-value.positive { color: var(--success); }
+    .inverse-metric-value.negative { color: var(--danger); }
+    .inverse-metric-value.neutral { color: var(--text); }
+
+    .inverse-verdict {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .inverse-verdict.positive { background: var(--success-bg); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
+    .inverse-verdict.negative { background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
+
+    /* ─── FOOTER ROW ─────────────────────────────────────── */
+    .summary-row {
+      max-width: 960px;
+      margin: 20px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 580px) {
+      .summary-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    .summary-stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+
+    .summary-stat-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .summary-stat-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+
+    /* ─── MISC ───────────────────────────────────────────── */
+    .note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ─── SAVINGS TOGGLES ────────────────────────────────── */
+    .savings-toggle-row {
+      margin-bottom: 14px;
+    }
+
+    .savings-toggle-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-label input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg);
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .toggle-label input[type="checkbox"]:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .toggle-label input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .toggle-text {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .toggle-label:hover .toggle-text {
+      color: var(--text);
+    }
+
+    .savings-fields {
+      margin-top: 12px;
+      padding-left: 26px;
+    }
+
+    .two-col-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .card-title-hint {
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0;
+      text-transform: none;
+      margin-left: 6px;
+    }
+
+    /* ─── REGIME SELECTOR ───────────────────────────────── */
+    .regime-selector {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .regime-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.73rem;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .regime-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .regime-btn.active {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .regime-info {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.5;
+      padding: 7px 10px;
+      background: rgba(255,255,255,0.025);
+      border-radius: 5px;
+      border-left: 2px solid var(--accent);
+    }
+
+    .cap-readonly {
+      background: rgba(255,255,255,0.025) !important;
+      cursor: default;
+      opacity: 0.75;
+    }
+
+    .comp-result {
+      margin-top: 10px;
+      padding: 9px 12px;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 6px;
+    }
+
+    .comp-result-main {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .comp-result-formula {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" fill="none" width="28" height="32">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="24" y2="28" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#818CF8"/>
+            <stop offset="100%" stop-color="#4338CA"/>
+          </linearGradient>
+        </defs>
+        <path d="M12 1L23 5V14C23 22 17.5 27 12 28.5C6.5 27 1 22 1 14V5Z" fill="url(#g)"/>
+        <path d="M4 7.5V14.5C4 19.5 7.5 24 12 26" stroke="white" stroke-width="0.7" stroke-opacity="0.25" stroke-linecap="round" fill="none"/>
+        <circle cx="12" cy="15" r="5" stroke="white" stroke-width="1.2" stroke-opacity="0.35"/>
+        <circle cx="12" cy="15" r="2.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <div class="header-wordmark">BagMonitor</div>
+      <div class="header-subtitle">ROI Calculator</div>
+    </div>
+  </header>
+
+  <!-- SCENARIO SELECTOR -->
+  <section class="scenario-section">
+    <div class="scenario-label">Scenario</div>
+    <div class="scenario-tabs">
+      <button class="scenario-tab active" data-scenario="0">Sky — Int'l Routes</button>
+      <button class="scenario-tab" data-scenario="1">Sky — Pilot Route</button>
+      <button class="scenario-tab" data-scenario="2">JetSMART</button>
+      <button class="scenario-tab" data-scenario="3">Iberia</button>
+      <button class="scenario-tab" data-scenario="4">Gol Airlines</button>
+      <button class="scenario-tab" data-scenario="5">Domus Airlines</button>
+      <button class="scenario-tab" data-scenario="6">Custom</button>
+    </div>
+  </section>
+
+  <!-- MAIN TWO-COLUMN -->
+  <div class="main">
+
+    <!-- LEFT: INPUTS -->
+    <div>
+      <!-- Hardware -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div class="card-title">Hardware</div>
+
+        <div class="input-group">
+          <label class="input-label" for="tagCost">Tag cost</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">$</span>
+            <input type="number" id="tagCost" class="has-prefix" value="1" min="0" step="0.50">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label" for="usesPerTag">Uses per tag</label>
+          <div class="input-wrapper">
+            <input type="number" id="usesPerTag" value="1" min="1" step="1">
+          </div>
+          <div class="note" id="costPerBagNote">Amortized cost per bag: <strong>$1.00</strong></div>
+        </div>
+      </div>
+
+      <!-- Coverage -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div class="card-title">Coverage</div>
+
+        <div class="input-group">
+          <label class="input-label" for="bagsPerYear">Bags covered per year</label>
+          <div class="input-wrapper">
+            <input type="number" id="bagsPerYear" value="300000" min="0" step="1000">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label" for="mishandlingRate">
+            Mishandling rate
+            <span class="input-hint">per 1,000 bags</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="number" id="mishandlingRate" class="has-suffix" value="11.2" min="0" step="0.1">
+            <span class="input-suffix">/ 1,000</span>
+          </div>
+          <div class="note">Global avg: 6.3 — International routes avg: 11.2</div>
+        </div>
+      </div>
+
+      <!-- Cost per mishandling -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div class="card-title">Cost per Mishandling Event</div>
+
+        <div class="input-group">
+          <label class="input-label" for="opCost">Operational cost per event</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">$</span>
+            <input type="number" id="opCost" class="has-prefix" value="150" min="0" step="1">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label" for="worldTracerCost">World Tracer cost per claim</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">$</span>
+            <input type="number" id="worldTracerCost" class="has-prefix" value="22" min="0" step="1">
+          </div>
+        </div>
+
+        <div class="note" id="totalEventCost">Total cost per event: <strong>$172</strong></div>
+      </div>
+
+      <!-- BagMonitor pricing -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div class="card-title">BagMonitor Pricing</div>
+
+        <div class="input-group">
+          <label class="input-label" for="annualSub">Annual subscription</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">$</span>
+            <input type="number" id="annualSub" class="has-prefix" value="50000" min="0" step="1000">
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional savings -->
+      <div class="card">
+        <div class="card-title">
+          Additional Savings
+          <span class="card-title-hint">— toggle to include</span>
+        </div>
+
+        <!-- Passenger compensation -->
+        <div class="savings-toggle-row">
+          <label class="toggle-label">
+            <input type="checkbox" id="enableCompensation">
+            <span class="toggle-text">Passenger compensation risk</span>
+          </label>
+          <div class="savings-fields" id="compensationFields" style="display:none;">
+            <!-- Regime selector -->
+            <div class="regime-selector">
+              <button class="regime-btn active" data-regime="montreal">Montreal Conv.</button>
+              <button class="regime-btn" data-regime="usdot">US DOT</button>
+              <button class="regime-btn" data-regime="eu">EU Flights</button>
+              <button class="regime-btn" data-regime="custom">Custom</button>
+            </div>
+            <!-- Regime description -->
+            <div class="regime-info" id="regimeInfo">Montreal Convention 1999 · 1,519 SDRs ≈ $2,050 USD per passenger · Effective Dec 28, 2024 · International routes between MC99 signatories</div>
+            <!-- Cap input (readonly except in custom mode) -->
+            <div class="input-group" style="margin-bottom:10px;">
+              <label class="input-label" for="liabilityCap" id="liabilityCapLabel">Liability cap per passenger</label>
+              <div class="input-wrapper">
+                <span class="input-prefix">$</span>
+                <input type="number" id="liabilityCap" class="has-prefix cap-readonly" value="2050" min="0" step="50" readonly>
+              </div>
+            </div>
+            <!-- Claim rate + settlement factor -->
+            <div class="two-col-inputs" style="margin-bottom:8px;">
+              <div>
+                <label class="input-label" for="claimRate">Claim rate <span class="input-hint">% of events</span></label>
+                <div class="input-wrapper">
+                  <input type="number" id="claimRate" class="has-suffix" value="15" min="0" max="100" step="1">
+                  <span class="input-suffix">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="input-label" for="settlementFactor">Avg. settlement <span class="input-hint">% of cap</span></label>
+                <div class="input-wrapper">
+                  <input type="number" id="settlementFactor" class="has-suffix" value="50" min="0" max="100" step="5">
+                  <span class="input-suffix">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="note" style="margin-bottom:6px;">Claim rate: share of mishandled-bag events where the passenger files a formal claim. Settlement: average payout as % of the regulatory maximum.</div>
+            <!-- Computed expected cost per event -->
+            <div class="comp-result">
+              <div class="comp-result-main">Expected compensation per event: <span id="compExpected">$154</span></div>
+              <div class="comp-result-formula" id="compFormula">$2,050 cap × 15% claim rate × 50% settlement</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Call center -->
+        <div class="savings-toggle-row">
+          <label class="toggle-label">
+            <input type="checkbox" id="enableCallCenter">
+            <span class="toggle-text">Call center cost per event</span>
+          </label>
+          <div class="savings-fields" id="callCenterFields" style="display:none;">
+            <div class="two-col-inputs">
+              <div>
+                <label class="input-label" for="callsPerEvent">Calls per event</label>
+                <input type="number" id="callsPerEvent" value="3" min="0" step="1">
+              </div>
+              <div>
+                <label class="input-label" for="costPerCall">Cost per call</label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">$</span>
+                  <input type="number" id="costPerCall" class="has-prefix" value="10" min="0" step="1">
+                </div>
+              </div>
+            </div>
+            <div class="note" id="callCenterTotal">Total per event: <strong>$30</strong></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Ancillary revenue -->
+        <div class="savings-toggle-row">
+          <label class="toggle-label">
+            <input type="checkbox" id="enableAncillary">
+            <span class="toggle-text">Ancillary revenue per bag (B2B2C)</span>
+          </label>
+          <div class="savings-fields" id="ancillaryFields" style="display:none;">
+            <div class="input-wrapper">
+              <span class="input-prefix">$</span>
+              <input type="number" id="ancillaryPerBag" class="has-prefix" value="1.50" min="0" step="0.10">
+            </div>
+            <div class="note">BagMonitor's share of the passenger tracking fee · offsets hardware cost directly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: OUTPUTS -->
+    <div>
+
+      <!-- Breakeven hero -->
+      <div id="breakevenCard" class="breakeven-card green" style="margin-bottom: 16px;">
+        <div class="breakeven-label">Required reduction to break even</div>
+        <div class="breakeven-pct" id="breakevenPct">9.7%</div>
+        <div class="breakeven-note">BagMonitor must prevent this share of current mishandling events to justify the investment.</div>
+        <div class="breakeven-badge" id="breakevenBadge">Achievable without pilot data</div>
+      </div>
+
+      <!-- Key metrics -->
+      <div class="card">
+        <div class="card-title">Airline Investment</div>
+
+        <div class="metric">
+          <div class="metric-label">Annual hardware cost</div>
+          <div class="metric-value" id="outHardware">$150,000</div>
+          <div class="metric-sub">Tags purchased at cost · amortized over uses</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric">
+          <div class="metric-label">Total annual airline investment</div>
+          <div class="metric-value" id="outTotal">$200,000</div>
+          <div class="metric-sub">Hardware + subscription</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric">
+          <div class="metric-label">Current annual mishandling cost</div>
+          <div class="metric-value" id="outMishandling">$580,160</div>
+          <div class="metric-sub" id="outMishandlingEvents">3,360 events × $172 / event</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric">
+          <div class="metric-label">Events that need to be prevented</div>
+          <div class="metric-value" id="outEventsToPrevent">1,163</div>
+          <div class="metric-sub">To recover total airline investment</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric" id="ancillaryMetric" style="display:none;">
+          <div class="metric-label">Ancillary revenue offset</div>
+          <div class="metric-value" id="outAncillary" style="color:var(--success);">$0</div>
+          <div class="metric-sub">Reduces net cost to airline</div>
+        </div>
+
+        <div class="divider" id="ancillaryDivider" style="display:none;"></div>
+
+        <div class="metric">
+          <div class="metric-label">Effective cost per event</div>
+          <div class="metric-value" id="outEffectiveCost">$172</div>
+          <div class="metric-sub" id="outEffectiveCostSub">Operational + World Tracer</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric" style="margin-bottom:0;">
+          <div class="metric-label">Coverage cost per bag</div>
+          <div class="metric-value" id="outCostPerBag">$0.50</div>
+          <div class="metric-sub">Tag cost ÷ uses per tag · hardware only</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY STATS ROW -->
+  <div class="summary-row">
+    <div class="summary-stat">
+      <div class="summary-stat-label">Bags / year</div>
+      <div class="summary-stat-value" id="sumBags">300,000</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-stat-label">Mishandling events / year</div>
+      <div class="summary-stat-value" id="sumEvents">3,360</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-stat-label">Cost per event</div>
+      <div class="summary-stat-value" id="sumCostEvent">$172</div>
+    </div>
+  </div>
+
+  <!-- INVERSE MODE -->
+  <div class="full-width">
+    <div class="inverse-card">
+      <div class="inverse-header">
+        <div class="inverse-title">What if BagMonitor achieves</div>
+        <div class="inverse-pct-display" id="sliderDisplay">20%</div>
+        <div class="inverse-title">reduction?</div>
+      </div>
+
+      <div class="slider-wrapper">
+        <input type="range" id="reductionSlider" min="0" max="100" value="20" step="1">
+        <div class="slider-ticks">
+          <span class="slider-tick">0%</span>
+          <span class="slider-tick">25%</span>
+          <span class="slider-tick">50%</span>
+          <span class="slider-tick">75%</span>
+          <span class="slider-tick">100%</span>
+        </div>
+      </div>
+
+      <div class="inverse-results">
+        <div class="inverse-metric">
+          <div class="inverse-metric-label">Events prevented</div>
+          <div class="inverse-metric-value neutral" id="invEvents">672</div>
+        </div>
+        <div class="inverse-metric">
+          <div class="inverse-metric-label">Savings generated</div>
+          <div class="inverse-metric-value positive" id="invSavings">$115,584</div>
+        </div>
+        <div class="inverse-metric">
+          <div class="inverse-metric-label">Net result</div>
+          <div class="inverse-metric-value" id="invNet">−$84,416</div>
+        </div>
+      </div>
+
+      <div class="inverse-verdict" id="invVerdict">
+        At 20% reduction, the investment does not yet break even. Need 9.7% or more.
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ─── SCENARIOS ──────────────────────────────────────────────────────────────
+  // regime: which regulatory framework applies for passenger compensation
+  // null regime on Custom = don't override current regime selection
+  const SCENARIOS = [
+    {
+      name:         "Sky — Int'l Routes",
+      note:         "Chilean LCC · 36 aircraft · Int'l airports ARG/BRA feeding SCL & LIM hubs · Manual conciliation (bingo sheets)",
+      bags:         300000,  rate: 11.2, sub: 50000,
+      regime:       "montreal",   // International routes Chile–Argentina–Brazil (MC99 signatories)
+      compensation: true          // Arnold: "impacta económicamente por las compensaciones" (separate from $150 operational)
+    },
+    {
+      name:         "Sky — Pilot Route",
+      note:         "Single international route pilot (one segment, e.g. Buenos Aires–Santiago)",
+      bags:         80000,   rate: 11.2, sub: 15000,
+      regime:       "montreal",
+      compensation: true
+    },
+    {
+      name:         "JetSMART",
+      note:         "Chilean ultra-LCC · South American int'l routes · Active BagMonitor trial · Reusable tag model",
+      bags:         450000,  rate: 10.0, sub: 35000,
+      regime:       "montreal",   // International routes within South America (MC99)
+      compensation: true
+    },
+    {
+      name:         "Iberia",
+      note:         "Spanish legacy carrier (IAG group) · EU-departing int'l routes · 'Se nos va muchísimo dinero en indemnizaciones'",
+      bags:         380000,  rate: 8.0,  sub: 75000,
+      regime:       "eu",          // EU-departing flights → EC Reg 2027/97 → Montreal cap
+      compensation: true           // Carolina named indemnizations as primary pain point
+    },
+    {
+      name:         "Gol Airlines",
+      note:         "Brazilian LCC · Brazil–Argentina int'l ops · ~40,000 pax/month at Aeroparque · Manual bingo sheets",
+      bags:         320000,  rate: 9.5,  sub: 45000,
+      regime:       "montreal",   // International routes Brazil–Argentina (MC99)
+      compensation: true
+    },
+    {
+      name:         "Domus Airlines",
+      note:         "Boutique premium startup · 56-seat all-business A220 · Buenos Aires–Miami · Point-to-point, own ground ops · Value prop: passenger CX, not cost savings",
+      bags:         48000,   rate: 3.0,  sub: 8000,
+      regime:       "montreal",   // International Argentina–USA (MC99; US DOT $4,700 applies only on US domestic legs)
+      compensation: false          // Fernando: "el riesgo de perder equipaje es mínimo" · pitch is CX premium, not liability
+    },
+    {
+      name:         "Custom",
+      note:         null,
+      bags:         null,    rate: null, sub: null,
+      regime:       null,          // Keep current regime selection
+      compensation: null           // Keep current toggle state
+    },
+  ];
+
+  // ─── REGULATORY REGIMES ─────────────────────────────────────────────────────
+  const REGIMES = {
+    montreal: {
+      cap: 2050,
+      capLabel: 'Liability cap per passenger',
+      info: 'Montreal Convention 1999 · 1,519 SDRs ≈ $2,050 USD per passenger · Effective Dec 28, 2024 · International routes between MC99 signatory states'
+    },
+    usdot: {
+      cap: 4700,
+      capLabel: 'Liability minimum per passenger (floor)',
+      info: 'US DOT · 14 CFR § 254.4 · $4,700 minimum floor · Effective Jan 22, 2025 · Domestic US routes only · Passengers may claim provable damages above this amount'
+    },
+    eu: {
+      cap: 2050,
+      capLabel: 'Liability cap per passenger',
+      info: 'EU Flights · EC Reg. 2027/97 amended by 889/2002 · Implements Montreal Convention · 1,519 SDRs cap · EC 261/2004 does not apply to baggage mishandling'
+    },
+    custom: {
+      cap: null,
+      capLabel: 'Liability cap per passenger',
+      info: 'Custom — enter the applicable regulatory limit or your airline\'s average historical settlement amount per event'
+    }
+  };
+
+  let currentRegime = 'montreal';
+
+  // ─── ELEMENTS ───────────────────────────────────────────────────────────────
+  const $ = id => document.getElementById(id);
+
+  const inputs = {
+    tagCost:          $('tagCost'),
+    usesPerTag:       $('usesPerTag'),
+    bagsPerYear:      $('bagsPerYear'),
+    mishandlingRate:  $('mishandlingRate'),
+    opCost:           $('opCost'),
+    worldTracerCost:  $('worldTracerCost'),
+    annualSub:        $('annualSub'),
+    liabilityCap:     $('liabilityCap'),
+    claimRate:        $('claimRate'),
+    settlementFactor: $('settlementFactor'),
+    callsPerEvent:    $('callsPerEvent'),
+    costPerCall:      $('costPerCall'),
+    ancillaryPerBag:  $('ancillaryPerBag'),
+  };
+
+  const toggles = {
+    compensation: $('enableCompensation'),
+    callCenter:   $('enableCallCenter'),
+    ancillary:    $('enableAncillary'),
+  };
+
+  // ─── FORMATTING ─────────────────────────────────────────────────────────────
+  function fmt(n, decimals = 0) {
+    if (!isFinite(n)) return '—';
+    return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  }
+
+  function fmtUSD(n, decimals = 0) {
+    if (!isFinite(n)) return '—';
+    return '$' + fmt(n, decimals);
+  }
+
+  function fmtPct(n) {
+    if (!isFinite(n) || n > 999) return '>999%';
+    return n.toFixed(1) + '%';
+  }
+
+  // ─── CALCULATE ──────────────────────────────────────────────────────────────
+  function calculate() {
+    const tagCost         = parseFloat(inputs.tagCost.value)         || 0;
+    const usesPerTag      = parseFloat(inputs.usesPerTag.value)      || 1;
+    const bagsPerYear     = parseFloat(inputs.bagsPerYear.value)     || 0;
+    const mishandlingRate = parseFloat(inputs.mishandlingRate.value) || 0;
+    const opCost          = parseFloat(inputs.opCost.value)          || 0;
+    const worldTracerCost = parseFloat(inputs.worldTracerCost.value) || 0;
+    const annualSub       = parseFloat(inputs.annualSub.value)       || 0;
+
+    // Additional savings
+    const useCompensation  = toggles.compensation.checked;
+    const useCallCenter    = toggles.callCenter.checked;
+    const useAncillary     = toggles.ancillary.checked;
+
+    const liabilityCap      = parseFloat(inputs.liabilityCap.value)     || 0;
+    const claimRate         = parseFloat(inputs.claimRate.value)         || 0;
+    const settlementFactor  = parseFloat(inputs.settlementFactor.value)  || 0;
+    const expectedCompPerEvent = liabilityCap * (claimRate / 100) * (settlementFactor / 100);
+    const compensation      = useCompensation ? expectedCompPerEvent : 0;
+
+    const callCenterCost   = useCallCenter
+      ? (parseFloat(inputs.callsPerEvent.value) || 0) * (parseFloat(inputs.costPerCall.value) || 0)
+      : 0;
+    const ancillaryPerBag  = useAncillary ? (parseFloat(inputs.ancillaryPerBag.value) || 0) : 0;
+
+    // Update compensation result display
+    if (useCompensation) {
+      $('compExpected').textContent = fmtUSD(expectedCompPerEvent, 0);
+      $('compFormula').textContent  =
+        `${fmtUSD(liabilityCap)} cap × ${claimRate}% claim rate × ${settlementFactor}% settlement`;
+    }
+
+    // Update call center note
+    if (useCallCenter) {
+      const calls = parseFloat(inputs.callsPerEvent.value) || 0;
+      const cpc   = parseFloat(inputs.costPerCall.value) || 0;
+      $('callCenterTotal').innerHTML = `Total per event: <strong>${fmtUSD(calls * cpc)}</strong>`;
+    }
+
+    const costPerBag        = tagCost / usesPerTag;
+    const annualHardware    = (bagsPerYear / usesPerTag) * tagCost;
+    const annualAncillary   = bagsPerYear * ancillaryPerBag;
+    const netAnnualCost     = annualHardware + annualSub - annualAncillary;
+    const costPerEvent      = opCost + worldTracerCost + compensation + callCenterCost;
+    const annualEvents      = bagsPerYear * (mishandlingRate / 1000);
+    const annualMishandling = annualEvents * costPerEvent;
+    const breakevenPct      = annualMishandling > 0
+                                ? (netAnnualCost / annualMishandling) * 100
+                                : Infinity;
+    const eventsToPrevent   = costPerEvent > 0 ? netAnnualCost / costPerEvent : 0;
+
+    // ── Update notes
+    $('costPerBagNote').innerHTML = `Amortized cost per bag: <strong>${fmtUSD(costPerBag, 2)}</strong>`;
+    $('totalEventCost').innerHTML = `Total cost per event: <strong>${fmtUSD(opCost + worldTracerCost, 0)}</strong>`;
+
+    // ── Breakeven card
+    const card    = $('breakevenCard');
+    const pctEl   = $('breakevenPct');
+    const badgeEl = $('breakevenBadge');
+
+    pctEl.textContent = fmtPct(breakevenPct);
+    card.classList.remove('green', 'yellow', 'red');
+    if (breakevenPct <= 20) {
+      card.classList.add('green');
+      badgeEl.textContent = 'Achievable without pilot data';
+    } else if (breakevenPct <= 40) {
+      card.classList.add('yellow');
+      badgeEl.textContent = 'Requires supporting evidence';
+    } else {
+      card.classList.add('red');
+      badgeEl.textContent = 'Requires strong pilot data';
+    }
+
+    // ── Key metrics
+    $('outHardware').textContent          = fmtUSD(annualHardware);
+    $('outTotal').textContent             = fmtUSD(netAnnualCost);
+    $('outTotal').nextElementSibling.textContent = useAncillary
+      ? `Hardware + subscription − ancillary revenue`
+      : `Hardware + subscription`;
+    $('outMishandling').textContent       = fmtUSD(annualMishandling);
+    $('outMishandlingEvents').textContent = `${fmt(annualEvents, 0)} events × ${fmtUSD(costPerEvent)} / event`;
+    $('outEventsToPrevent').textContent   = fmt(Math.max(0, eventsToPrevent), 0);
+    $('outCostPerBag').textContent        = fmtUSD(costPerBag, 2);
+
+    // ── Ancillary offset metric
+    $('ancillaryMetric').style.display  = useAncillary ? '' : 'none';
+    $('ancillaryDivider').style.display = useAncillary ? '' : 'none';
+    $('outAncillary').textContent       = '−' + fmtUSD(annualAncillary);
+
+    // ── Effective cost per event
+    $('outEffectiveCost').textContent = fmtUSD(costPerEvent);
+    const parts = ['Operational', 'World Tracer'];
+    if (useCompensation) parts.push('Compensation');
+    if (useCallCenter)   parts.push('Call center');
+    $('outEffectiveCostSub').textContent = parts.join(' + ');
+
+    // ── Summary row
+    $('sumBags').textContent      = fmt(bagsPerYear);
+    $('sumEvents').textContent    = fmt(annualEvents, 0);
+    $('sumCostEvent').textContent = fmtUSD(costPerEvent);
+
+    // ── Inverse mode
+    updateInverse(annualEvents, costPerEvent, netAnnualCost, breakevenPct);
+  }
+
+  // ─── INVERSE MODE ───────────────────────────────────────────────────────────
+  function updateInverse(annualEvents, costPerEvent, totalCost, breakevenPct) {
+    const slider    = $('reductionSlider');
+    const reduction = parseFloat(slider.value);
+
+    $('sliderDisplay').textContent = reduction.toFixed(0) + '%';
+
+    const eventsPrevented = annualEvents * (reduction / 100);
+    const savings         = eventsPrevented * costPerEvent;
+    const net             = savings - totalCost;
+
+    $('invEvents').textContent  = fmt(eventsPrevented, 0);
+    $('invSavings').textContent = fmtUSD(savings);
+
+    const netEl = $('invNet');
+    netEl.textContent = (net >= 0 ? '+' : '−') + fmtUSD(Math.abs(net));
+    netEl.className   = 'inverse-metric-value ' + (net >= 0 ? 'positive' : 'negative');
+
+    const verdict = $('invVerdict');
+    if (net >= 0) {
+      verdict.textContent = `At ${reduction}% reduction, the investment breaks even — generating a net return of ${fmtUSD(net)}.`;
+      verdict.className   = 'inverse-verdict positive';
+    } else {
+      const needed = isFinite(breakevenPct) && breakevenPct <= 999
+        ? ` Need ${breakevenPct.toFixed(1)}% or more.`
+        : '';
+      verdict.textContent = `At ${reduction}% reduction, the investment does not yet break even.${needed}`;
+      verdict.className   = 'inverse-verdict negative';
+    }
+  }
+
+  // ─── APPLY REGIME ───────────────────────────────────────────────────────────
+  function applyRegime(regimeName) {
+    if (!regimeName) return; // null = keep current (Custom scenario)
+    currentRegime = regimeName;
+
+    document.querySelectorAll('.regime-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.regime === regimeName);
+    });
+
+    const regime   = REGIMES[currentRegime];
+    const capInput = inputs.liabilityCap;
+
+    $('regimeInfo').textContent        = regime.info;
+    $('liabilityCapLabel').textContent = regime.capLabel;
+
+    if (currentRegime === 'custom') {
+      capInput.removeAttribute('readonly');
+      capInput.classList.remove('cap-readonly');
+    } else {
+      capInput.value = regime.cap;
+      capInput.setAttribute('readonly', true);
+      capInput.classList.add('cap-readonly');
+    }
+  }
+
+  // ─── REGIME BUTTONS ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.regime-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyRegime(btn.dataset.regime);
+      calculate();
+    });
+  });
+
+  // ─── TOGGLE VISIBILITY ──────────────────────────────────────────────────────
+  function bindToggle(checkboxId, fieldsId) {
+    const cb     = $(checkboxId);
+    const fields = $(fieldsId);
+    cb.addEventListener('change', () => {
+      fields.style.display = cb.checked ? '' : 'none';
+      calculate();
+    });
+    // Additional inputs inside this toggle also trigger calculate
+    fields.querySelectorAll('input[type="number"]').forEach(el => {
+      el.addEventListener('input', calculate);
+    });
+  }
+
+  bindToggle('enableCompensation', 'compensationFields');
+  bindToggle('enableCallCenter',   'callCenterFields');
+  bindToggle('enableAncillary',    'ancillaryFields');
+
+  // ─── SCENARIO TABS ──────────────────────────────────────────────────────────
+  let currentScenario = 0;
+
+  // Scenario description bar (injected below tabs)
+  const scenarioNote = document.createElement('div');
+  scenarioNote.style.cssText = 'font-size:0.72rem;color:var(--text-muted);margin-top:8px;min-height:1.2em;line-height:1.5;';
+  document.querySelector('.scenario-tabs').after(scenarioNote);
+
+  function loadScenario(idx) {
+    document.querySelectorAll('.scenario-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+    currentScenario = idx;
+    const s = SCENARIOS[idx];
+
+    if (s.bags !== null) {
+      inputs.bagsPerYear.value     = s.bags;
+      inputs.mishandlingRate.value = s.rate;
+      inputs.annualSub.value       = s.sub;
+    }
+
+    if (s.compensation !== null) {
+      toggles.compensation.checked                  = s.compensation;
+      $('compensationFields').style.display = s.compensation ? '' : 'none';
+    }
+
+    scenarioNote.textContent = s.note || '';
+    applyRegime(s.regime);
+    calculate();
+  }
+
+  document.querySelectorAll('.scenario-tab').forEach(tab => {
+    tab.addEventListener('click', () => loadScenario(parseInt(tab.dataset.scenario)));
+  });
+
+  // ─── INPUT LISTENERS ────────────────────────────────────────────────────────
+  const CUSTOM_IDX = SCENARIOS.length - 1; // last scenario is always Custom
+
+  ['tagCost','usesPerTag','bagsPerYear','mishandlingRate','opCost','worldTracerCost','annualSub'].forEach(id => {
+    $(id).addEventListener('input', () => {
+      if (['bagsPerYear','mishandlingRate','annualSub'].includes(id)) {
+        document.querySelectorAll('.scenario-tab').forEach((t, i) => {
+          t.classList.toggle('active', i === CUSTOM_IDX);
+        });
+        currentScenario = CUSTOM_IDX;
+        scenarioNote.textContent = '';
+      }
+      calculate();
+    });
+  });
+
+  $('reductionSlider').addEventListener('input', calculate);
+
+  // ─── INIT ───────────────────────────────────────────────────────────────────
+  loadScenario(0);
+</script>
+</body>
+</html>

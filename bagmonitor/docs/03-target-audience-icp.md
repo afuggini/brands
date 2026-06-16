@@ -56,7 +56,7 @@ Understanding regional performance gaps is important for tailoring the sales pit
 In the LATAM context, airport operators may function as a B2B distribution layer rather than just a secondary segment:
 
 - The airport acquires BagMonitor and offers it as a terminal-wide infrastructure service
-- Airlines receive access as part of their existing commercial relationship with the airport (analogous to how SITA messaging is reportedly bundled into check-in island fees at SEISA)
+- Airlines receive access as part of their existing commercial relationship with the airport (analogous to how SITA messaging is reportedly bundled into check-in island fees at EZEIZA)
 - The PSA/security agency benefits from identification capability without a separate procurement process
 - Ground handlers operate within the infrastructure the airport deploys
 

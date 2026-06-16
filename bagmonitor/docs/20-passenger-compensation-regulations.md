@@ -352,7 +352,7 @@ Every airline we have spoken to confirms that passenger compensation is a real, 
 
 This means BagMonitor cannot realistically present a specific compensation savings number in a first meeting. The correct approach:
 
-1. Lead with the $172 confirmed baseline (operational + WorldTracer) — fully documentable, no NDA required
+1. Lead with the $150 confirmed operational baseline — fully documentable, no NDA required. Note WorldTracer ($22) as a separate, conditional cost that applies when a bag enters active tracing
 2. Frame compensation as a separate, additional layer using the regulatory figures: "Airlines are exposed to up to $2,000–2,100 per passenger under the Montreal Convention for international routes, and $4,700 on US domestic routes — your actual claims data will tell us what portion of that exposure you're realizing"
 3. Invite the prospect to layer in their own claims data for a customized business case
 

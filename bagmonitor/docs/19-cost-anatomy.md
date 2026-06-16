@@ -11,10 +11,10 @@ A single mishandling event generates costs across three distinct layers. Most an
 | Layer | What It Covers | Amount | Source |
 |---|---|---|---|
 | **Operational** | Repatriation logistics, staff time, courier fees | ~$150/event | IATA estimate; Sky Airlines confirmed |
-| **WorldTracer** | Per-use fee for SITA's bag tracing and matching system | ~$22/event | Industry standard |
+| **WorldTracer** | Per-use fee for SITA's bag tracing and matching system — activates only when the bag enters active tracing (location unknown) | ~$22/activation | Industry standard |
 | **Passenger compensation** | Legal liability for delayed/lost/damaged bags | Jurisdiction-dependent (see below) | Montreal Convention, US DOT, EC Reg. 2027/97 |
 
-**Total minimum confirmed**: $172/event before any passenger compensation.
+**Confirmed operational floor**: $150/event. WorldTracer ($22) applies additionally when the bag requires active tracing — not every mishandling event triggers it. A delay where the airline already knows the bag's location (e.g., confirmed held at a connecting hub) may not activate WorldTracer at all.
 
 Passenger compensation is an additional, separate obligation that varies by jurisdiction, event type (delay vs. loss vs. damage), and whether the passenger files a claim.
 
@@ -143,12 +143,12 @@ The following model is appropriate for first-meeting business case construction:
 | Component | Amount | Notes |
 |---|---|---|
 | Operational (IATA reference) | $150 | Sky Airlines confirmed; includes traslado + staff |
-| WorldTracer | $22 | Per-use system fee |
-| **Confirmed baseline** | **$172** | Use this as the conservative floor |
+| WorldTracer | $22 | Conditional — only when bag enters active tracing (location unknown) |
+| **Confirmed baseline** | **$150** | Use this as the conservative floor; WorldTracer adds $22 when activated |
 | Passenger compensation (conservative) | +$150–$500 | Applies when passenger files a claim; varies by jurisdiction, event type, outcome |
-| **Full exposure per claimed event** | **$322–$672+** | Depends on claim rate and jurisdiction |
+| **Full exposure per claimed event** | **$300–$650+** | Operational + WorldTracer (if activated) + compensation |
 
-The conservative approach in sales conversations: lead with $172 (fully documentable). When the prospect raises compensation exposure, introduce the regulatory framework above — it establishes that compensation is a real, separate cost layer without requiring the airline to disclose its internal claims data.
+The conservative approach in sales conversations: lead with $150 (fully documentable, always applies). WorldTracer is a separate $22 that applies when the bag enters active tracing — not every event. When the prospect raises compensation exposure, introduce the regulatory framework above — it establishes that compensation is a real, separate cost layer without requiring the airline to disclose its internal claims data.
 
 ---
 

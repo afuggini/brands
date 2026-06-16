@@ -27,23 +27,6 @@ BagMonitor is built on three integrated pillars.
 
 **Market Context:** The industry is actively moving toward digital tag infrastructure. 38% of passengers already say a digital ID tag would increase their trust in checked baggage. Airlines are investing heavily — 42% already provide real-time baggage status to passengers, and that figure is expected to reach 82% by 2027. BagMonitor's smart tag layer is the physical foundation that makes operator-side tracking possible without relying on consumer devices like AirTags.
 
-**BHS Operational Context — How Tags Move Through the Airport**
-
-BagMonitor tags operate within the standard airport BHS (Baggage Handling System) flow. Based on firsthand field knowledge of the SEISA Level 3 inspection area:
-
-1. **Check-in** — bag accepted, BCM (Baggage Check-in Message / BSM) issued via SITA standard
-2. **BHS entry** — bag enters the conveyor system
-3. **CT scanner zone** — reading arches (arcos de lectura) before each tomograph read the bag's barcode via multiple heads and share the data to the CT scanner software over TCP. Inside the CT, the bag gets an internal sequence number. After the CT, the bag must be re-identified to confirm the same bag that entered is the one that exits — a before/after identification tick. Recommended reader placement: one gateway before the CT zone and one after (~30-40m total span; CT section ~10-12m).
-4. **Pre-classification** — routing decision
-5. **Sorting carousels** — bag loops until ground crew picks it up
-6. **Tarmac** — camioncitos move bags from carousel to aircraft hold
-
-**The gap BagMonitor closes:** A BPM (Baggage Processed Message) should be sent at end of step 4 to signal that the bag completed the BHS process. This message is a SITA standard but is not consistently being sent — airlines receive the BCM from check-in but get no automatic confirmation the bag reached the aircraft. BagMonitor's continuous zone tracking, culminating in a read at aircraft loading, provides the data layer to generate a more accurate BPM trigger than classification alone.
-
-**Carousel failure mode (real-world):** If ground crew doesn't pick up bags from a carousel (labor slowdown, timing), bags pile up and can fall into the carousel pit ("fosa"). If a BPM were sent from classification, the airline believes the bag was processed — but it's still on the carousel. A BagMonitor read at aircraft loading detects this failure.
-
-**Tag recovery:** Airlines operating round-trip routes can recover tags at destination and return them on the inbound flight. Recovery won't be 100%, but partial recovery reduces per-tag cost and is substantially more sustainable than disposable alternatives.
-
 ## SaaS Monitoring Platform
 
 **Description:** Cloud-based operational platform for real-time baggage lifecycle monitoring, alerting, analytics, and reporting.
@@ -117,7 +100,6 @@ Modern aircraft have internet connectivity. A gateway installed in an aircraft h
 | Amadeus | Primary named integration |
 | Departure Control Systems (DCS) | Core airline infrastructure |
 | Baggage Reconciliation Systems (BRS) | Core baggage infrastructure |
-| CT scanner software (tomógrafo) | Via TCP — reading arches already use this protocol before each CT scanner |
 | Airline mobile apps | Passenger-facing |
 | Passenger notification systems | Comms layer |
 | CRM platforms | Customer data |

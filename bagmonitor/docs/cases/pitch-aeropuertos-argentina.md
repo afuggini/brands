@@ -31,6 +31,7 @@ AA gestiona 35 aeropuertos en Argentina. La calidad de las operaciones de equipa
 - Los métodos actuales en terminales como Ezeiza son manuales: scanners de mano y listas de papel (confirmado en Aerolíneas Argentinas, mayo 2026)
 - La PSA necesita identificación de equipaje para sus procesos de seguridad — hoy lo hace con métodos también manuales
 - No existe visibilidad en tiempo real entre clasificación y carga a bodega. El BPM (Baggage Processed Message) no se envía de forma consistente — nadie sabe si un bolso clasificado llegó al avión hasta que el vuelo ya salió
+- Cuando un tomógrafo genera un "no pic" — falla en obtener la imagen de la valija — la valija se desvía a inspección secundaria y desaparece del sistema hasta que la PSA la libera. Hoy no existe ninguna alerta automática si esa valija no regresa a tiempo antes del cierre del vuelo. En Ezeiza hay un tomógrafo con el generador fallado que genera ráfagas de hasta 20 no pics consecutivos: 20 valijas desviadas al mismo tiempo, sin visibilidad, sin alerta
 
 El costo operativo confirmado de un evento de mishandling es de al menos **$150 por valija** (logística de repatriación, staff, gestión del caso). WorldTracer suma $22 adicionales cuando la valija entra en trazado activo — no aplica en todos los casos. Más compensación al pasajero si presenta reclamo. En ciudades como São Paulo, aeropuertos similares ya enfrentan juicios reales por pérdidas — una tendencia que avanza hacia el mercado argentino.
 

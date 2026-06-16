@@ -36,6 +36,13 @@ Global passenger traffic is expected to reach 8 billion by 2037. Airlines and ai
 **7. The airport-as-hub narrative**
 Airport operators — not airlines — may be the most efficient entry point. An airport like EZE/EZEIZA already bundles SITA services into the fees charged to airlines for check-in islands; airlines pay without a separate procurement process. BagMonitor can follow the same model: the airport acquires the solution and makes it available to all carriers operating in its terminals, while also delivering security value to the PSA. One customer, multiple beneficiaries, no multi-stakeholder coordination required.
 
+**8. The secondary inspection gap**
+When a CT scanner fails to image a bag — a "no pic" event — the bag is diverted to manual secondary inspection. The airline and airport lose visibility of it entirely. If inspection runs long, the flight departs without the bag and no system triggered an alert. At airports with recurring scanner hardware failures, a single fault can generate bursts of 20+ consecutive no pic events — mass diversions with zero operational visibility.
+
+BagMonitor gateways at secondary inspection entry and exit close this gap: the system tracks which bags entered, how long they've been held, and whether they'll make their flight. The alert fires before departure, not after.
+
+*Applies to: airport operators and airlines equally.*
+
 ## GTM Entry Point — Airport Operator Model
 
 Field intelligence (Pablo Ferrari, Vanderlande, May 2026) suggests that approaching airport operators directly — rather than airlines or security agencies — may be the lowest-friction GTM path in LATAM.

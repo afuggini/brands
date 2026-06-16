@@ -119,6 +119,19 @@ These quotes from SITA, IATA, and ACI leaders can inform positioning language an
 > *"Seamless integration between systems, shared accountability, and data-led strategies are not just ideal — they are essential."*
 > — Darryl Dowd, VP Safety, Security and Operations, ACI World
 
+## Airline Executive Signals (Public Sources, c.2024)
+
+Statements from named airline and industry executives, recorded in public video content. These complement the SITA/IATA data with practitioner-level validation.
+
+**Bluetooth is the declared future of baggage tracking**
+Julia Sattel, former President of Airlines at Amadeus, stated explicitly that continuous, uninterrupted Bluetooth-based tracking is where the industry is heading — providing real-time visibility to both the airline and the passenger. This directly validates BagMonitor's technology architecture as aligned with the direction senior industry executives are publicly advocating.
+
+**Zero-infrastructure deployment is viable at scale**
+Timos Korosis (Ground Ops, Aegean Airlines) described rolling out bag tracking across remote Greek islands where no existing baggage infrastructure existed. The constraint was identical to what BagMonitor faces with low-cost carriers and secondary airports: no RFID readers, no fixed scanners, minimal IT. Aegean solved it with app-based tools. This is real-world evidence that the "no fixed infrastructure" argument holds at airline scale, not just in a controlled pilot.
+
+**Data layers can drive systemic change beyond operations**
+Aegean deployed BI analytics to analyze baggage flows across their network and discovered that only six airports in Greece had customs authorities — forcing Schengen-to-non-Schengen transfer passengers to re-check bags in Athens, artificially inflating Athens' mishandling rate. Aegean used that data to lobby Greek authorities successfully, expanding customs presence to more airports and eliminating the root cause. This illustrates that a data layer like BagMonitor's has value beyond operational efficiency: it can surface structural problems invisible to manual reporting, and give airlines the quantitative case to negotiate with regulators and airport authorities.
+
 ## Sources & Update Schedule
 
 | Source | Year | Notes |

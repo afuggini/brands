@@ -37,6 +37,20 @@ These are third-party verified figures that can be used in sales conversations a
 | International vs domestic mishandling rate gap | 11.2 vs 1.9 per 1,000 pax | SITA 2025 |
 | Global passenger traffic forecast (2037) | 8 billion | IATA via SITA 2025 |
 
+## Operator-Validated Benchmarks (Public Sources, c.2024)
+
+These figures come from airline operators speaking publicly about their own operations. They corroborate IATA/SITA data with ground-level specificity and can be used in sales conversations with attribution to the named airline.
+
+| Metric | Figure | Source |
+|---|---|---|
+| Direct cost per mishandled bag (personnel + transfer) | €100–$150 | Timos Korosis, Head of Ground Ops, Aegean Airlines |
+| Bags reflighted by 2 agents in 3 hours during full BHS breakdown | 600 bags | Timos Korosis, Aegean Airlines (Athens BHS outage) |
+| Airport bag drop transaction time with electronic tag | < 30 seconds | Gus Naughton, Innovation Engineering Lead, Alaska Airlines |
+
+**Context on the Aegean BHS outage figure:** During a complete Baggage Handling System failure in Athens that stranded over 1,000 bags, two agents using a modern app-based system reflighted 600 bags in three hours. Without the system, the same task would have taken days and disrupted the entire workforce. This is a direct benchmark for the operational resilience value BagMonitor provides.
+
+**Context on the Alaska electronic tag figure:** Alaska Airlines tested reducing the airport bag-drop interaction to under 30 seconds by completing all check-in steps at home (tag update via smartphone, up to 24 hours before departure). A prior trial of the same concept failed in 2015; the 2024 retry succeeded because the underlying technology had matured — a useful precedent when buyers cite past failed experiments as a reason not to invest.
+
 ## Regional Benchmark Detail (Source: SITA 2025)
 
 | Region | Rate 2007 | Rate 2024 | Change |

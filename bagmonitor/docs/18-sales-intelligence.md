@@ -276,3 +276,33 @@ Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga V
 | Pablo García | Aviación News / CBR | Consultor de RRPP | Coordinar Lima + nota en Aviación News + vuelo testigo. |
 | Fernando | Domus Airlines | Fundador | Coordinar prueba piloto en nov/dic 2025 (vuelos CESA, A320). Intercambiar WhatsApp/mail. |
 | Gonzalo | American Airlines | Operaciones Sudamérica | Referido por Fernando de Domus. "Tipazo y muy innovador." Prospectar como entrada al mercado AA. |
+
+---
+
+## 10. Industry Signals — Public Sources (c.2024)
+
+The sections above are based on direct field meetings. This section draws from public video content featuring airline and industry executives. The source files are in `docs/research/`. These signals are not field intelligence — they are external validations that can be used to reinforce the pitch with third-party credibility.
+
+### a) The emotional dimension of lost luggage
+
+Julia Sattel (former President of Airlines, Amadeus) shared a personal anecdote: she arrived at a meeting with top executives wearing old jeans because her suitcase was lost. The point isn't the logistical failure — it's the social embarrassment. Passengers don't experience a "mishandling event." They experience arriving unprepared to a professional meeting, or without swimwear on vacation, or without a child's medicine.
+
+**Sales application:** Use this framing to open B2B presentations before moving to data. The operations audience knows the problem; the emotional framing helps C-suite audiences internalize it as a customer retention issue, not just an ops metric.
+
+### b) Technology maturity counter-argument (when buyers cite past failures)
+
+Gus Naughton (Innovation Engineering Lead, Alaska Airlines) described a 500-passenger trial of electronic bag tags that failed in 2015. The exact same technology was retested seven years later and succeeded — because the underlying hardware, software maturity, and passenger behavior had caught up.
+
+**Sales application:** Direct counter to buyers who say "we tried something like this before and it didn't work" (the Iberia/"Bob" situation is the local version of this). The argument: past failure is often a timing failure, not a concept failure. The infrastructure is different now.
+
+### c) Human accountability as part of the pitch
+
+Both Sattel and Korosis (Ground Ops, Aegean) emphasize that technology without staff alignment fails. Sattel recommends explicit education programs and incentive systems for ramp and check-in personnel. Korosis dealt with it in practice: post-pandemic new hires unfamiliar with procedures were a compounding factor in Aegean's mishandling rates.
+
+**Sales application:** BagMonitor's pitch can go beyond "here's the system" to "here's how we help you get your team to actually use it." This is a differentiator against solutions that sell hardware or software without addressing adoption. Relevant when speaking to carriers that have already tried and underused a previous system.
+
+### d) Adjacent opportunity: computer vision for carry-on
+
+Alaska Airlines tested cameras at boarding gates to automatically count carry-on bags before asking passengers to gate-check. The system prevents agents from unnecessarily requesting gate checks when overhead space is still available — improving turnaround times, passenger experience, and fuel calculations (accurate hold weight data).
+
+**Sales application:** Not directly BagMonitor's product, but a signal that Innovation buyers at airlines are actively investing in vision/tracking technology across the entire baggage journey — not just hold baggage. Opens a broader conversation about the tracking ecosystem when speaking to Innovation or Digital Transformation profiles.

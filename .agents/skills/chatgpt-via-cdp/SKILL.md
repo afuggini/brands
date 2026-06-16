@@ -80,6 +80,43 @@ time.sleep(2)  # Dar tiempo a ChatGPT para procesar los archivos
 
 Los paths deben ser **absolutos**. Esperar al menos 2 segundos antes de enviar el prompt.
 
+### Qué archivos subir para tareas de copy
+
+Para cualquier tarea de copy, subir siempre estos archivos en orden:
+
+1. **`brands/shared/copy/CLAUDE.md`** — reglas de escritura transversales (anti-patterns, reglas de formato por superficie). Siempre aplica, independientemente de la marca.
+2. **`brands/<marca>/brand/BRAND.md`** — voz, posicionamiento, pilares y hard no's de la marca específica.
+3. **`brands/<marca>/copy/guidelines/`** — si la carpeta tiene archivos (lexicón, estructuras, overrides de formato), subirlos todos. Si está vacía o no existe, omitir.
+4. **Brief y variantes existentes** — el `brief.md` del encargo y todos los `vN.md` ya generados, para que ChatGPT no repita ángulos.
+
+```python
+import glob, os
+
+BRANDS_ROOT = "/Users/ariel/src/arielfuggini/brands"
+marca = "bagmonitor"  # ajustar por marca
+
+files_to_upload = []
+
+# 1. Reglas transversales
+files_to_upload.append(f"{BRANDS_ROOT}/shared/copy/CLAUDE.md")
+
+# 2. Brand file
+files_to_upload.append(f"{BRANDS_ROOT}/{marca}/brand/BRAND.md")
+
+# 3. Guidelines de la marca (si existen)
+guidelines_dir = f"{BRANDS_ROOT}/{marca}/copy/guidelines"
+if os.path.isdir(guidelines_dir):
+    files_to_upload += glob.glob(f"{guidelines_dir}/**/*.md", recursive=True)
+
+# 4. Brief y variantes existentes del encargo
+pieces_dir = "/ruta/al/pieces/dir"
+files_to_upload.append(f"{pieces_dir}/brief.md")
+files_to_upload += sorted(glob.glob(f"{pieces_dir}/v*.md"))
+
+upload_files(ws, files_to_upload)
+time.sleep(2)
+```
+
 ## Paso 5 — Escribir y enviar el prompt
 
 ```python

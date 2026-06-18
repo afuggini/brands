@@ -65,9 +65,9 @@ Período cubierto: septiembre–noviembre 2025.
 
 ## 3. Segmentación de mercado validada en campo
 
-### Segmento A — Low-cost sin automatización (target primario)
+### Segmento A — Low-cost sin automatización
 
-Aerolíneas que aún operan con bingo sheets o tienen conciliación manual. Mayor dolor, menor resistencia al cambio, presupuesto ajustado.
+Aerolíneas que aún operan con bingo sheets o tienen conciliación manual. Mayor dolor inmediato, menor resistencia al cambio, presupuesto ajustado.
 
 **Validados en reuniones:** Sky Airlines, Gol. **Sugeridos por contactos:** Aerolíneas Argentinas, Flybondi, JetSMART, Arajet.
 

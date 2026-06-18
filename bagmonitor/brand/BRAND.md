@@ -91,6 +91,10 @@ Bus operators, rail operators, cruise lines, logistics operators managing passen
 
 Global. Primary focus: North America, Europe, LATAM, Middle East, Asia-Pacific.
 
+### Per-buyer messaging
+
+For tone, objections, buying triggers, and value prop angle per buyer type, see `PERSONAS.md`.
+
 ---
 
 ## 5. Value Propositions

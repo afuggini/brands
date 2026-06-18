@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BagMonitor</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    height: 600vh;
+  }
+
+  #sticky {
+    position: fixed;
+    inset: 0;
+  }
+
+  #frame {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>
+</head>
+<body>
+
+<div id="sticky">
+  <div id="frame"></div>
+</div>
+
+<script>
+  const TOTAL = 60;
+
+  // Preload all frames
+  const frames = Array.from({ length: TOTAL }, (_, i) => {
+    const n = String(i + 1).padStart(3, '0');
+    const image = new Image();
+    image.src = `explotion-frames/frame_${n}.jpg`;
+    return image;
+  });
+
+  const frame = document.getElementById('frame');
+  frame.style.backgroundImage = `url('explotion-frames/frame_001.jpg')`;
+
+  const START_HOLD = 0.15;
+  const END_HOLD   = 0.85;
+
+  function onScroll() {
+    const scrolled = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const progress = Math.min(scrolled / maxScroll, 1);
+
+    let mapped;
+    if (progress < START_HOLD) {
+      mapped = 0;
+    } else if (progress > END_HOLD) {
+      mapped = 1;
+    } else {
+      mapped = (progress - START_HOLD) / (END_HOLD - START_HOLD);
+    }
+
+    const index = Math.round(mapped * (TOTAL - 1));
+    const n = String(index + 1).padStart(3, '0');
+    frame.style.backgroundImage = `url('explotion-frames/frame_${n}.jpg')`;
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+</body>
+</html>

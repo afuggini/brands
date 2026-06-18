@@ -1,6 +1,6 @@
 # BRAND.md — BagMonitor v2
 
-This document covers the **visual brand layer** for the v2 identity — personality, formula, references, and emotional target. It is a companion to `v2/DESIGN.md` (visual system) and inherits the full strategy, voice, personas, pillars, hard-no's, and competitive positioning from `../brand/BRAND.md`. Read both before producing any content or visual output.
+This document covers the **visual brand layer** for the v2 identity — personality, formula, references, and emotional target. It is a companion to `v2/DESIGN.md` (visual system) and inherits the full strategy, voice, pillars, hard-no's, and competitive positioning from `../brand/BRAND.md`. Buyer personas (tone, objections, value prop angle per audience) live in `../brand/PERSONAS.md`. Read all three before producing any content or visual output.
 
 ---
 

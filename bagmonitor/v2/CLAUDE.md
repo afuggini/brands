@@ -57,7 +57,7 @@ Key anchors:
 - **Accent used sparingly** (the lime, ≤~10% of any screen). Saturated mid-tones are never
   body-size text on light backgrounds; pair them with a darker step or use ink.
 - **WCAG AA** on all prose (≥4.5:1). Real loaded font weights only (no faux-bold).
-- Copy follows `v2/BRAND.md` (voice rules) + `../brand/BRAND.md` (pillars, personas, hard-no's) — operator-first, no consumer tone, avoid the "X isn't Y, it's Z" pattern; primary CTA is **Book a Demo**.
+- Copy follows `v2/BRAND.md` (voice rules) + `../brand/BRAND.md` (pillars, hard-no's) + `../brand/PERSONAS.md` (buyer personas: tone, objections, value prop angle per audience) — operator-first, no consumer tone, avoid the "X isn't Y, it's Z" pattern; primary CTA is **Book a Demo**.
 
 ---
 

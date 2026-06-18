@@ -12,7 +12,7 @@ Full spec in **`DESIGN.md`**. Brand voice and personality in **`BRAND.md`**.
 
 Key anchors:
 - **Palette: warm stone ramp** — page `#F7F6F3`, ink `#1C1917` (near-black, warm). No cold/neutral grays. No pure black.
-- **Accent: lime `#D6F36D`, used sparingly** — the period after a headline, the live status dot, a selected row. ≤10% of any screen.
+- **Accent: lime `#D6F36D`, used sparingly** — the live status dot, a selected row. ≤10% of any screen.
 - **Swiss structure:** hairline dividers, baseline grid, generous whitespace. No full cell-borders around every number.
 - **The trace** — live baggage waterfall (BCN → LHR → JFK) is the signature hero device. Recurs as divider, loading state, empty state.
 
@@ -48,6 +48,10 @@ Key anchors:
 
 - **16px paragraph-minimum.** Running prose is never below 16px; sub-16px is for labels,
   eyebrows, chips, captions, and data-chrome only.
+- **Big numbers in Mono.** Large stat/metric numbers are set in GT America Mono (tabular
+  figures), not the display sans — they read as data.
+- **No decorative lime period.** Headlines and large numbers do not get a lime `.` after
+  them; that device is retired. Lime stays on status dots and selected rows only.
 - **No drop-shadow/glow on buttons or icons** — shadows blur edges. Elevation comes from
   borders, fills, and tonal layering.
 - **Accent used sparingly** (the lime, ≤~10% of any screen). Saturated mid-tones are never

@@ -14,7 +14,7 @@ Three anchors:
 
 - **GT America leads identity.** Light weight for display; Regular for headings and body; Mono for data. One family throughout — no pairing needed.
 - **Warm stone is the canvas.** Off-white pages, warm gray surfaces, near-black warm ink. No cold grays. No pure black.
-- **Lime is rare.** `#D6F36D` appears as a period mark after a headline, a live-status dot, a selected-row indicator. Never as a fill, never dominant, never on large text. Its rarity is the point.
+- **Lime is rare.** `#D6F36D` appears as a live-status dot, a selected-row indicator. Never as a fill, never dominant, never on large text. Its rarity is the point.
 
 ### The trace
 
@@ -110,7 +110,6 @@ These are the tokens used in code. Light mode defaults; dark mode flips their va
 | `--color-alert` | `#9A3B2E` (muted red, for text on light) |
 
 **Lime usage rules:**
-- The "period" after a display headline or large number
 - Live-status dot (8px, pulsing)
 - Active/selected row indicator
 - Key metric highlight in a data strip
@@ -262,6 +261,7 @@ html[data-mode="dark"] {
 | H2 / H3 | 400 (Regular) | Clean and structural |
 | Body | 400 (Regular) | Same weight as headings — the system reads as one voice |
 | Data / labels / IDs | GT America Mono 400 | Flight numbers, timestamps, metrics, telemetry |
+| Stat / large number | GT America Mono 300–400 | Big metrics read as data — set in Mono (tabular), not the display sans |
 
 **Fallback:** Archivo (Google Fonts free) — geometric sans, acceptable stand-in when GT America files are unavailable.
 
@@ -300,7 +300,7 @@ html[data-mode="dark"] {
 | Display / Hero H1 | `clamp(2.75rem, 7vw, 5.25rem)` | 300 | 1.04 | −0.012em |
 | Section H2 | `clamp(1.75rem, 3.5vw, 2.75rem)` | 400 | 1.15 | −0.010em |
 | Card H3 | `1.25rem` (20px) | 400 | 1.3 | 0 |
-| Stat / large number | `clamp(2.25rem, 4vw, 3.25rem)` | 300 | 1.0 | −0.014em |
+| Stat / large number | `clamp(2.25rem, 4vw, 3.25rem)` | Mono 300 | 1.0 | −0.014em |
 | Body (default) | `1rem` (16px) | 400 | 1.65 | 0 |
 | Body large / lede | `1.125rem` (18px) | 400 | 1.6 | 0 |
 | Label / eyebrow | `0.8125rem` (13px) | 400–500 | 1.2 | +0.08em |
@@ -310,10 +310,6 @@ html[data-mode="dark"] {
 ### The 16px paragraph floor
 
 Running prose is **never smaller than 16px (`1rem`)**. Sub-16px is for labels, eyebrows, badges, captions, and data-chrome — elements that are read at a glance, not as sentences. If you can read it as a full sentence, it is ≥16px.
-
-### The lime period
-
-The soft lime `#D6F36D` placed as a period mark (`.`) after a display headline or large number is the brand's typographic signature. It signals precision and serves as the accent's primary role. Use it in one or two places per page — never scatter it.
 
 ---
 

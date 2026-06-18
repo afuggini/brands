@@ -4,16 +4,7 @@
 
 BagMonitor is **baggage visibility infrastructure** — not a gadget brand, not a passenger app.
 
-## Visual Identity
-
-| Element | Direction |
-|---|---|
-| Primary color | Deep blue (trust, enterprise) |
-| Secondary | White, neutral gray |
-| Accent — positive | Subtle green (operational success) |
-| Accent — alert | Subtle red (risk alerts) |
-| Style | Clean, minimal, enterprise, aviation-inspired |
-| UI feel | Dashboard mockups, data visualizations, system diagrams |
+> Visual identity and the design system live in the brand layer, not in docs: see `../brand/DESIGN.md` (v1) and `../v2/DESIGN.md` (current).
 
 ## Tone of Voice
 

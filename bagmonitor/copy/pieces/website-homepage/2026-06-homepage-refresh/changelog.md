@@ -23,6 +23,25 @@ What changed, what stayed, and why. One entry per change.
 
 ---
 
+## Cost
+
+### `cost.intro`
+- **Before:** `"$5 billion per year. 33.4 million mishandling events in 2024. Three cost layers. Most carriers track only one."`
+- **After:** `"The airline industry spends approximately $5 billion annually on mishandled baggage — 33.4 million events in 2024 alone. A single mishandling event generates three separate, compounding costs."`
+- **Why:** The editorial closing line ("Most carriers track only one") belongs in a pitch, not in a factual cost breakdown. The new version keeps the scale context and names the three-layer structure without commentary.
+
+### `cost.recoveryOverhead`
+- **Before:** `"$22 per WorldTracer activation — the minimum cost of searching for a bag whose location should already be known."`
+- **After:** `"Additional ~$22 per WorldTracer activation for searching for a bag whose location is unknown."`
+- **Why:** "Should already be known" is editorial — it editorializes the failure instead of stating the fact. Removed. Added "Additional" to reinforce the stacking nature of the cost layers. Added `~` to hedge precision, consistent with how other figures in this section are presented.
+
+### `cost.passengerTrust`
+- **Before:** `"47% of passengers say real-time tracking increases their confidence in checking a bag — those who don't get it check fewer bags, escalate claims, and choose different carriers next time."`
+- **After:** `"Mishandling negatively impacts NPS score, with 47% of passengers saying real-time tracking increases their confidence in checking a bag."`
+- **Why:** Added NPS framing — gives airlines a metric they already track internally, making the stat actionable in an enterprise context. Cut the consequence chain as speculative; NPS is a harder, recognized metric for airline ops teams.
+
+---
+
 ## Problem
 
 ### `problem.sub`

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BagMonitor — Design v2 · Swiss editorial</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Free fallbacks so the page renders even if GT America files are absent -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ── GT America (licensed VF, supplied locally in ./fonts/) → Archivo fallback ── */
+@font-face{ font-family:"GT America"; font-weight:100 900; font-style:normal; font-display:swap; src:url("./fonts/GT%20America%20VF/GT-America-Intl-VF_0.ttf") format("truetype-variations"); }
+@font-face{ font-family:"GT America"; font-weight:100 900; font-style:italic; font-display:swap; src:url("./fonts/GT%20America%20VF/GT-America-Intl-VF-Italic-VF.ttf") format("truetype-variations"); }
+@font-face{ font-family:"GT America Mono"; font-weight:100 900; font-style:normal; font-display:swap; src:url("./fonts/GT%20America%20VF/GT-America-Intl-VF-Mono-VF_0.ttf") format("truetype-variations"); }
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ background:#F6F6F3; } html:has([data-mode="dark"]){ background:#111110; } body{ margin:0; }
+svg{ display:block; } button{ font:inherit; color:inherit; cursor:pointer; } a{ color:inherit; text-decoration:none; }
+h1,h2,h3,h4,p{ margin:0; }
+
+:root{
+  --bar-bg:#08080b; --bar-border:#232329; --bar-ink:#e7e7ea; --bar-muted:#8b8b93;
+  --font:"GT America","Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"GT America Mono","Geist Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+[data-mode="light"]{
+  --bg:#F6F6F3; --surface:#FFFFFF; --bg-alt:#FFFFFF; --border:#E3E3DF; --border-2:#CFCFCB;
+  --ink:#111110; --body:#2E2E2C; --muted:#6E6E68;
+  --accent:#D6F36D; --accent-ink:#111110;
+  --btn-bg:#111110; --btn-fg:#F6F6F3;
+  --ok:#5E7D14; --risk:#B07A1E; --alert:#9A3B2E;
+  --inv-bg:#111110; --inv-text:#F6F6F3; --inv-muted:rgba(246,246,243,.72); --inv-border:rgba(246,246,243,.18); --inv-accent:#D6F36D;
+}
+[data-mode="dark"]{
+  --bg:#111110; --surface:#1A1A18; --bg-alt:#161614; --border:#2A2A27; --border-2:#3B3B36;
+  --ink:#F6F6F3; --body:#C7C7C1; --muted:#85857D;
+  --accent:#D6F36D; --accent-ink:#111110;
+  --btn-bg:#D6F36D; --btn-fg:#111110;
+  --ok:#C2E85A; --risk:#E2B85A; --alert:#E08A7E;
+  --inv-bg:#F6F6F3; --inv-text:#111110; --inv-muted:#5E5E58; --inv-border:rgba(17,17,16,.14); --inv-accent:#5E7D14;
+}
+
+.app{ background:var(--bg); color:var(--body); font-family:var(--font); font-size:1rem; line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; transition:background .2s,color .2s; }
+.wrap{ max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(1.25rem,4vw,2.5rem); }
+
+/* Swiss labels — small uppercase, tracked */
+.eyebrow{ font-family:var(--font); font-size:.6875rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.acc{ color:var(--accent); }
+
+/* Typography — GT America: Light display, Regular sub */
+h1{ font-family:var(--font); font-weight:300; letter-spacing:-.012em; line-height:1.04; color:var(--ink); text-wrap:balance; }
+h2{ font-family:var(--font); font-weight:400; letter-spacing:-.01em; line-height:1.12; color:var(--ink); text-wrap:balance; }
+h3{ font-family:var(--font); font-weight:500; letter-spacing:-.005em; color:var(--ink); }
+p{ max-width:60ch; }
+.lede{ font-size:1.1875rem; line-height:1.55; color:var(--body); font-weight:400; max-width:46ch; }
+.mono{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+.muted{ color:var(--muted); }
+
+/* Buttons */
+.btn{ display:inline-flex; align-items:center; justify-content:space-between; gap:1.25rem; font-family:var(--font); font-weight:500; font-size:.95rem; padding:.7rem 1.1rem; border:1px solid transparent; border-radius:7px; transition:background .15s,border-color .15s,color .15s,transform .15s; }
+.btn .ar{ transition:transform .15s; }
+.btn:hover .ar{ transform:translateX(3px); }
+.btn-primary{ background:var(--btn-bg); color:var(--btn-fg); }
+.btn-primary:hover{ filter:brightness(.94); }
+.btn-secondary{ background:transparent; border-color:var(--border-2); color:var(--ink); }
+.btn-secondary:hover{ border-color:var(--ink); }
+.btn-link{ gap:.4rem; padding:.7rem 0; color:var(--ink); font-weight:500; border-bottom:1px solid var(--border-2); border-radius:0; }
+.btn-link:hover{ border-color:var(--ink); }
+.btn:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+
+/* Chips / status */
+.chip{ display:inline-flex; align-items:center; gap:.5rem; font-size:.8125rem; font-family:var(--font); color:var(--body); border:1px solid var(--border); background:var(--surface); border-radius:6px; padding:.3rem .6rem; }
+.chip .d{ width:.5rem; height:.5rem; border-radius:50%; background:var(--muted); }
+.chip.live{ background:color-mix(in oklab,var(--accent) 22%,var(--surface)); border-color:color-mix(in oklab,var(--accent) 45%,var(--border)); color:var(--ink); }
+.chip.live .d{ background:var(--accent); box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 30%,transparent); }
+
+/* Control bar */
+.controlbar{ position:sticky; top:0; z-index:60; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; padding:.7rem clamp(1rem,4vw,2.5rem); background:color-mix(in oklab,var(--bar-bg) 90%,transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--bar-border); font-family:"Archivo",system-ui,sans-serif; }
+.controlbar .brand{ font-weight:600; color:var(--bar-ink); font-size:.95rem; } .controlbar .brand small{ color:var(--bar-muted); font-weight:400; }
+.tag{ font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:#111110; background:#D6F36D; padding:.2rem .5rem; border-radius:5px; font-weight:700; font-family:"Geist Mono",monospace; }
+.seg{ display:inline-flex; background:#111117; border:1px solid var(--bar-border); border-radius:9px; padding:3px; gap:2px; margin-left:auto; }
+.seg button{ border:none; background:transparent; color:var(--bar-muted); font-size:.78rem; font-weight:600; padding:.35rem .7rem; border-radius:6px; }
+.seg button[aria-selected="true"]{ background:#23242f; color:#fff; }
+
+/* Nav */
+.nav{ display:flex; align-items:center; justify-content:space-between; padding-block:1.4rem; border-bottom:1px solid var(--border); }
+.logo{ display:flex; align-items:center; gap:.6rem; font-family:var(--font); font-weight:600; color:var(--ink); font-size:1.15rem; letter-spacing:-.01em; }
+.logo .mk{ width:1.5rem; height:1.5rem; border-radius:5px; background:var(--ink); display:grid; place-items:center; }
+.logo .mk svg{ width:.9rem; height:.9rem; }
+.navlinks{ display:flex; gap:1.9rem; } .navlinks a{ font-size:.95rem; color:var(--body); } .navlinks a:hover{ color:var(--ink); }
+@media(max-width:860px){ .navlinks{ display:none; } }
+
+/* Hero */
+.hero{ padding-block:clamp(3.5rem,7vw,6rem) clamp(2.5rem,4vw,3.5rem); }
+.hero h1{ font-size:clamp(2.75rem,7vw,5.25rem); max-width:15ch; margin-top:1.5rem; }
+.hero .lede{ margin-top:1.6rem; }
+.hero .cta{ display:flex; gap:1.25rem; align-items:center; flex-wrap:wrap; margin-top:2rem; }
+
+/* Metric strip — spec-sheet, hairline-divided */
+.metrics{ display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.metrics .m{ padding:1.5rem 0 1.5rem; padding-right:1.5rem; border-left:1px solid var(--border); padding-left:1.5rem; }
+.metrics .m:first-child{ border-left:none; padding-left:0; }
+.metrics .m .n{ font-family:var(--font); font-weight:300; font-size:clamp(2rem,4vw,2.75rem); color:var(--ink); letter-spacing:-.02em; line-height:1; }
+.metrics .m .l{ margin-top:.6rem; font-size:.8125rem; color:var(--muted); }
+@media(max-width:680px){ .metrics{ grid-template-columns:1fr; } .metrics .m{ border-left:none; padding-left:0; border-top:1px solid var(--border); } .metrics .m:first-child{ border-top:none; } }
+
+/* Section scaffold */
+.section{ padding-block:clamp(4rem,8vw,7rem); border-top:1px solid var(--border); }
+.shead{ display:grid; grid-template-columns:minmax(0,1fr); gap:1rem; margin-bottom:clamp(2.5rem,4vw,3.5rem); }
+.shead h2{ font-size:clamp(1.75rem,3.5vw,2.75rem); max-width:24ch; }
+.shead .ix{ display:flex; align-items:center; gap:1rem; }
+
+/* Live trace (signature) */
+.trace{ border:1px solid var(--border); border-radius:10px; background:var(--surface); padding:clamp(1.25rem,2.5vw,1.75rem); overflow:hidden; position:relative; }
+.trace::after{ content:""; position:absolute; top:0; bottom:0; width:1px; background:var(--accent); left:0; opacity:0; animation:scan 6s cubic-bezier(.6,0,.4,1) infinite; }
+@keyframes scan{ 0%{left:2%;opacity:0} 8%{opacity:.8} 70%{left:98%;opacity:.6} 80%{opacity:0} 100%{opacity:0} }
+.thead{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; padding-bottom:1.1rem; margin-bottom:1.1rem; border-bottom:1px solid var(--border); }
+.troute{ font-family:var(--font-mono); font-size:.95rem; color:var(--ink); display:flex; gap:.5rem; align-items:center; }
+.troute .ar{ color:var(--muted); }
+.tlegend{ display:flex; gap:1rem; font-size:.78rem; color:var(--muted); flex-wrap:wrap; }
+.tlegend i{ width:.5rem; height:.5rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+.axis{ display:grid; grid-template-columns:9rem 1fr; gap:1rem; }
+.axis .al{ font-family:var(--font-mono); font-size:.7rem; color:var(--muted); }
+.axis .at{ display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:.7rem; color:var(--muted); border-bottom:1px dashed var(--border-2); padding-bottom:.35rem; margin-bottom:.5rem; }
+.srow{ display:grid; grid-template-columns:9rem 1fr; gap:1rem; align-items:center; padding:.26rem 0; }
+.srow .nm{ font-family:var(--font-mono); font-size:.78rem; color:var(--body); white-space:nowrap; }
+.strack{ position:relative; height:1.4rem; }
+.span{ position:absolute; top:0; height:100%; border-radius:4px; display:flex; align-items:center; padding:0 .5rem; transform:scaleX(0); transform-origin:left; animation:grow .7s cubic-bezier(.22,1,.36,1) forwards; background:color-mix(in oklab,var(--ok) 14%,var(--surface)); border:1px solid color-mix(in oklab,var(--ok) 32%,var(--surface)); }
+.span s{ font-family:var(--font-mono); font-size:.68rem; color:var(--ok); opacity:0; animation:fade .4s ease forwards; animation-delay:inherit; white-space:nowrap; font-style:normal; }
+.span.tr{ background:color-mix(in oklab,var(--accent) 24%,var(--surface)); border-color:color-mix(in oklab,var(--accent) 50%,var(--border)); }
+.span.tr s{ color:var(--ink); }
+.span.rk{ background:color-mix(in oklab,var(--risk) 16%,var(--surface)); border-color:color-mix(in oklab,var(--risk) 45%,var(--surface)); }
+.span.rk s{ color:var(--risk); }
+@keyframes grow{ to{ transform:scaleX(1) } } @keyframes fade{ to{ opacity:1 } }
+.travel{ position:absolute; top:50%; width:.6rem; height:.6rem; margin-top:-.3rem; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 30%,var(--surface)); left:0; animation:travel 6s cubic-bezier(.6,0,.4,1) infinite; }
+@keyframes travel{ 0%{left:1%;opacity:0} 6%{opacity:1} 70%{left:97%;opacity:1} 82%{opacity:0} 100%{opacity:0} }
+.exflag{ margin-left:.55rem; font-family:var(--font-mono); font-size:.68rem; color:var(--risk); }
+
+/* Stat grid — editorial numbers, hairline cells */
+.stats{ display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--border); border-left:1px solid var(--border); }
+.stats .st{ border-right:1px solid var(--border); border-bottom:1px solid var(--border); padding:1.75rem 1.5rem; }
+.stats .st .n{ font-family:var(--font); font-weight:300; font-size:clamp(2.25rem,4vw,3.25rem); color:var(--ink); letter-spacing:-.02em; line-height:1; }
+.stats .st .l{ margin-top:.55rem; font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+.stats .st p{ margin-top:.9rem; font-size:.9375rem; color:var(--body); }
+.stats .st .src{ margin-top:1rem; font-family:var(--font-mono); font-size:.7rem; color:var(--muted); }
+@media(max-width:880px){ .stats{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:520px){ .stats{ grid-template-columns:1fr; } }
+
+/* Feature list — numbered, hairline rows (Swiss) */
+.flist{ border-top:1px solid var(--border); }
+.frow{ display:grid; grid-template-columns:4rem minmax(0,22ch) 1fr; gap:2rem; align-items:start; padding:2rem 0; border-bottom:1px solid var(--border); }
+.frow .ix{ font-family:var(--font-mono); font-size:.8rem; color:var(--muted); padding-top:.2rem; }
+.frow h3{ font-size:1.25rem; font-weight:500; }
+.frow p{ font-size:.9375rem; color:var(--body); }
+@media(max-width:720px){ .frow{ grid-template-columns:1fr; gap:.6rem; } }
+
+/* Inverted statement */
+.statement{ background:var(--inv-bg); color:var(--inv-text); }
+.statement .wrap{ padding-block:clamp(4.5rem,9vw,8rem); }
+.statement .eyebrow{ color:var(--inv-muted); }
+.statement h2{ color:var(--inv-text); font-weight:300; font-size:clamp(2.5rem,6vw,4.75rem); max-width:18ch; margin:1.25rem 0 0; letter-spacing:-.015em; }
+.statement p{ color:var(--inv-muted); font-size:1.1875rem; max-width:46ch; margin-top:1.5rem; }
+.statement .row{ display:grid; grid-template-columns:repeat(3,1fr); margin-top:3rem; border-top:1px solid var(--inv-border); }
+.statement .row .c{ padding:1.5rem 1.5rem 0 0; border-left:1px solid var(--inv-border); padding-left:1.5rem; }
+.statement .row .c:first-child{ border-left:none; padding-left:0; }
+.statement .row .n{ font-family:var(--font-mono); font-size:1.5rem; color:var(--inv-accent); }
+.statement .row .l{ font-size:.8125rem; color:var(--inv-muted); margin-top:.3rem; }
+@media(max-width:680px){ .statement .row{ grid-template-columns:1fr; } .statement .row .c{ border-left:none; padding-left:0; border-top:1px solid var(--inv-border); } .statement .row .c:first-child{ border-top:none; } }
+
+/* CTA + footer */
+.cta{ text-align:left; }
+.cta h2{ font-size:clamp(2rem,5vw,3.5rem); font-weight:300; max-width:18ch; }
+.cta .row{ display:flex; gap:1.25rem; align-items:center; flex-wrap:wrap; margin-top:2rem; }
+.foot{ border-top:1px solid var(--border); padding-block:2.25rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:center; }
+.foot .v{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+
+.dot-acc{ color:var(--accent); }
+
+@media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } .span{ transform:scaleX(1)!important; } .span s{ opacity:1!important; } }
+</style>
+</head>
+<body>
+
+<div class="controlbar">
+  <div class="brand">BagMonitor <small>· Design v2 — Swiss editorial</small></div>
+  <span class="tag">GT America · Lime</span>
+  <div class="seg" role="tablist" aria-label="Mode">
+    <button role="tab" aria-selected="true"  data-mode="light">☀ Light</button>
+    <button role="tab" aria-selected="false" data-mode="dark">☾ Dark</button>
+  </div>
+</div>
+
+<div class="app" id="app" data-mode="light">
+  <div class="wrap">
+    <nav class="nav">
+      <div class="logo"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F6F3" stroke-width="2" aria-hidden="true"><path d="M5 19L19 5M9 19h10V9" stroke-linecap="round"/></svg></span> BagMonitor</div>
+      <div class="navlinks"><a href="#">Platform</a><a href="#">Solutions</a><a href="#">Integrations</a><a href="#">Pricing</a></div>
+      <button class="btn btn-primary" style="padding:.5rem .9rem; gap:.7rem">Book a Demo <span class="ar">→</span></button>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Baggage Visibility Infrastructure</span>
+      <h1>Real-time visibility for every bag<span class="dot-acc">.</span></h1>
+      <p class="lede">BagMonitor provides the infrastructure to monitor bag movements across the entire journey — so a transfer about to fail surfaces as an alert, not a claim form.</p>
+      <div class="cta">
+        <button class="btn btn-primary">Book a Demo <span class="ar">→</span></button>
+        <a class="btn btn-link" href="#">Explore the platform <span class="ar">→</span></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="metrics">
+      <div class="m"><div class="n">98.7%</div><div class="l">Successful deliveries</div></div>
+      <div class="m"><div class="n">1,247</div><div class="l">Flights monitored, live</div></div>
+      <div class="m"><div class="n">12,847,231<span class="dot-acc">.</span></div><div class="l">Baggage movements today</div></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="thead" style="border:none; margin-bottom:1.5rem; padding:0">
+        <div class="troute"><b style="font-weight:500">BAG&nbsp;0249</b><span>BCN</span><span class="ar">→</span><span>LHR</span><span class="ar">→</span><span>JFK</span></div>
+        <div class="tlegend"><span class="chip live"><span class="d"></span>In Transit</span><span class="chip"><span class="d"></span>Delivered</span><span class="chip"><span class="d"></span>Exception</span></div>
+      </div>
+      <div class="trace">
+        <div class="thead">
+          <div class="troute"><b style="font-weight:500">LIVE&nbsp;TRANSFER&nbsp;MONITOR</b></div>
+          <div class="tlegend"><span><i style="background:var(--ok)"></i>on-time</span><span><i style="background:var(--risk)"></i>at risk</span><span><i style="background:var(--accent)"></i>in transit</span></div>
+        </div>
+        <div class="axis"><div class="al">LIFECYCLE</div><div class="at"><span>09:12</span><span>10:40</span><span>12:05</span><span>14:30 BST</span><span>arrival</span></div></div>
+        <div class="srow"><div class="nm">Check-in · BCN</div><div class="strack"><div class="span" style="left:0;width:13%;animation-delay:.05s"><s>OK</s></div></div></div>
+        <div class="srow"><div class="nm">Security screen</div><div class="strack"><div class="span" style="left:13%;width:10%;animation-delay:.18s"><s>OK</s></div></div></div>
+        <div class="srow"><div class="nm">Sortation</div><div class="strack"><div class="span tr" style="left:23%;width:14%;animation-delay:.31s"><s>routed</s></div></div></div>
+        <div class="srow"><div class="nm">Load · ramp</div><div class="strack"><div class="span" style="left:37%;width:11%;animation-delay:.44s"><s>loaded</s></div></div></div>
+        <div class="srow"><div class="nm">Transfer · LHR</div><div class="strack"><div class="span rk" style="left:48%;width:23%;animation-delay:.57s"><s>tight connection</s></div><span class="exflag">⚑ alert fired · rebooked T3</span></div></div>
+        <div class="srow"><div class="nm">Unload · JFK</div><div class="strack"><div class="span" style="left:71%;width:13%;animation-delay:.7s"><s>OK</s></div></div></div>
+        <div class="srow"><div class="nm">Claim belt 7</div><div class="strack"><div class="span" style="left:84%;width:14%;animation-delay:.83s"><s>delivered</s></div></div></div>
+        <div class="travel" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="shead">
+        <span class="eyebrow">The cost of invisibility</span>
+        <h2>Lost baggage is a visibility failure. The numbers say where it fails.</h2>
+      </div>
+      <div class="stats">
+        <div class="st"><div class="n">41%</div><div class="l">Transfer-caused</div><p>The single largest source of delayed bags — the exact handoff where tracking goes dark.</p><div class="src">SITA Baggage IT Insights</div></div>
+        <div class="st"><div class="n">$5B</div><div class="l">Annual cost</div><p>Compensation, tracing, courier returns and recovery, every year.</p><div class="src">IATA estimate</div></div>
+        <div class="st"><div class="n">33.4M</div><div class="l">Bags / year</div><p>Mishandled worldwide, scaling with passenger volume.</p><div class="src">SITA</div></div>
+        <div class="st"><div class="n">82%</div><div class="l">By 2027</div><p>Airlines planning real-time bag tracking — which requires the infrastructure first.</p><div class="src">IATA survey</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="shead"><span class="eyebrow">The platform</span><h2>Visibility, exception detection, and intelligence — across the lifecycle.</h2></div>
+      <div class="flist">
+        <div class="frow"><div class="ix">01</div><div><h3>Real-time lifecycle tracking</h3></div><p>A complete digital identity for every bag, updated at each handling point from check-in to claim. Augments your DCS and BRS through secure APIs — no rip-and-replace.</p></div>
+        <div class="frow"><div class="ix">02</div><div><h3>Transfer exception alerts</h3></div><p>SLA monitoring and risk alerts fire at the transfer points where bags actually go missing — early enough for ground ops to re-route, re-tag, or hold a load.</p></div>
+        <div class="frow"><div class="ix">03</div><div><h3>Predictive risk scoring</h3></div><p>Route analytics and bottleneck detection score transfer risk before a connection is missed, turning raw tracking data into operational decisions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="wrap">
+      <span class="eyebrow">The thesis</span>
+      <h2>Prevention over recovery<span class="dot-acc">.</span></h2>
+      <p>Finding a lost bag faster is a better failure. The goal is to stop the bag from being lost — by catching the exception while it can still be acted on.</p>
+      <div class="row">
+        <div class="c"><div class="n">&lt;&nbsp;60s</div><div class="l">from exception to alert</div></div>
+        <div class="c"><div class="n">4-point</div><div class="l">IATA 753 compliance, by default</div></div>
+        <div class="c"><div class="n">0</div><div class="l">rip-and-replace — API on DCS/BRS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta">
+    <div class="wrap">
+      <span class="eyebrow">Built for operators</span>
+      <h2>Make the invisible part of your operation visible<span class="dot-acc">.</span></h2>
+      <div class="row">
+        <button class="btn btn-primary">Book a Demo <span class="ar">→</span></button>
+        <a class="btn btn-link" href="#">Talk to engineering <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer class="foot">
+      <div class="logo" style="font-size:1rem"><span class="mk" style="width:1.25rem;height:1.25rem"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F6F3" stroke-width="2" aria-hidden="true"><path d="M5 19L19 5M9 19h10V9" stroke-linecap="round"/></svg></span> BagMonitor</div>
+      <div class="v">Baggage Visibility Infrastructure · Version 2.0 — June 2026</div>
+    </footer>
+  </div>
+</div>
+
+<script>
+const app=document.getElementById('app');
+[...document.querySelectorAll('.seg button')].forEach((b,_,all)=>b.addEventListener('click',()=>{
+  app.dataset.mode=b.dataset.mode; all.forEach(x=>x.setAttribute('aria-selected',String(x===b)));
+}));
+</script>
+</body>
+</html>

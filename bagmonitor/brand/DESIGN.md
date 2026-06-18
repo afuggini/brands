@@ -2,6 +2,8 @@
 
 Reference for any AI agent producing visual artifacts for BagMonitor — web, social, email, presentations, or any other touchpoint. Read this file in full before producing any visual output. Brand voice and strategy live in `BRAND.md`; keep them aligned.
 
+> **v1 — superseded by `../v2/DESIGN.md`.** This is the original BagMonitor visual system (enterprise dark + indigo, Space Grotesk). The current locked direction is the v2 Swiss-editorial / warm-stone system in `../v2/`. This file is kept as the v1 reference. It also absorbs the former `docs/17-design-system.md` (digital specs), which was a duplicate of this document.
+
 ---
 
 ## 1. Concept
@@ -357,6 +359,7 @@ background: radial-gradient(ellipse 140% 60% at 50% 110%,
 | Hero badge / subtitle | 0.8s | `cubic-bezier(0.25,0.1,0.25,1)` | CSS animation, staggered |
 | Scroll-triggered sections | 0.6s | `cubic-bezier(0.25,0.1,0.25,1)` | Once, not repeat |
 | Stagger children | +0.1s per child | — | Max 5 items |
+| Globe fade-in | 2s | `ease` | 0.5s delay, desktop only |
 | Pulse dot | 2s | `ease-in-out` | Infinite, opacity only |
 | Button hover | 0.15s | `ease` | Color/shadow only |
 

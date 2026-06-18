@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style> *{margin:0;padding:0} body{background:#eef2f7} canvas{display:block} </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+                   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/" } }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    // camera angle from hash: #az,el  (degrees)  e.g. #30,15
+    const [az = 25, el = 12] = (location.hash.slice(1).split(',').map(Number));
+    const MODEL = new URLSearchParams(location.search).get('model') || 'bagmonitor-tag.glb';
+    const W = 700, H = 700;
+
+    const canvas = document.getElementById('c');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(1);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xeef2f7);
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+    const camera = new THREE.PerspectiveCamera(32, W / H, 0.1, 1000);
+    const dist = 52;
+    const azR = az * Math.PI/180, elR = el * Math.PI/180;
+    camera.position.set(
+      dist * Math.cos(elR) * Math.sin(azR),
+      dist * Math.sin(elR) + 2,
+      dist * Math.cos(elR) * Math.cos(azR),
+    );
+    camera.lookAt(0, 2, 0);
+
+    const key = new THREE.DirectionalLight(0xffffff, 1.1);
+    key.position.set(20, 30, 25); scene.add(key);
+
+    new GLTFLoader().load('./' + MODEL, gltf => {
+      const m = gltf.scene;
+      // normalize to a consistent on-screen size regardless of source units
+      let box = new THREE.Box3().setFromObject(m);
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z) || 1;
+      const s = 22 / maxDim;
+      m.scale.setScalar(s);
+      box = new THREE.Box3().setFromObject(m);
+      m.position.sub(box.getCenter(new THREE.Vector3()));
+      m.position.y += 2;
+      scene.add(m);
+      renderer.render(scene, camera);
+      document.title = 'READY';
+    });
+  </script>
+</body>
+</html>

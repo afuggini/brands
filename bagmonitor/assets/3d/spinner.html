@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BagMonitor Tag — 360° Spinner</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh; display: flex; flex-direction: column; gap: 24px;
+      align-items: center; justify-content: center;
+      background: radial-gradient(circle at 50% 30%, #1d2433, #0d1018);
+      font-family: ui-sans-serif, system-ui, sans-serif; color: #aab3c5;
+    }
+    .tag-spinner {
+      position: relative; width: 300px; height: 350px;
+      cursor: grab; touch-action: pan-y; user-select: none;
+    }
+    .tag-spinner.dragging { cursor: grabbing; }
+    .tag-spinner canvas { width: 100%; height: 100%; display: block;
+      filter: drop-shadow(0 24px 30px rgba(0,0,0,.45)); }
+    #hint { font-size: 13px; letter-spacing: .03em; opacity: .55; }
+  </style>
+</head>
+<body>
+  <div class="tag-spinner" id="spinner"></div>
+  <div id="hint">drag to rotate · release to auto-spin</div>
+
+  <script>
+  class TagSpinner {
+    constructor(el, { frames, basePath = '', autoSpin = true, speed = 0.6 } = {}) {
+      this.el = el;
+      this.frameSrcs = frames.map(f => basePath + f);
+      this.images = [];
+      this.index = 0;            // fractional frame index [0, N)
+      this.N = frames.length;
+      this.autoSpin = autoSpin;
+      this.speed = speed;        // frames per ~16ms tick when auto-spinning
+      this.dragging = false;
+      this.lastX = 0;
+      this.idleResume = 0;
+
+      this.canvas = document.createElement('canvas');
+      this.ctx = this.canvas.getContext('2d');
+      el.appendChild(this.canvas);
+
+      this._load().then(() => { this._resize(); this._bind(); this._loop(); });
+      window.addEventListener('resize', () => this._resize());
+    }
+
+    _load() {
+      return Promise.all(this.frameSrcs.map(src => new Promise(res => {
+        const img = new Image();
+        img.onload = () => res(img);
+        img.src = src;
+      }))).then(imgs => { this.images = imgs; });
+    }
+
+    _resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const r = this.el.getBoundingClientRect();
+      this.canvas.width = r.width * dpr;
+      this.canvas.height = r.height * dpr;
+    }
+
+    _bind() {
+      const el = this.el;
+      const down = x => { this.dragging = true; this.lastX = x; el.classList.add('dragging'); };
+      const move = x => {
+        if (!this.dragging) return;
+        const dx = x - this.lastX; this.lastX = x;
+        // full drag across the element width ≈ one full revolution
+        this.index = (this.index - dx / this.el.clientWidth * this.N) % this.N;
+        if (this.index < 0) this.index += this.N;
+      };
+      const up = () => { this.dragging = false; el.classList.remove('dragging');
+                         this.idleResume = performance.now() + 900; };
+
+      el.addEventListener('mousedown', e => down(e.clientX));
+      window.addEventListener('mousemove', e => move(e.clientX));
+      window.addEventListener('mouseup', up);
+      el.addEventListener('touchstart', e => down(e.touches[0].clientX), { passive: true });
+      el.addEventListener('touchmove', e => move(e.touches[0].clientX), { passive: true });
+      el.addEventListener('touchend', up);
+    }
+
+    _loop() {
+      const tick = now => {
+        if (this.autoSpin && !this.dragging && now > this.idleResume) {
+          this.index = (this.index + this.speed * 0.06) % this.N;
+        }
+        this._draw();
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    _draw() {
+      const { ctx, canvas, images, N } = this;
+      if (!images.length) return;
+      const i0 = Math.floor(this.index) % N;
+      const i1 = (i0 + 1) % N;
+      const f = this.index - Math.floor(this.index);   // blend factor
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const drawFit = (img, alpha) => {
+        const s = Math.min(canvas.width / img.width, canvas.height / img.height);
+        const w = img.width * s, h = img.height * s;
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+      };
+      // crossfade the two nearest frames → smooth rotation from only 8 stills
+      drawFit(images[i0], 1);
+      if (f > 0.001) drawFit(images[i1], f);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  new TagSpinner(document.getElementById('spinner'), {
+    basePath: './spin/',
+    frames: ['frame_0.png','frame_1.png','frame_2.png','frame_3.png',
+             'frame_4.png','frame_5.png','frame_6.png','frame_7.png'],
+    autoSpin: true,
+    speed: 0.5,
+  });
+  </script>
+</body>
+</html>

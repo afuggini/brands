@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BagMonitor — Design v2 · Swiss editorial (Tailwind)</title>
+
+<!-- Tailwind v4 (browser build, for this standalone preview). In the app, use the
+     real Tailwind build and paste the @theme block below into src/app/globals.css. -->
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<!-- ════════════════ THE REUSABLE THEME (Tailwind v4 @theme) ════════════════
+     Aligned to v2 DESIGN.md §3.6 — warm-stone ramp, near-black warm ink, rare lime. -->
+<style type="text/tailwindcss">
+  @theme {
+    /* Fonts */
+    --font-sans: "GT America", "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "GT America Mono", "Geist Mono", ui-monospace, monospace;
+
+    /* Stone ramp (warm) */
+    --color-stone-50:  #FAFAF9;
+    --color-stone-100: #F5F5F4;
+    --color-stone-200: #E7E5E4;
+    --color-stone-300: #D6D3D1;
+    --color-stone-400: #A8A29E;
+    --color-stone-500: #78716C;
+    --color-stone-600: #57534E;
+    --color-stone-700: #44403C;
+    --color-stone-800: #292524;
+    --color-stone-900: #1C1917;
+    --color-stone-950: #0C0A09;
+
+    /* Accent + status */
+    --color-lime:  #D6F36D;
+    --color-ok:    #5E7D14;
+    --color-risk:  #B07A1E;
+    --color-alert: #9A3B2E;
+
+    /* Semantic roles — LIGHT defaults (flipped under html[data-mode="dark"]) */
+    --color-paper:       #F7F6F3;  /* page background        */
+    --color-surface:     #FFFFFF;  /* cards / panels         */
+    --color-ink:         #1C1917;  /* headings / strong fg   */
+    --color-body:        #44403C;  /* body text              */
+    --color-muted:       #78716C;  /* labels / secondary     */
+    --color-line:        #E7E5E4;  /* hairline rules         */
+    --color-line-strong: #D6D3D1;  /* stronger borders       */
+    --color-btn:         #1C1917;  /* primary button bg      */
+    --color-btn-fg:      #F7F6F3;  /* primary button text    */
+    --color-inv-accent:  #D6F36D;  /* accent on inverted block */
+
+    /* Display type scale */
+    --text-display: clamp(2.75rem, 7vw, 5.25rem);
+    --text-display--line-height: 1.04;
+    --text-display--letter-spacing: -0.012em;
+    --text-h2: clamp(1.75rem, 3.5vw, 2.75rem);
+    --text-h2--line-height: 1.12;
+    --text-h2--letter-spacing: -0.01em;
+    --text-stat: clamp(2.25rem, 4vw, 3.25rem);
+    --text-stat--line-height: 1;
+    --text-stat--letter-spacing: -0.02em;
+
+    --radius-card: 10px;
+  }
+</style>
+
+<!-- Font loading (licensed GT America VF supplied locally) + dark-mode token flip + the
+     trace component. These reference the @theme tokens above. -->
+<style>
+  @font-face{ font-family:"GT America"; font-weight:100 900; font-style:normal; font-display:swap; src:url("./fonts/GT%20America%20VF/GT-America-Intl-VF_0.ttf") format("truetype-variations"); }
+  @font-face{ font-family:"GT America"; font-weight:100 900; font-style:italic; font-display:swap; src:url("./fonts/GT%20America%20VF/GT-America-Intl-VF-Italic-VF.ttf") format("truetype-variations"); }
+  @font-face{ font-family:"GT America Mono"; font-weight:100 900; font-style:normal; font-display:swap; src:url("./fonts/GT%20America%20VF/GT-America-Intl-VF-Mono-VF_0.ttf") format("truetype-variations"); }
+
+  /* Dark mode: flip the semantic token VALUES; every utility (bg-paper, text-ink, …)
+     re-themes automatically. Higher specificity than :root so it always wins. */
+  html[data-mode="dark"]{
+    --color-paper:#1C1917; --color-surface:#292524; --color-ink:#F5F5F4; --color-body:#D6D3D1; --color-muted:#A8A29E;
+    --color-line:#292524; --color-line-strong:#44403C;
+    --color-btn:#D6F36D; --color-btn-fg:#1C1917; --color-inv-accent:#5E7D14;
+    --color-ok:#C2E85A; --color-risk:#E2B85A; --color-alert:#E08A7E;
+  }
+  html{ background:var(--color-paper); }
+
+  /* Live trace — signature component, on-theme via the tokens above */
+  .trace{ position:relative; overflow:hidden; }
+  .trace .scan{ content:""; position:absolute; top:0; bottom:0; width:1px; background:var(--color-lime); left:0; opacity:0; animation:scan 6s cubic-bezier(.6,0,.4,1) infinite; }
+  @keyframes scan{ 0%{left:2%;opacity:0} 8%{opacity:.8} 70%{left:98%;opacity:.6} 80%{opacity:0} 100%{opacity:0} }
+  .strack{ position:relative; height:1.4rem; }
+  .span{ position:absolute; top:0; height:100%; border-radius:4px; display:flex; align-items:center; padding:0 .5rem; transform:scaleX(0); transform-origin:left; animation:grow .7s cubic-bezier(.22,1,.36,1) forwards;
+    background:color-mix(in oklab,var(--color-ok) 14%,var(--color-surface)); border:1px solid color-mix(in oklab,var(--color-ok) 32%,var(--color-surface)); }
+  .span s{ font-family:var(--font-mono); font-size:.68rem; color:var(--color-ok); opacity:0; animation:fade .4s ease forwards; animation-delay:inherit; white-space:nowrap; font-style:normal; }
+  .span.tr{ background:color-mix(in oklab,var(--color-lime) 24%,var(--color-surface)); border-color:color-mix(in oklab,var(--color-lime) 50%,var(--color-line)); }
+  .span.tr s{ color:var(--color-ink); }
+  .span.rk{ background:color-mix(in oklab,var(--color-risk) 16%,var(--color-surface)); border-color:color-mix(in oklab,var(--color-risk) 45%,var(--color-surface)); }
+  .span.rk s{ color:var(--color-risk); }
+  @keyframes grow{ to{ transform:scaleX(1) } } @keyframes fade{ to{ opacity:1 } }
+  .travel{ position:absolute; top:50%; width:.6rem; height:.6rem; margin-top:-.3rem; border-radius:50%; background:var(--color-lime); box-shadow:0 0 0 3px color-mix(in oklab,var(--color-lime) 30%,var(--color-surface)); left:0; animation:travel 6s cubic-bezier(.6,0,.4,1) infinite; }
+  @keyframes travel{ 0%{left:1%;opacity:0} 6%{opacity:1} 70%{left:97%;opacity:1} 82%{opacity:0} 100%{opacity:0} }
+
+  /* Live status dot — pulsing, opacity only */
+  .pulse{ position:relative; }
+  .pulse::after{ content:""; position:absolute; inset:0; border-radius:9999px; background:var(--color-lime); animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:.55; transform:scale(1) } 50%{ opacity:0; transform:scale(2.4) } }
+
+  /* Hero status card — progress line + glide dot */
+  .progress-dot{ animation:glide 6s cubic-bezier(.6,0,.4,1) infinite; }
+  @keyframes glide{ 0%{left:0;opacity:0} 8%{opacity:1} 60%{left:62%;opacity:1} 70%{left:62%} 86%{left:62%;opacity:1} 100%{left:62%;opacity:1} }
+
+  /* FAQ accordion chevron */
+  details summary{ list-style:none; cursor:pointer; }
+  details summary::-webkit-details-marker{ display:none; }
+  details .chev{ transition:transform .25s cubic-bezier(.25,0,0,1); }
+  details[open] .chev{ transform:rotate(45deg); }
+
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important } .span{ transform:scaleX(1)!important } .span s{ opacity:1!important } .pulse::after{ opacity:0!important } }
+
+  /* control-bar chrome (mode-independent) */
+  .seg button[aria-selected="true"]{ background:#23242f; color:#fff; }
+</style>
+</head>
+
+<body class="min-h-screen bg-paper font-sans text-body antialiased">
+
+<!-- Control bar -->
+<div class="sticky top-0 z-50 flex flex-wrap items-center gap-4 border-b border-[#232329] bg-[#08080b]/90 px-[clamp(1rem,4vw,2.5rem)] py-2.5 backdrop-blur" style="font-family:Archivo,system-ui,sans-serif">
+  <div class="text-[.95rem] font-semibold text-[#e7e7ea]">BagMonitor <span class="font-normal text-[#8b8b93]">· Design v2 — Swiss editorial · Tailwind</span></div>
+  <span class="rounded-[5px] bg-lime px-2 py-[.2rem] text-[.68rem] font-bold uppercase tracking-[.1em] text-stone-900" style="font-family:'Geist Mono',monospace">warm stone · @theme</span>
+  <div class="seg ml-auto inline-flex gap-[2px] rounded-[9px] border border-[#232329] bg-[#111117] p-[3px]" role="tablist" aria-label="Mode">
+    <button role="tab" aria-selected="true"  data-mode="light" class="rounded-md px-2.5 py-1.5 text-[.78rem] font-semibold text-[#8b8b93]">☀ Light</button>
+    <button role="tab" aria-selected="false" data-mode="dark"  class="rounded-md px-2.5 py-1.5 text-[.78rem] font-semibold text-[#8b8b93]">☾ Dark</button>
+  </div>
+</div>
+
+<div class="mx-auto max-w-[1240px] px-[clamp(1.25rem,4vw,2.5rem)]">
+
+  <!-- Nav -->
+  <nav class="flex items-center justify-between border-b border-line py-6">
+    <div class="flex items-center gap-2.5 text-[1.15rem] font-semibold tracking-[-.01em] text-ink">
+      <span class="grid h-6 w-6 place-items-center rounded-[5px] bg-ink"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-paper)" stroke-width="2" class="h-3.5 w-3.5"><path d="M5 19L19 5M9 19h10V9" stroke-linecap="round"/></svg></span>
+      BagMonitor
+    </div>
+    <div class="hidden gap-8 md:flex">
+      <a href="#" class="text-[.95rem] text-body hover:text-ink">Platform</a>
+      <a href="#" class="text-[.95rem] text-body hover:text-ink">Solutions</a>
+      <a href="#" class="text-[.95rem] text-body hover:text-ink">Integrations</a>
+      <a href="#" class="text-[.95rem] text-body hover:text-ink">Pricing</a>
+    </div>
+    <button class="group inline-flex items-center gap-2.5 rounded-md bg-btn px-3.5 py-2 text-[.9rem] font-medium text-btn-fg transition hover:brightness-95">Book a Demo <span class="transition group-hover:translate-x-0.5">→</span></button>
+  </nav>
+
+  <!-- Hero — text-led, with a live-status card as the trace-family visual -->
+  <header class="grid grid-cols-1 items-center gap-[clamp(2.5rem,5vw,4.5rem)] py-[clamp(3rem,6vw,5.5rem)] lg:grid-cols-[1.05fr_.95fr]">
+    <div>
+      <p class="text-[.6875rem] font-medium uppercase tracking-[.16em] text-muted">Baggage Visibility Infrastructure</p>
+      <h1 class="mt-6 max-w-[15ch] text-display font-light text-ink text-balance">Real-time visibility for every bag<span class="text-lime">.</span></h1>
+      <p class="mt-6 max-w-[46ch] text-[1.1875rem] leading-[1.55] text-body text-pretty">BagMonitor monitors bag movements across the entire journey, so a transfer about to fail surfaces as an alert while ground ops can still act on it.</p>
+      <div class="mt-8 flex flex-wrap items-center gap-5">
+        <button class="group inline-flex items-center gap-5 rounded-md bg-btn px-[1.1rem] py-[.7rem] text-[.95rem] font-medium text-btn-fg transition hover:brightness-95">Book a Demo <span class="transition group-hover:translate-x-0.5">→</span></button>
+        <a href="#" class="group inline-flex items-center gap-1.5 border-b border-line-strong py-[.7rem] text-[.95rem] font-medium text-ink hover:border-ink">Explore the platform <span class="transition group-hover:translate-x-0.5">→</span></a>
+      </div>
+    </div>
+
+    <!-- Live-status card: a single bag, glanceable. Distinct from the full lifecycle waterfall below. -->
+    <div class="trace rounded-[10px] border border-line bg-surface p-[clamp(1.1rem,2vw,1.5rem)]">
+      <span class="scan"></span>
+      <div class="flex items-center justify-between border-b border-line pb-3">
+        <div class="flex items-center gap-2 text-[.8125rem] text-ink">
+          <span class="pulse inline-block h-2 w-2 rounded-full bg-lime"></span> Live
+        </div>
+        <div class="font-mono text-[.8rem] font-medium text-ink">BAG&nbsp;0249</div>
+      </div>
+      <div class="flex items-center gap-2 pt-4 font-mono text-[.9rem] text-ink">
+        <span>BCN</span><span class="text-muted">→</span><span class="rounded bg-lime/25 px-1.5">LHR</span><span class="text-muted">→</span><span>JFK</span>
+      </div>
+      <div class="mt-1 text-[.8125rem] text-muted">Currently at <span class="text-body">Transfer · London Heathrow</span></div>
+
+      <div class="relative mt-5 h-1.5 rounded-full bg-line-strong">
+        <div class="absolute inset-y-0 left-0 w-[62%] rounded-full bg-ink"></div>
+        <span class="progress-dot absolute top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-lime" style="left:62%;box-shadow:0 0 0 3px color-mix(in oklab,var(--color-lime) 30%,var(--color-surface))"></span>
+      </div>
+      <div class="mt-2 flex justify-between font-mono text-[.7rem] text-muted"><span>09:12 · checked in</span><span>14:30 BST · arrival</span></div>
+
+      <div class="mt-5 flex items-start gap-2.5 rounded-md border border-risk/40 bg-risk/10 px-3 py-2.5">
+        <span class="mt-[.15rem] text-[.8rem]" style="color:var(--color-risk)">⚑</span>
+        <div class="text-[.8125rem] leading-snug text-body"><span class="font-medium" style="color:var(--color-risk)">Tight connection.</span> Alert fired at 12:05 — rebooked onto T3 carousel before the gate closed.</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Trust strip — operators (placeholder wordmarks; swap for licensed airline/airport logos) -->
+  <section class="border-y border-line py-9" aria-label="Operators monitoring with BagMonitor">
+    <p class="text-center text-[.8125rem] text-muted">Monitoring baggage operations at hub airports across three continents</p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-x-[clamp(2rem,5vw,4rem)] gap-y-5 text-stone-400">
+      <span class="text-[1.05rem] font-semibold tracking-[-.01em]">NORDPORT</span>
+      <span class="text-[1.05rem] font-light italic tracking-[.02em]">Meridian&nbsp;Air</span>
+      <span class="font-mono text-[.95rem] font-medium tracking-[.04em]">HELIOS·AERO</span>
+      <span class="text-[1.05rem] font-semibold uppercase tracking-[.08em]">Skybridge</span>
+      <span class="text-[1.05rem] font-medium tracking-[-.02em]">TransGlobe</span>
+      <span class="text-[1.05rem] font-light uppercase tracking-[.14em]">Aeronav</span>
+    </div>
+  </section>
+
+  <!-- Metric strip -->
+  <div class="grid grid-cols-1 border-b border-line sm:grid-cols-3">
+    <div class="border-line py-7 sm:border-l sm:pl-6 sm:first:border-l-0 sm:first:pl-0 [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:border-t-0 sm:[&:not(:first-child)]:pt-7">
+      <div class="text-stat font-light text-ink">98.7%</div><div class="mt-2.5 text-[.8125rem] text-muted">Successful deliveries</div>
+    </div>
+    <div class="border-line py-7 sm:border-l sm:pl-6 [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:border-t-0 sm:[&:not(:first-child)]:pt-7">
+      <div class="text-stat font-light text-ink">1,247</div><div class="mt-2.5 text-[.8125rem] text-muted">Flights monitored, live</div>
+    </div>
+    <div class="border-line py-7 sm:border-l sm:pl-6 [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:border-t-0 sm:[&:not(:first-child)]:pt-7">
+      <div class="text-stat font-light text-ink">12,847,231<span class="text-lime">.</span></div><div class="mt-2.5 text-[.8125rem] text-muted">Baggage movements today</div>
+    </div>
+  </div>
+
+  <!-- Live trace — the signature lifecycle waterfall -->
+  <section class="border-t border-line py-[clamp(4rem,8vw,7rem)]">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-2 font-mono text-[.95rem] text-ink"><b class="font-medium">BAG&nbsp;0249</b><span>BCN</span><span class="text-muted">→</span><span>LHR</span><span class="text-muted">→</span><span>JFK</span></div>
+      <div class="flex flex-wrap gap-2.5">
+        <span class="inline-flex items-center gap-2 rounded-md border border-lime/45 bg-lime/20 px-2.5 py-1 text-[.8125rem] text-ink"><span class="h-2 w-2 rounded-full bg-lime"></span>In Transit</span>
+        <span class="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-2.5 py-1 text-[.8125rem] text-body"><span class="h-2 w-2 rounded-full bg-muted"></span>Delivered</span>
+        <span class="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-2.5 py-1 text-[.8125rem] text-body"><span class="h-2 w-2 rounded-full bg-muted"></span>Exception</span>
+      </div>
+    </div>
+
+    <div class="trace rounded-[10px] border border-line bg-surface p-[clamp(1.25rem,2.5vw,1.75rem)]">
+      <span class="scan"></span>
+      <div class="mb-[1.1rem] flex flex-wrap items-center justify-between gap-4 border-b border-line pb-[1.1rem]">
+        <div class="font-mono text-[.9rem] font-medium text-ink">LIVE&nbsp;TRANSFER&nbsp;MONITOR</div>
+        <div class="flex flex-wrap gap-4 text-[.78rem] text-muted">
+          <span><i class="mr-1.5 inline-block h-2 w-2 rounded-full align-[.5px]" style="background:var(--color-ok)"></i>on-time</span>
+          <span><i class="mr-1.5 inline-block h-2 w-2 rounded-full align-[.5px]" style="background:var(--color-risk)"></i>at risk</span>
+          <span><i class="mr-1.5 inline-block h-2 w-2 rounded-full align-[.5px]" style="background:var(--color-lime)"></i>in transit</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-[9rem_1fr] gap-4">
+        <div class="font-mono text-[.7rem] text-muted">LIFECYCLE</div>
+        <div class="mb-2 flex justify-between border-b border-dashed border-line-strong pb-1.5 font-mono text-[.7rem] text-muted"><span>09:12</span><span>10:40</span><span>12:05</span><span>14:30 BST</span><span>arrival</span></div>
+      </div>
+      <div class="grid grid-cols-[9rem_1fr] items-center gap-4 py-1"><div class="whitespace-nowrap font-mono text-[.78rem] text-body">Check-in · BCN</div><div class="strack"><div class="span" style="left:0;width:13%;animation-delay:.05s"><s>OK</s></div></div></div>
+      <div class="grid grid-cols-[9rem_1fr] items-center gap-4 py-1"><div class="whitespace-nowrap font-mono text-[.78rem] text-body">Security screen</div><div class="strack"><div class="span" style="left:13%;width:10%;animation-delay:.18s"><s>OK</s></div></div></div>
+      <div class="grid grid-cols-[9rem_1fr] items-center gap-4 py-1"><div class="whitespace-nowrap font-mono text-[.78rem] text-body">Sortation</div><div class="strack"><div class="span tr" style="left:23%;width:14%;animation-delay:.31s"><s>routed</s></div></div></div>
+      <div class="grid grid-cols-[9rem_1fr] items-center gap-4 py-1"><div class="whitespace-nowrap font-mono text-[.78rem] text-body">Load · ramp</div><div class="strack"><div class="span" style="left:37%;width:11%;animation-delay:.44s"><s>loaded</s></div></div></div>
+      <div class="grid grid-cols-[9rem_1fr] items-center gap-4 py-1"><div class="whitespace-nowrap font-mono text-[.78rem] text-body">Transfer · LHR</div><div class="strack"><div class="span rk" style="left:48%;width:23%;animation-delay:.57s"><s>tight connection</s></div><span class="ml-[.55rem] font-mono text-[.68rem]" style="color:var(--color-risk)">⚑ alert fired · rebooked T3</span></div></div>
+      <div class="grid grid-cols-[9rem_1fr] items-center gap-4 py-1"><div class="whitespace-nowrap font-mono text-[.78rem] text-body">Unload · JFK</div><div class="strack"><div class="span" style="left:71%;width:13%;animation-delay:.7s"><s>OK</s></div></div></div>
+      <div class="grid grid-cols-[9rem_1fr] items-center gap-4 py-1"><div class="whitespace-nowrap font-mono text-[.78rem] text-body">Claim belt 7</div><div class="strack"><div class="span" style="left:84%;width:14%;animation-delay:.83s"><s>delivered</s></div></div></div>
+      <div class="travel" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Cost / stat grid — hairline column dividers, no full cell borders (DESIGN.md §5) -->
+  <section class="border-t border-line py-[clamp(4rem,8vw,7rem)]">
+    <div class="mb-[clamp(2.5rem,4vw,3.5rem)]">
+      <p class="text-[.6875rem] font-medium uppercase tracking-[.16em] text-muted">The cost of invisibility</p>
+      <h2 class="mt-4 max-w-[24ch] text-h2 font-normal text-ink text-balance">Lost baggage is a visibility failure. The numbers show where it fails.</h2>
+    </div>
+    <div class="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-0">
+      <div class="lg:border-l lg:border-line lg:pl-8 lg:first:border-l-0 lg:first:pl-0"><div class="text-stat font-light text-ink">41%</div><div class="mt-3 text-[.75rem] uppercase tracking-[.08em] text-muted">Transfer-caused</div><p class="mt-3.5 text-[.9375rem] leading-relaxed text-body">The single largest source of delayed bags, at the exact handoff where tracking goes dark.</p><div class="mt-4 font-mono text-[.7rem] text-muted">SITA Baggage IT Insights</div></div>
+      <div class="lg:border-l lg:border-line lg:pl-8"><div class="text-stat font-light text-ink">$5B</div><div class="mt-3 text-[.75rem] uppercase tracking-[.08em] text-muted">Annual cost</div><p class="mt-3.5 text-[.9375rem] leading-relaxed text-body">Compensation, tracing, courier returns and recovery, every year.</p><div class="mt-4 font-mono text-[.7rem] text-muted">IATA estimate</div></div>
+      <div class="lg:border-l lg:border-line lg:pl-8"><div class="text-stat font-light text-ink">33.4M</div><div class="mt-3 text-[.75rem] uppercase tracking-[.08em] text-muted">Bags / year</div><p class="mt-3.5 text-[.9375rem] leading-relaxed text-body">Mishandled worldwide, scaling with passenger volume.</p><div class="mt-4 font-mono text-[.7rem] text-muted">SITA</div></div>
+      <div class="lg:border-l lg:border-line lg:pl-8"><div class="text-stat font-light text-ink">82%</div><div class="mt-3 text-[.75rem] uppercase tracking-[.08em] text-muted">By 2027</div><p class="mt-3.5 text-[.9375rem] leading-relaxed text-body">Airlines planning real-time bag tracking, which requires the infrastructure first.</p><div class="mt-4 font-mono text-[.7rem] text-muted">IATA survey</div></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="border-t border-line py-[clamp(4rem,8vw,7rem)]">
+    <div class="mb-[clamp(2.5rem,4vw,3.5rem)]">
+      <p class="text-[.6875rem] font-medium uppercase tracking-[.16em] text-muted">The platform</p>
+      <h2 class="mt-4 max-w-[28ch] text-h2 font-normal text-ink text-balance">Visibility, exception detection, and intelligence across the lifecycle.</h2>
+    </div>
+    <div class="border-t border-line">
+      <div class="grid grid-cols-1 gap-2 border-b border-line py-8 md:grid-cols-[4rem_22ch_1fr] md:gap-8"><div class="pt-1 font-mono text-[.8rem] text-muted">01</div><h3 class="text-[1.25rem] font-medium text-ink">Real-time lifecycle tracking</h3><p class="text-[.9375rem] leading-relaxed text-body">A complete digital identity for every bag, updated at each handling point from check-in to claim. Augments your DCS and BRS through secure APIs, with no rip-and-replace.</p></div>
+      <div class="grid grid-cols-1 gap-2 border-b border-line py-8 md:grid-cols-[4rem_22ch_1fr] md:gap-8"><div class="pt-1 font-mono text-[.8rem] text-muted">02</div><h3 class="text-[1.25rem] font-medium text-ink">Transfer exception alerts</h3><p class="text-[.9375rem] leading-relaxed text-body">SLA monitoring and risk alerts fire at the transfer points where bags actually go missing, early enough for ground ops to re-route, re-tag, or hold a load.</p></div>
+      <div class="grid grid-cols-1 gap-2 border-b border-line py-8 md:grid-cols-[4rem_22ch_1fr] md:gap-8"><div class="pt-1 font-mono text-[.8rem] text-muted">03</div><h3 class="text-[1.25rem] font-medium text-ink">Predictive risk scoring</h3><p class="text-[.9375rem] leading-relaxed text-body">Route analytics and bottleneck detection score transfer risk before a connection is missed, turning raw tracking data into operational decisions.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- Photo-driven feature (dark) — Ramp's "person + product UI" block, adapted to airport ops -->
+<section class="bg-ink text-paper">
+  <div class="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-[clamp(2.5rem,5vw,4.5rem)] px-[clamp(1.25rem,4vw,2.5rem)] py-[clamp(4rem,8vw,7rem)] lg:grid-cols-2">
+    <div class="relative order-2 lg:order-1">
+      <div class="overflow-hidden rounded-[10px] border border-paper/15">
+        <img src="./assets/photography3.png" alt="A bag moving along an airport reclaim carousel" loading="lazy" class="aspect-[4/3] w-full object-cover" />
+      </div>
+      <!-- Floating status card — solid surface, no glass -->
+      <div class="absolute -bottom-5 -right-2 w-[min(20rem,80%)] rounded-[10px] border border-line bg-surface p-4 text-body sm:right-4">
+        <div class="flex items-center justify-between border-b border-line pb-2.5">
+          <span class="font-mono text-[.78rem] font-medium text-ink">TRANSFER · LHR</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-risk/40 bg-risk/10 px-2 py-[.15rem] font-mono text-[.68rem]" style="color:var(--color-risk)">⚑ at risk</span>
+        </div>
+        <p class="mt-2.5 text-[.8125rem] leading-snug">Connection window 31 min. Bag rebooked to T3 carousel automatically.</p>
+        <div class="mt-3 flex items-center gap-2 font-mono text-[.7rem] text-muted"><span class="pulse inline-block h-1.5 w-1.5 rounded-full bg-lime"></span> alert delivered to ground ops · 12:05:14</div>
+      </div>
+    </div>
+    <div class="order-1 lg:order-2">
+      <h2 class="max-w-[18ch] text-paper text-balance" style="font-weight:300;font-size:clamp(2rem,4.5vw,3.25rem);line-height:1.1;letter-spacing:-.012em">See the exception before it becomes a claim<span class="text-inv-accent">.</span></h2>
+      <p class="mt-5 max-w-[46ch] text-[1.0625rem] leading-relaxed text-paper/80">Most bags are lost at transfer, in the minutes when no one is watching. BagMonitor watches that window and raises the alert while there is still time to act on it.</p>
+      <ul class="mt-8 space-y-4 border-t border-paper/15 pt-7">
+        <li class="flex items-start gap-3.5"><span class="mt-[.4rem] h-2 w-2 shrink-0 rounded-full bg-inv-accent"></span><div><div class="text-[1rem] font-medium text-paper">Catch tight connections early</div><p class="mt-1 text-[.9375rem] leading-relaxed text-paper/70">Risk is scored against the live connection window, not after the bag misses the flight.</p></div></li>
+        <li class="flex items-start gap-3.5"><span class="mt-[.4rem] h-2 w-2 shrink-0 rounded-full bg-inv-accent"></span><div><div class="text-[1rem] font-medium text-paper">Route the alert to the right team</div><p class="mt-1 text-[.9375rem] leading-relaxed text-paper/70">Ground ops, transfer desk, and the DCS all see the same exception at the same moment.</p></div></li>
+        <li class="flex items-start gap-3.5"><span class="mt-[.4rem] h-2 w-2 shrink-0 rounded-full bg-inv-accent"></span><div><div class="text-[1rem] font-medium text-paper">Resolve before the passenger knows</div><p class="mt-1 text-[.9375rem] leading-relaxed text-paper/70">A re-route or held load turns a would-be claim into an on-time delivery.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="mx-auto max-w-[1240px] px-[clamp(1.25rem,4vw,2.5rem)]">
+
+  <!-- Testimonial — pull-quote with supporting photography -->
+  <section class="border-t border-line py-[clamp(4rem,8vw,7rem)]">
+    <div class="grid grid-cols-1 items-center gap-[clamp(2.5rem,5vw,4rem)] lg:grid-cols-[1.15fr_.85fr]">
+      <figure>
+        <blockquote class="max-w-[24ch] text-ink text-balance" style="font-weight:300;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.2;letter-spacing:-.01em">
+          “We used to learn a bag was mishandled when the passenger did. Now the alert reaches ground ops while the bag is still in the building<span class="text-lime">.</span>”
+        </blockquote>
+        <figcaption class="mt-7 flex items-center gap-3.5 border-t border-line pt-6">
+          <span class="grid h-9 w-9 place-items-center rounded-full bg-stone-200 font-mono text-[.8rem] font-medium text-stone-700">RC</span>
+          <div>
+            <div class="text-[.9375rem] font-medium text-ink">Head of Baggage Operations</div>
+            <div class="font-mono text-[.78rem] text-muted">European hub airport · placeholder attribution</div>
+          </div>
+        </figcaption>
+      </figure>
+      <div class="overflow-hidden rounded-[10px] border border-line">
+        <img src="./assets/photography2.png" alt="A bright airport baggage reclaim hall" loading="lazy" class="aspect-[5/4] w-full object-cover" />
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Inverted statement (flips via semantic tokens) -->
+<section class="bg-ink text-paper">
+  <div class="mx-auto max-w-[1240px] px-[clamp(1.25rem,4vw,2.5rem)] py-[clamp(4.5rem,9vw,8rem)]">
+    <p class="text-[.6875rem] font-medium uppercase tracking-[.16em] text-paper/60">The thesis</p>
+    <h2 class="mt-5 max-w-[18ch] text-paper text-balance" style="font-weight:300;font-size:clamp(2.5rem,6vw,4.75rem);line-height:1.05;letter-spacing:-.015em">Prevention over recovery<span class="text-inv-accent">.</span></h2>
+    <p class="mt-6 max-w-[46ch] text-[1.1875rem] leading-relaxed text-paper/80">Finding a lost bag faster is still a failure. The goal is to stop the bag from being lost, by catching the exception while it can still be acted on.</p>
+    <div class="mt-12 grid grid-cols-1 border-t border-paper/20 sm:grid-cols-3">
+      <div class="border-paper/20 py-6 sm:border-l sm:pl-6 sm:first:border-l-0 sm:first:pl-0 [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:border-t-0"><div class="font-mono text-[1.5rem] text-inv-accent">&lt;&nbsp;60s</div><div class="mt-1 text-[.8125rem] text-paper/65">from exception to alert</div></div>
+      <div class="border-paper/20 py-6 sm:border-l sm:pl-6 [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:border-t-0"><div class="font-mono text-[1.5rem] text-inv-accent">4-point</div><div class="mt-1 text-[.8125rem] text-paper/65">IATA 753 compliance, by default</div></div>
+      <div class="border-paper/20 py-6 sm:border-l sm:pl-6 [&:not(:first-child)]:border-t [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:border-t-0"><div class="font-mono text-[1.5rem] text-inv-accent">0</div><div class="mt-1 text-[.8125rem] text-paper/65">rip-and-replace · API on DCS/BRS</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="mx-auto max-w-[1240px] px-[clamp(1.25rem,4vw,2.5rem)]">
+
+  <!-- FAQ -->
+  <section class="border-t border-line py-[clamp(4rem,8vw,7rem)]">
+    <div class="grid grid-cols-1 gap-[clamp(2rem,4vw,4rem)] lg:grid-cols-[.8fr_1.2fr]">
+      <h2 class="max-w-[14ch] text-h2 font-normal text-ink text-balance">Questions operators ask first</h2>
+      <div class="border-t border-line">
+        <details class="group border-b border-line">
+          <summary class="flex items-center justify-between gap-4 py-5 text-[1.0625rem] font-medium text-ink">How does BagMonitor integrate with our existing systems?<span class="chev shrink-0 text-[1.4rem] font-light leading-none text-muted">+</span></summary>
+          <p class="max-w-[68ch] pb-6 text-[.9375rem] leading-relaxed text-body">BagMonitor augments your DCS and BRS through secure APIs. It reads handling events you already generate and layers visibility and alerting on top, so there is no rip-and-replace and no change to ramp procedure.</p>
+        </details>
+        <details class="group border-b border-line">
+          <summary class="flex items-center justify-between gap-4 py-5 text-[1.0625rem] font-medium text-ink">Does it satisfy IATA Resolution 753?<span class="chev shrink-0 text-[1.4rem] font-light leading-none text-muted">+</span></summary>
+          <p class="max-w-[68ch] pb-6 text-[.9375rem] leading-relaxed text-body">Yes. BagMonitor captures the four required tracking points — acquisition, loading, transfer, and arrival — by default, and retains the event history needed for demonstrable compliance and inter-airline data exchange.</p>
+        </details>
+        <details class="group border-b border-line">
+          <summary class="flex items-center justify-between gap-4 py-5 text-[1.0625rem] font-medium text-ink">What hardware is required to start?<span class="chev shrink-0 text-[1.4rem] font-light leading-none text-muted">+</span></summary>
+          <p class="max-w-[68ch] pb-6 text-[.9375rem] leading-relaxed text-body">For most operators, none. BagMonitor begins with the scan and handling data your infrastructure already produces. Where you choose to add scan points or smart tags, they feed the same lifecycle record.</p>
+        </details>
+        <details class="group border-b border-line">
+          <summary class="flex items-center justify-between gap-4 py-5 text-[1.0625rem] font-medium text-ink">How is operational and passenger data handled?<span class="chev shrink-0 text-[1.4rem] font-light leading-none text-muted">+</span></summary>
+          <p class="max-w-[68ch] pb-6 text-[.9375rem] leading-relaxed text-body">Data is encrypted in transit and at rest, scoped to your operation, and governed by role-based access. BagMonitor processes baggage and routing events, and holds passenger-identifying data only where your integration explicitly requires it.</p>
+        </details>
+        <details class="group border-b border-line">
+          <summary class="flex items-center justify-between gap-4 py-5 text-[1.0625rem] font-medium text-ink">How long does a deployment take?<span class="chev shrink-0 text-[1.4rem] font-light leading-none text-muted">+</span></summary>
+          <p class="max-w-[68ch] pb-6 text-[.9375rem] leading-relaxed text-body">A monitored pilot on one route or hub typically runs within weeks, because the integration is API-first. From there, coverage expands route by route without disrupting live operations.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="border-t border-line py-[clamp(4rem,8vw,7rem)]">
+    <h2 class="max-w-[18ch] text-h2 font-light text-ink text-balance" style="font-size:clamp(2rem,5vw,3.5rem)">Make the invisible part of your operation visible<span class="text-lime">.</span></h2>
+    <div class="mt-8 flex flex-wrap items-center gap-5">
+      <button class="group inline-flex items-center gap-5 rounded-md bg-btn px-[1.1rem] py-[.7rem] text-[.95rem] font-medium text-btn-fg transition hover:brightness-95">Book a Demo <span class="transition group-hover:translate-x-0.5">→</span></button>
+      <a href="#" class="group inline-flex items-center gap-1.5 border-b border-line-strong py-[.7rem] text-[.95rem] font-medium text-ink hover:border-ink">Talk to engineering <span class="transition group-hover:translate-x-0.5">→</span></a>
+    </div>
+  </section>
+
+  <!-- Footer — multi-column -->
+  <footer class="border-t border-line pt-[clamp(3rem,5vw,4.5rem)] pb-10">
+    <div class="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div class="col-span-2 md:col-span-1">
+        <div class="flex items-center gap-2.5 text-[1rem] font-semibold text-ink">
+          <span class="grid h-5 w-5 place-items-center rounded-[5px] bg-ink"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-paper)" stroke-width="2" class="h-3 w-3"><path d="M5 19L19 5M9 19h10V9" stroke-linecap="round"/></svg></span>
+          BagMonitor
+        </div>
+        <p class="mt-4 max-w-[34ch] text-[.9375rem] leading-relaxed text-muted">Baggage visibility infrastructure for airlines, ground handlers, and airport operators.</p>
+        <button class="group mt-6 inline-flex items-center gap-2.5 rounded-md bg-btn px-3.5 py-2 text-[.875rem] font-medium text-btn-fg transition hover:brightness-95">Book a Demo <span class="transition group-hover:translate-x-0.5">→</span></button>
+      </div>
+      <nav class="flex flex-col gap-3 text-[.9rem]" aria-label="Platform">
+        <div class="text-[.6875rem] font-medium uppercase tracking-[.14em] text-muted">Platform</div>
+        <a href="#" class="text-body hover:text-ink">Real-time tracking</a>
+        <a href="#" class="text-body hover:text-ink">Exception alerts</a>
+        <a href="#" class="text-body hover:text-ink">Risk scoring</a>
+        <a href="#" class="text-body hover:text-ink">APIs</a>
+      </nav>
+      <nav class="flex flex-col gap-3 text-[.9rem]" aria-label="Solutions">
+        <div class="text-[.6875rem] font-medium uppercase tracking-[.14em] text-muted">Solutions</div>
+        <a href="#" class="text-body hover:text-ink">Airlines</a>
+        <a href="#" class="text-body hover:text-ink">Ground handlers</a>
+        <a href="#" class="text-body hover:text-ink">Airports</a>
+        <a href="#" class="text-body hover:text-ink">IATA 753</a>
+      </nav>
+      <nav class="flex flex-col gap-3 text-[.9rem]" aria-label="Company">
+        <div class="text-[.6875rem] font-medium uppercase tracking-[.14em] text-muted">Company</div>
+        <a href="#" class="text-body hover:text-ink">About</a>
+        <a href="#" class="text-body hover:text-ink">Documentation</a>
+        <a href="#" class="text-body hover:text-ink">Security</a>
+        <a href="#" class="text-body hover:text-ink">Contact</a>
+      </nav>
+    </div>
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
+      <div class="font-mono text-[.72rem] uppercase tracking-[.08em] text-muted">© 2026 BagMonitor · Baggage Visibility Infrastructure</div>
+      <div class="font-mono text-[.72rem] uppercase tracking-[.08em] text-muted">Version 2.0 — June 2026</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const html=document.documentElement;
+  document.querySelectorAll('.seg button').forEach((b,_,all)=>b.addEventListener('click',()=>{
+    html.dataset.mode=b.dataset.mode; all.forEach(x=>x.setAttribute('aria-selected',String(x===b)));
+  }));
+</script>
+</body>
+</html>

@@ -33,7 +33,7 @@ bagmonitor/
 - **BRAND.md** is the single source of truth for voice, positioning, and messaging.
 - **DESIGN.md** is the single source of truth for all visual decisions.
 - **accounts/INDEX.md** is the starting point for any sales or pipeline work.
-- **docs/transcripts/** contains verbatim meeting transcripts — primary source for account intel.
+- **docs/sales/transcripts/** contains verbatim meeting transcripts — primary source for account intel.
 - **docs/** contains the raw research and strategy documents that informed BRAND.md and DESIGN.md. They remain available as source material but BRAND.md and DESIGN.md take precedence in case of any conflict.
 - BagMonitor sells to airlines and operators — not to passengers. This distinction drives nearly every copy decision.
 - The primary CTA is always **Book a Demo**.
@@ -49,11 +49,12 @@ bagmonitor/
 
 ## Before doing any sales or pipeline work
 
-1. Read `accounts/INDEX.md` for current pipeline status.
-2. Open the relevant account file(s) for full intel, deal history, and contacts.
-3. Cross-reference `docs/transcripts/` if deeper context on a meeting is needed.
-4. Contacts with emails/phones are in `contacts/contacts.csv` and in each account file.
-5. Apollo (`brands/.env` → `APOLLO_API_KEY`) is used for enrichment and prospecting only — not as a CRM. Account intel lives in `accounts/`.
+1. Read `docs/strategy/commercial-roadmap.md` — current phase, what's active, what's not a priority.
+2. Read `accounts/INDEX.md` for pipeline status across all accounts.
+3. Open the relevant account file(s) for full intel, deal history, and contacts.
+4. Cross-reference `docs/sales/transcripts/` if deeper context on a meeting is needed.
+5. Contacts with emails/phones are in `contacts/contacts.csv` and in each account file.
+6. Apollo (`brands/.env` → `APOLLO_API_KEY`) is used for enrichment and prospecting only — not as a CRM. Account intel lives in `accounts/`.
 
 ## Inheritance
 

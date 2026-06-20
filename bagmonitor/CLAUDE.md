@@ -9,7 +9,8 @@ BagMonitor is an enterprise B2B infrastructure company providing smart physical 
 ```
 bagmonitor/
 ├── brand/
-│   ├── BRAND.md     Voice, positioning, personas, pillars, hard no's
+│   ├── BRAND.md     Voice, positioning, pillars, hard no's
+│   ├── PERSONAS.md  Buyer personas: tone, objections, value prop per buyer type
 │   └── DESIGN.md    Visual system: color, typography, components, motion
 ├── copy/
 │   ├── guidelines/  Lexicon, structures, format overrides
@@ -29,9 +30,10 @@ bagmonitor/
 ## Before producing any content
 
 1. Read `brand/BRAND.md` in full.
-2. Read `brand/DESIGN.md` if producing visual artifacts.
-3. Check `copy/guidelines/` for any format-specific overrides.
-4. Pieces go in `copy/pieces/<format>/<YYYY-MM-slug>/`.
+2. Read `brand/PERSONAS.md` in full — required for any copy or content targeting a specific buyer.
+3. Read `brand/DESIGN.md` if producing visual artifacts.
+4. Check `copy/guidelines/` for any format-specific overrides.
+5. Pieces go in `copy/pieces/<format>/<YYYY-MM-slug>/`.
 
 ## Inheritance
 

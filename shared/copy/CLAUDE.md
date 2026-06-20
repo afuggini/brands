@@ -24,6 +24,22 @@ Leer este archivo antes de producir cualquier pieza de copy, independientemente 
 
 Si la distinción importa, aclarala en una línea separada con su propia justificación — no como un par negación/afirmación.
 
+### 2. Títulos de blog como declaraciones o frases con puntuación
+
+**Patrón a evitar:** títulos de artículos de blog que terminan en punto, coma, o que funcionan como declaraciones o titulares de landing page.
+
+> "The Terminal Coordinates. It Doesn't See."
+> "Every Actor in a Mishandling Event Knows Before You Do"
+> "You Have SLAs with Your Ground Handlers. Can You Enforce Them?"
+
+**Por qué es un error:** un título de blog nombra el concepto del artículo — le dice al lector sobre qué trata. Una declaración o un statement pertenece a un headline de campaña o una hero section, no a un artículo. Los puntos y comas en un título de blog rompen la convención del formato y hacen que parezca copy publicitario en lugar de contenido editorial.
+
+**La corrección:** el título debe hablar del concepto del artículo, no declarar su tesis.
+
+> "Why Airport Operators Are the Last to Know When a Bag Goes Missing"
+> "The Accountability Gap Behind Every Baggage Incident"
+> "SLA Enforcement Without Independent Data"
+
 ---
 
 ## Reglas de formato — por superficie

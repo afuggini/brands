@@ -1,8 +1,8 @@
 # Sales Intelligence — Aprendizajes de Reuniones
 
-Síntesis de todo lo aprendido en las reuniones documentadas en `docs/transcripts/`. Consolidado por tema para uso operativo: ventas, producto, posicionamiento y go-to-market. Las fuentes son las transcripciones de reuniones con Lufthansa, Gol, Turkish, Sky, Iberia, British Airways, Intercargo, Andes Líneas Aéreas, London Supply y Pablo García (RRPP).
+Síntesis de todo lo aprendido en las reuniones documentadas en `docs/transcripts/`. Consolidado por tema para uso operativo: ventas, producto, posicionamiento y go-to-market. Las fuentes son las transcripciones de reuniones con Lufthansa, Gol, Turkish, Sky, Iberia, British Airways, Intercargo, Andes Líneas Aéreas, London Supply, Pablo García (RRPP), PSA y Pablo Ferrari (Vanderlande).
 
-Período cubierto: septiembre–noviembre 2025.
+Período cubierto: septiembre 2025 – mayo 2026.
 
 ---
 
@@ -141,6 +141,23 @@ No tienen el problema operativo de pérdida de equipaje (punto a punto, operaci�
 - **Piloto confirmado:** Vuelos de certificación CESA (50 horas, A320) en nov/dic 2025. Fernando confirmó coordinarlo.
 - **Referencia de precedente fallido:** Nicolás Key (Assist Card) intentó una solución similar y no lo logró. Dato a investigar.
 
+### Segmento H — Autoridades de seguridad aeroportuaria (PSA y equivalentes)
+
+Not an airline, not a handler, not an airport concessionaire. Airport security authorities control access to the BHS inspection zone and have independent investigative authority. This is a new stakeholder type with its own use cases and its own decision power.
+
+**Validated:** PSA — Policía de Seguridad Aeroportuaria (Argentina). Contact: Gabriel Marrapodi.
+
+- Their primary pain point is not baggage mishandling as airlines define it. It is **loss of custody chain**: not knowing where a bag is, who touched it, and when.
+- The "tracking loss" event (bag physically leaving its tray) is the key failure mode PSA wants to instrument.
+- They are evaluating a multi-million-dollar infrastructure project (recirculation loop + new CT scanner) to address tracking loss. BagMonitor is a direct alternative — same informational output, no construction.
+- **Two distinct value props for PSA:**
+  1. **Redundancy:** Re-link a bag's identity after a tracking loss without rebuilding infrastructure.
+  2. **Forensics:** Detect and timestamp anomalous tracking loss events (double loss = potential theft/sabotage), correlatable with CCTV and personnel access logs.
+- **Strategic leverage:** PSA has standing to raise BagMonitor directly with Aeropuertos Argentina 2000 as an alternative to the infrastructure project. Gabriel Marrapodi explicitly stated this intent. This gives BagMonitor an internal champion inside the airport ecosystem who is not a buyer themselves — but whose endorsement can unlock the airport operator as a buyer.
+- **Pitch that works:** "In exchange for the cost of a recirculation project, you get a tag that tells you exactly where, when, and in whose presence a bag left its tray — in real time, without breaking any walls."
+
+---
+
 ### Segmento F — Carga de alto valor (vertical específica)
 
 Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga VAL es un target.
@@ -276,6 +293,7 @@ Independiente del segmento de la aerolínea. Cualquier carrier que mueva carga V
 | Pablo García | Aviación News / CBR | Consultor de RRPP | Coordinar Lima + nota en Aviación News + vuelo testigo. |
 | Fernando | Domus Airlines | Fundador | Coordinar prueba piloto en nov/dic 2025 (vuelos CESA, A320). Intercambiar WhatsApp/mail. |
 | Gonzalo | American Airlines | Operaciones Sudamérica | Referido por Fernando de Domus. "Tipazo y muy innovador." Prospectar como entrada al mercado AA. |
+| Gabriel Marrapodi | PSA (Policía de Seguridad Aeroportuaria) | Responsable operativo — BHS inspection zone | Internal champion. Wants to pitch BagMonitor to AA2000 as alternative to infrastructure recirculation project. Next step: visit to EZE BHS that Gabriel will facilitate. |
 
 ---
 

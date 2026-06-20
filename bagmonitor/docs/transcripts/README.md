@@ -19,6 +19,10 @@ Cada archivo corresponde a una reunión o llamado independiente. El formato es c
 | `iberia.md` | Carolina — Iberia (Innovación) | Oct 31, 2025 |
 | `british-airways.md` | Fernanda y Jimena — British Airways | Sep 2, 2025 |
 | `pablo-garcia.md` | Pablo García — Aviación News / RRPP | Sep 19, 2025 |
+| `2026-01-15-psa.md` | Gabriel Marrapodi — PSA (Policía de Seguridad Aeroportuaria) | Ene 15, 2026 |
+| `2026-05-21-pablo-ferrari-vanderlande.md` | Pablo Ferrari — Vanderlande (Ing. BHS, asesor técnico) | May 21, 2026 |
+| `2026-05-29-pablo-ferrari-vanderlande.md` | Pablo Ferrari — Vanderlande (Ing. BHS, asesor técnico) | May 29, 2026 |
+| `2026-06-19-psa-gabriel-marrapodi.md` | Gabriel Marrapodi — PSA (Policía de Seguridad Aeroportuaria) | Jun 19, 2026 |
 
 ## Criterio de transcripción
 

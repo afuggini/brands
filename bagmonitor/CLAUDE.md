@@ -16,12 +16,13 @@ bagmonitor/
 │   ├── guidelines/   Lexicon, structures, format overrides
 │   ├── feedback/     Copy feedback log
 │   └── pieces/       Produced copy, organized by format and date
-├── accounts/         Local CRM — one file per account + INDEX.md
-│   ├── INDEX.md      One-line status board for all accounts
-│   ├── _template.md  Blank template for new accounts
-│   └── *.md          Individual account files (16 accounts as of Jun 2026)
-├── contacts/
-│   └── contacts.csv  60 contacts: name, title, company, email, phone, LinkedIn
+├── crm/
+│   ├── accounts/     Local CRM — one file per account + INDEX.md
+│   │   ├── INDEX.md      One-line status board for all accounts
+│   │   ├── _template.md  Blank template for new accounts
+│   │   └── *.md          Individual account files (16 accounts as of Jun 2026)
+│   └── contacts/
+│       └── contacts.csv  60 contacts: name, title, company, email, phone, LinkedIn
 ├── docs/             Source documents: transcripts, strategy, ICP, GTM
 │   └── transcripts/  Verbatim meeting transcripts (source of truth for account intel)
 ├── sources/          Raw data exports (HubSpot CSVs — already extracted, don't re-import)
@@ -32,7 +33,7 @@ bagmonitor/
 
 - **BRAND.md** is the single source of truth for voice, positioning, and messaging.
 - **DESIGN.md** is the single source of truth for all visual decisions.
-- **accounts/INDEX.md** is the starting point for any sales or pipeline work.
+- **crm/accounts/INDEX.md** is the starting point for any sales or pipeline work.
 - **docs/sales/transcripts/** contains verbatim meeting transcripts — primary source for account intel.
 - **docs/** contains the raw research and strategy documents that informed BRAND.md and DESIGN.md. They remain available as source material but BRAND.md and DESIGN.md take precedence in case of any conflict.
 - BagMonitor sells to airlines and operators — not to passengers. This distinction drives nearly every copy decision.
@@ -50,11 +51,11 @@ bagmonitor/
 ## Before doing any sales or pipeline work
 
 1. Read `docs/strategy/commercial-roadmap.md` — current phase, what's active, what's not a priority.
-2. Read `accounts/INDEX.md` for pipeline status across all accounts.
+2. Read `crm/accounts/INDEX.md` for pipeline status across all accounts.
 3. Open the relevant account file(s) for full intel, deal history, and contacts.
 4. Cross-reference `docs/sales/transcripts/` if deeper context on a meeting is needed.
-5. Contacts with emails/phones are in `contacts/contacts.csv` and in each account file.
-6. Apollo (`brands/.env` → `APOLLO_API_KEY`) is used for enrichment and prospecting only — not as a CRM. Account intel lives in `accounts/`.
+5. Contacts with emails/phones are in `crm/contacts/contacts.csv` and in each account file.
+6. Apollo (`brands/.env` → `APOLLO_API_KEY`) is used for enrichment and prospecting only — not as a CRM. Account intel lives in `crm/accounts/`.
 
 ## Inheritance
 

@@ -11,8 +11,6 @@ cases/
 ├── README.md                    ← this file
 ├── sky-airlines.md              ← source case (Markdown)
 ├── sky-airlines-report.html     ← client-facing report (HTML)
-├── jetsmart.md
-├── jetsmart-report.html
 └── ...
 ```
 

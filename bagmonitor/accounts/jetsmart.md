@@ -1,16 +1,14 @@
 # JetSMART Airlines
 
 **Type:** LCC — Chile/Argentina (Indigo Partners)  
-**Status:** Active — pilot in progress or recently completed  
+**Status:** Warm — no real engagement to date; strong ICP fit  
 **Apollo segment:** Segmento A - LCC
 
 ---
 
-## Confirmed Interest
+## Important note on false pilot claim
 
-**Signal:** Pilot engagement confirmed via SKY Airlines transcript (Oct 2025). HubSpot stage: Oportunidad. JetSMART was the first airline in active pilot with BagMonitor.
-
-**Source:** SKY Airlines transcript (Oct 15, 2025) — Matías mentioned to SKY: *"Ya estamos en pruebas con JetSMART."*
+In the SKY Airlines meeting (Oct 15, 2025), Matías told SKY: *"Ya estamos en pruebas con JetSMART."* **This was false.** There was no pilot, no engagement, and no agreement with JetSMART. This was fabricated to create social proof with another prospect. Do not treat any reference to a JetSMART pilot as factual. The transcripts record what was said; it does not reflect reality.
 
 ---
 
@@ -19,8 +17,8 @@
 - **Fleet:** ~50 aircraft (Airbus A320 family), operations in Chile, Argentina, Colombia, Peru
 - **Parent:** Indigo Partners (Bill Franke) — also owns Wizz Air, Frontier Airlines, Volaris
 - **Model:** Ultra-low-cost (ULCC) — similar to SKY but more aggressive on cost structure
-- **Reuse model:** Per SKY transcript, JetSMART was interested in a tag reuse model (same as SKY's preference)
 - **IATA:** Likely non-compliant or partially compliant — ULCC profile matches target ICP
+- **Strategic value:** Indigo Partners network — a real JetSMART win could open Wizz Air, Frontier, Volaris
 
 ---
 
@@ -36,14 +34,13 @@
 
 ## Deal History
 
-**Pre-Oct 2025 — Pilot initiated**  
-JetSMART was in active testing per Matías's statement to SKY (Oct 15, 2025). No transcript of the JetSMART meetings exists. Pilot scope and outcome unknown.
+No real engagement with JetSMART has taken place. HubSpot had JetSMART listed as "Oportunidad" with Andrea Donamari as a contact — this reflects Matías's pipeline management, not an actual deal.
 
 ---
 
 ## Next Steps
 
-- **Critical:** Determine current pilot status — ongoing, completed, or stalled?
-- If completed: document results as a case study (first reference customer)
-- If stalled: identify why and what it would take to restart
-- Indigo Partners owns multiple airlines — a successful JetSMART pilot could open Wizz Air, Frontier, Volaris
+- Identify the right entry contact (Operations, Ground Ops, or Baggage Director — not Publications)
+- Approach as a cold prospect; no prior relationship to leverage
+- Strong ICP fit: ULCC, Sabre/Amadeus likely, no SITA Bag Manager, manual reconciliation probable
+- Indigo Partners network makes this a high-value first win if achieved

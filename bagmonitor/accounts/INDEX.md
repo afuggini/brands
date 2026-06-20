@@ -4,7 +4,7 @@ One line per company. Open the individual file for full intel.
 
 | Company | Type | Region | Status | Last Contact | Key Contact |
 |---|---|---|---|---|---|
-| [JetSMART](jetsmart.md) | LCC (ULCC) | LATAM | Active — pilot in progress | Pre-Oct 2025 | Marco Arata Loreti |
+| [JetSMART](jetsmart.md) | LCC (ULCC) | LATAM | Warm — no engagement yet; strong ICP fit | — | — |
 | [PSA](psa.md) | Airport Security Authority | Argentina | Active — Ezeiza visit agreed Jul 2026 | Jun 2026 | Gabriel Marrapodi |
 | [Domus Airways](domus-airways.md) | Premium startup | Argentina | On hold — waiting for aircraft | Jan 2026 | Fernando Arriete |
 | [SKY Airline](sky-airline.md) | LCC | LATAM | Warm — pilot proposed, no follow-up | Oct 2025 | Arnold Mayorga |
